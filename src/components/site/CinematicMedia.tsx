@@ -19,6 +19,10 @@ export function CinematicMedia({ video, poster, alt, className }: Props) {
     const el = ref.current;
     if (!el) return;
 
+    // Set imperatively: some browsers ignore React's muted prop for autoplay.
+    el.muted = true;
+    el.defaultMuted = true;
+
     const io = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
@@ -40,10 +44,11 @@ export function CinematicMedia({ video, poster, alt, className }: Props) {
       src={video}
       poster={poster}
       aria-label={alt}
+      autoPlay
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="auto"
       className={cn("w-full object-cover", className)}
     />
   );
