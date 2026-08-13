@@ -4,6 +4,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-electric: var(--electric);
+  --color-cyan: var(--cyan);
+  --color-hairline: var(--hairline);
+}
+
+@utility hairline {
+  border-color: var(--hairline);
+}
+
+@utility text-balance-tight {
+  text-wrap: balance;
+}
+
 /*
  * Design system definition.
  *
