@@ -20,8 +20,8 @@ export function CinematicMedia({ video, poster, alt, className }: Props) {
     if (!el) return;
 
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
           void el.play().catch(() => undefined);
         } else {
           el.pause();

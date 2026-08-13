@@ -21,6 +21,13 @@ import riskUi from "@/assets/risk-compliance-ui.jpg";
 import reconciliation from "@/assets/reconciliation.jpg";
 import infrastructure from "@/assets/infrastructure.jpg";
 
+import coreBankingVideo from "@/assets/core-banking-ui.mp4.asset.json";
+import paymentSwitchingVideo from "@/assets/payment-switching.mp4.asset.json";
+import cardsVideo from "@/assets/cards.mp4.asset.json";
+import riskVideo from "@/assets/risk-compliance-ui.mp4.asset.json";
+import reconciliationVideo from "@/assets/reconciliation.mp4.asset.json";
+import infrastructureVideo from "@/assets/infrastructure.mp4.asset.json";
+
 const products: Product[] = [
   {
     index: "01",
@@ -34,6 +41,7 @@ const products: Product[] = [
     ],
     cta: "Explore core banking",
     image: coreBankingUi,
+    video: coreBankingVideo.url,
     alt: "AI management dashboard of the IDSSPL core banking platform",
   },
   {
@@ -48,6 +56,7 @@ const products: Product[] = [
     ],
     cta: "Explore switching",
     image: paymentSwitching,
+    video: paymentSwitchingVideo.url,
     alt: "3D visualization of a payment switching network routing transactions",
     reverse: true,
   },
@@ -63,6 +72,7 @@ const products: Product[] = [
     ],
     cta: "Explore card management",
     image: cardsImg,
+    video: cardsVideo.url,
     alt: "3D stack of premium matte black and chrome banking cards",
   },
   {
@@ -77,6 +87,7 @@ const products: Product[] = [
     ],
     cta: "Explore risk & compliance",
     image: riskUi,
+    video: riskVideo.url,
     alt: "Enterprise risk and compliance monitoring interface",
     reverse: true,
   },
@@ -92,6 +103,7 @@ const products: Product[] = [
     ],
     cta: "Explore reconciliation",
     image: reconciliation,
+    video: reconciliationVideo.url,
     alt: "Transaction data streams converging into a reconciliation engine",
   },
   {
@@ -106,6 +118,7 @@ const products: Product[] = [
     ],
     cta: "Explore infrastructure",
     image: infrastructure,
+    video: infrastructureVideo.url,
     alt: "3D enterprise server infrastructure network",
     reverse: true,
   },
