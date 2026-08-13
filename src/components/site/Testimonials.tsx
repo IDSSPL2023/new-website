@@ -25,7 +25,7 @@ const stories = [
 
 export function Testimonials() {
   const [i, setI] = useState(0);
-  const s = stories[i];
+  const s = stories[i] ?? stories[0]!;
 
   return (
     <section id="resources" className="border-t border-hairline py-32 md:py-48">
