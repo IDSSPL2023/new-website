@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import heroImg from "@/assets/hero-infrastructure.jpg";
+import heroVideo from "@/assets/hero-infrastructure.mp4.asset.json";
+import { CinematicMedia } from "./CinematicMedia";
 
 const nodes = [
   { label: "Core Banking", pos: "left-[4%] top-[26%]" },
@@ -65,12 +67,11 @@ export function Hero() {
             className="relative overflow-hidden rounded-2xl border border-hairline"
             style={{ transform: `translateY(${Math.min(y * 0.05, 40)}px)` }}
           >
-            <img
-              src={heroImg}
+            <CinematicMedia
+              video={heroVideo.url}
+              poster={heroImg}
               alt="3D visualization of IDSSPL's banking infrastructure architecture"
-              width={1408}
-              height={1104}
-              className="h-[52vh] w-full object-cover md:h-[76vh]"
+              className="h-[52vh] md:h-[76vh]"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/10 to-background/40" />
 

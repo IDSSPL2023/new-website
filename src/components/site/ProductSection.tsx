@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { CinematicMedia } from "./CinematicMedia";
 import { cn } from "@/lib/utils";
 
 export type Product = {
@@ -10,6 +11,7 @@ export type Product = {
   points: string[];
   cta: string;
   image: string;
+  video: string;
   alt: string;
   reverse?: boolean;
 };
@@ -76,14 +78,13 @@ export function ProductSection({ product }: { product: Product }) {
           <div className="lg:col-span-7">
             <Reveal delay={120}>
               <div className="frame group relative overflow-hidden rounded-2xl p-1.5 transition-all duration-700 hover:shadow-[0_40px_120px_-40px_color-mix(in_oklab,var(--electric)_45%,transparent)]">
-                <img
-                  src={product.image}
+                <CinematicMedia
+                  video={product.video}
+                  poster={product.image}
                   alt={product.alt}
-                  loading="lazy"
-                  width={1408}
-                  height={1008}
-                  className="w-full rounded-xl object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.02]"
+                  className="aspect-[4/3] rounded-xl transition-transform duration-[1200ms] ease-out group-hover:scale-[1.02]"
                 />
+                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-background/45 via-transparent to-transparent" />
               </div>
             </Reveal>
           </div>
