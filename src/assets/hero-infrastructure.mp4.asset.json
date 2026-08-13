@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "57c49f46-e528-43d4-9250-d436993bbb1c",
+  "asset_id": "269e2b12-cb3e-47b2-b421-7401870ccc00",
   "project_id": "4d49de6c-6d1a-42e9-9943-5880a97bb8a0",
-  "url": "/__l5e/assets-v1/57c49f46-e528-43d4-9250-d436993bbb1c/hero-infrastructure.mp4",
+  "url": "/__l5e/assets-v1/269e2b12-cb3e-47b2-b421-7401870ccc00/hero-infrastructure.mp4",
+  "r2_key": "a/v1/4d49de6c-6d1a-42e9-9943-5880a97bb8a0/269e2b12-cb3e-47b2-b421-7401870ccc00/hero-infrastructure.mp4",
   "original_filename": "hero-infrastructure.mp4",
-  "size": 14269622,
-  "created_at": "2026-08-13T07:22:51Z"
+  "size": 729845,
+  "content_type": "video/mp4",
+  "created_at": "2026-08-13T07:27:43Z"
 }

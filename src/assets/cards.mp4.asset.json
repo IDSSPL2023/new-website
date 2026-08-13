@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "b3a0a1aa-36cf-4d08-9d1e-933325b79a59",
+  "asset_id": "25625e88-1326-40bc-8069-fde3be9a4536",
   "project_id": "4d49de6c-6d1a-42e9-9943-5880a97bb8a0",
-  "url": "/__l5e/assets-v1/b3a0a1aa-36cf-4d08-9d1e-933325b79a59/cards.mp4",
+  "url": "/__l5e/assets-v1/25625e88-1326-40bc-8069-fde3be9a4536/cards.mp4",
+  "r2_key": "a/v1/4d49de6c-6d1a-42e9-9943-5880a97bb8a0/25625e88-1326-40bc-8069-fde3be9a4536/cards.mp4",
   "original_filename": "cards.mp4",
-  "size": 8281533,
-  "created_at": "2026-08-13T07:23:54Z"
+  "size": 326374,
+  "content_type": "video/mp4",
+  "created_at": "2026-08-13T07:27:57Z"
 }

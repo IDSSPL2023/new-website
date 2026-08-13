@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "616f94cb-f5d4-4789-b116-4039cd098599",
+  "asset_id": "ff6eb86a-ed97-40bf-85ad-845ec5e28314",
   "project_id": "4d49de6c-6d1a-42e9-9943-5880a97bb8a0",
-  "url": "/__l5e/assets-v1/616f94cb-f5d4-4789-b116-4039cd098599/risk-compliance-ui.mp4",
+  "url": "/__l5e/assets-v1/ff6eb86a-ed97-40bf-85ad-845ec5e28314/risk-compliance-ui.mp4",
+  "r2_key": "a/v1/4d49de6c-6d1a-42e9-9943-5880a97bb8a0/ff6eb86a-ed97-40bf-85ad-845ec5e28314/risk-compliance-ui.mp4",
   "original_filename": "risk-compliance-ui.mp4",
-  "size": 11139478,
-  "created_at": "2026-08-13T07:24:06Z"
+  "size": 538875,
+  "content_type": "video/mp4",
+  "created_at": "2026-08-13T07:28:02Z"
 }
