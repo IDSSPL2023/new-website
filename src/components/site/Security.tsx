@@ -1,5 +1,7 @@
 import vaultImg from "@/assets/vault.jpg";
+import vaultVideo from "@/assets/vault.mp4.asset.json";
 import { Reveal } from "./Reveal";
+import { CinematicMedia } from "./CinematicMedia";
 
 const controls = [
   "End-to-end encryption",
@@ -48,12 +50,10 @@ export function Security() {
         <Reveal delay={120}>
           <div className="relative">
             <div className="glow-blue pointer-events-none absolute inset-0 scale-125 opacity-40" />
-            <img
-              src={vaultImg}
+            <CinematicMedia
+              video={vaultVideo.url}
+              poster={vaultImg}
               alt="Minimal 3D secure vault protecting banking data"
-              loading="lazy"
-              width={1200}
-              height={1200}
               className="relative w-full rounded-2xl border border-hairline object-cover"
             />
           </div>
