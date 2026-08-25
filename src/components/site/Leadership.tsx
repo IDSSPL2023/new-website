@@ -118,8 +118,8 @@ export function Leadership() {
           </Reveal>
 
           <div className="grid gap-px bg-hairline md:col-span-8 md:grid-cols-2">
-            {coreTeam.map((member, index) => (
-              <Reveal key={member.name} delay={100 + index * 80}>
+            {coreTeam.map((member, i) => (
+              <Reveal key={member.name} delay={100 + i * 80}>
                 <article className="min-h-48 bg-background p-7 md:p-9">
                   <img
                     src={member.photo}
