@@ -8,6 +8,7 @@ import { ProductSection, type Product } from "@/components/site/ProductSection";
 import { AILayer } from "@/components/site/AILayer";
 import { TechApproach } from "@/components/site/TechApproach";
 import { Security } from "@/components/site/Security";
+import { Leadership } from "@/components/site/Leadership";
 import { Testimonials } from "@/components/site/Testimonials";
 import { Faq } from "@/components/site/Faq";
 import { Certifications } from "@/components/site/Certifications";
@@ -164,6 +165,7 @@ function Index() {
         </div>
         <TechApproach />
         <Security />
+        <Leadership />
         <Testimonials />
         <Faq />
         <Certifications />
