@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logoMark from "@/assets/idsspl-logo-white.png";
 
 const links = [
   { label: "Products", href: "#products" },
