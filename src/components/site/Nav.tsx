@@ -33,10 +33,8 @@ export function Nav() {
     >
       <nav className="shell flex h-16 items-center justify-between">
         <a href="#top" className="flex items-center gap-2.5">
-          <span className="grid h-7 w-7 place-items-center rounded-[6px] bg-electric/15 ring-1 ring-inset ring-electric/40">
-            <span className="h-2.5 w-2.5 rounded-[2px] bg-electric" />
-          </span>
-          <span className="text-[15px] font-semibold tracking-[-0.02em] text-foreground">
+          <img src={logoMark} alt="IDSSPL logo" className="h-8 w-auto" />
+          <span className="text-[16px] font-semibold tracking-[0.02em] text-foreground">
             IDSSPL
           </span>
         </a>
