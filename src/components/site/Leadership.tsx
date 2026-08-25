@@ -121,8 +121,13 @@ export function Leadership() {
             {coreTeam.map((member, index) => (
               <Reveal key={member.name} delay={100 + index * 80}>
                 <article className="min-h-48 bg-background p-7 md:p-9">
-                  <p className="text-[11px] text-electric">0{index + 1}</p>
-                  <h4 className="mt-8 text-lg font-medium text-foreground">{member.name}</h4>
+                  <img
+                    src={member.photo}
+                    alt={`${member.name}, ${member.role} at IDSSPL`}
+                    loading="lazy"
+                    className="h-16 w-16 rounded-md border border-hairline object-cover grayscale"
+                  />
+                  <h4 className="mt-6 text-lg font-medium text-foreground">{member.name}</h4>
                   <p className="mt-1 text-[12.5px] text-cyan">{member.role}</p>
                   <p className="mt-5 max-w-sm text-[13px] leading-relaxed text-muted-foreground">
                     {member.description}
