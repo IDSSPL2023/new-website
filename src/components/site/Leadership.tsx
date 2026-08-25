@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const leaders = [
@@ -84,18 +83,14 @@ export function Leadership() {
                 <div className="md:col-span-3">
                   <p className="text-[13.5px] text-foreground">{leader.role}</p>
                   <p className="mt-1 text-[12.5px] text-cyan">{leader.focus}</p>
+                  <p className="mt-3 text-[11px] text-muted-foreground">
+                    {leader.experience} experience
+                  </p>
                 </div>
 
-                <p className="max-w-lg text-[13.5px] leading-relaxed text-muted-foreground md:col-span-4">
+                <p className="max-w-lg text-[13.5px] leading-relaxed text-muted-foreground md:col-span-5">
                   {leader.bio}
                 </p>
-
-                <div className="flex items-center justify-between md:col-span-1 md:block md:text-right">
-                  <span className="text-[11px] text-muted-foreground md:hidden">
-                    {leader.experience} experience
-                  </span>
-                  <ArrowUpRight className="ml-auto h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-electric" />
-                </div>
               </article>
             </Reveal>
           ))}
