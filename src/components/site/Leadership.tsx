@@ -80,14 +80,18 @@ export function Leadership() {
             <Reveal key={leader.name} delay={index * 70}>
               <article className="group grid gap-7 border-b border-hairline py-10 md:grid-cols-12 md:items-center md:gap-10 md:py-12">
                 <div className="flex items-center gap-5 md:col-span-4">
-                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-md border border-hairline bg-surface text-[12px] font-semibold text-electric transition-colors duration-500 group-hover:bg-surface-2">
-                    {leader.monogram}
-                  </span>
+                  <img
+                    src={leader.photo}
+                    alt={`${leader.name}, ${leader.role} at IDSSPL`}
+                    loading="lazy"
+                    className="h-20 w-20 shrink-0 rounded-md border border-hairline object-cover grayscale transition duration-700 group-hover:grayscale-0"
+                  />
                   <div>
                     <p className="text-[11px] text-muted-foreground">0{index + 1}</p>
                     <h3 className="mt-1 text-xl font-medium text-foreground">{leader.name}</h3>
                   </div>
                 </div>
+
 
                 <div className="md:col-span-3">
                   <p className="text-[13.5px] text-foreground">{leader.role}</p>
