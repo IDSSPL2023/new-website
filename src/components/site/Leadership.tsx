@@ -1,29 +1,35 @@
 import { Reveal } from "./Reveal";
 
+import vinayakImg from "@/assets/vinayak-more.jpg.asset.json";
+import vishalImg from "@/assets/vishal-singh.jpg.asset.json";
+import surajImg from "@/assets/suraj-pathak.jpg.asset.json";
+import arunImg from "@/assets/arun-gavas.jpg.asset.json";
+import devendraImg from "@/assets/devendra-sawant.jpg.asset.json";
+
 const leaders = [
   {
     name: "Vinayak More",
     role: "Associate Director & CEO",
     focus: "Banking & Strategy",
     experience: "25+ years",
-    monogram: "VM",
-    bio: "Banking technology leader with deep experience across core banking, digital payments, UPI, ATM, AEPS and merchant management.",
+    photo: vinayakImg.url,
+    bio: "With deep expertise across Core Banking, Digital Banking, UPI issuing & acquiring, ATM, POS, AePS, merchant management and digital payments, he leads IDSSPL's strategy to deliver secure, scalable, compliant and future-ready banking solutions.",
   },
   {
     name: "Vishal Singh",
     role: "Director — Sales & Growth",
     focus: "Markets & Partnerships",
     experience: "10+ years",
-    monogram: "VS",
-    bio: "Growth strategist focused on strategic partnerships, market expansion and building durable value for financial institutions.",
+    photo: vishalImg.url,
+    bio: "A strong understanding of the fintech and banking landscape enables him to identify new opportunities and expand market presence. His client-centric approach aligns every solution with business goals and long-term success.",
   },
   {
     name: "Suraj Pathak",
     role: "Director — Operations",
     focus: "Operational Excellence",
     experience: "12+ years",
-    monogram: "SP",
-    bio: "Operations leader driving precise execution, process excellence and consistently reliable outcomes across complex programs.",
+    photo: surajImg.url,
+    bio: "He specialises in optimising workflows, improving operational efficiency and maintaining high standards of service delivery, ensuring every project is executed with precision and consistency.",
   },
 ];
 
@@ -31,14 +37,17 @@ const coreTeam = [
   {
     name: "Arun Gavas",
     role: "VP — CBS",
+    photo: arunImg.url,
     description: "Core banking specialist with strong technical and domain expertise.",
   },
   {
-    name: "Devendra Savant",
+    name: "Devendra Sawant",
     role: "VP — Operations",
+    photo: devendraImg.url,
     description: "Operations leader focused on optimization, delivery excellence and team empowerment.",
   },
 ];
+
 
 export function Leadership() {
   return (
