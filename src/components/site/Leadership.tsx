@@ -1,29 +1,35 @@
 import { Reveal } from "./Reveal";
 
+import vinayakImg from "@/assets/vinayak-more.jpg.asset.json";
+import vishalImg from "@/assets/vishal-singh.jpg.asset.json";
+import surajImg from "@/assets/suraj-pathak.jpg.asset.json";
+import arunImg from "@/assets/arun-gavas.jpg.asset.json";
+import devendraImg from "@/assets/devendra-sawant.jpg.asset.json";
+
 const leaders = [
   {
     name: "Vinayak More",
     role: "Associate Director & CEO",
     focus: "Banking & Strategy",
     experience: "25+ years",
-    monogram: "VM",
-    bio: "Banking technology leader with deep experience across core banking, digital payments, UPI, ATM, AEPS and merchant management.",
+    photo: vinayakImg.url,
+    bio: "With deep expertise across Core Banking, Digital Banking, UPI issuing & acquiring, ATM, POS, AePS, merchant management and digital payments, he leads IDSSPL's strategy to deliver secure, scalable, compliant and future-ready banking solutions.",
   },
   {
     name: "Vishal Singh",
     role: "Director — Sales & Growth",
     focus: "Markets & Partnerships",
     experience: "10+ years",
-    monogram: "VS",
-    bio: "Growth strategist focused on strategic partnerships, market expansion and building durable value for financial institutions.",
+    photo: vishalImg.url,
+    bio: "A strong understanding of the fintech and banking landscape enables him to identify new opportunities and expand market presence. His client-centric approach aligns every solution with business goals and long-term success.",
   },
   {
     name: "Suraj Pathak",
     role: "Director — Operations",
     focus: "Operational Excellence",
     experience: "12+ years",
-    monogram: "SP",
-    bio: "Operations leader driving precise execution, process excellence and consistently reliable outcomes across complex programs.",
+    photo: surajImg.url,
+    bio: "He specialises in optimising workflows, improving operational efficiency and maintaining high standards of service delivery, ensuring every project is executed with precision and consistency.",
   },
 ];
 
@@ -31,14 +37,17 @@ const coreTeam = [
   {
     name: "Arun Gavas",
     role: "VP — CBS",
+    photo: arunImg.url,
     description: "Core banking specialist with strong technical and domain expertise.",
   },
   {
-    name: "Devendra Savant",
+    name: "Devendra Sawant",
     role: "VP — Operations",
+    photo: devendraImg.url,
     description: "Operations leader focused on optimization, delivery excellence and team empowerment.",
   },
 ];
+
 
 export function Leadership() {
   return (
@@ -71,14 +80,18 @@ export function Leadership() {
             <Reveal key={leader.name} delay={index * 70}>
               <article className="group grid gap-7 border-b border-hairline py-10 md:grid-cols-12 md:items-center md:gap-10 md:py-12">
                 <div className="flex items-center gap-5 md:col-span-4">
-                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-md border border-hairline bg-surface text-[12px] font-semibold text-electric transition-colors duration-500 group-hover:bg-surface-2">
-                    {leader.monogram}
-                  </span>
+                  <img
+                    src={leader.photo}
+                    alt={`${leader.name}, ${leader.role} at IDSSPL`}
+                    loading="lazy"
+                    className="h-20 w-20 shrink-0 rounded-md border border-hairline object-cover grayscale transition duration-700 group-hover:grayscale-0"
+                  />
                   <div>
                     <p className="text-[11px] text-muted-foreground">0{index + 1}</p>
                     <h3 className="mt-1 text-xl font-medium text-foreground">{leader.name}</h3>
                   </div>
                 </div>
+
 
                 <div className="md:col-span-3">
                   <p className="text-[13.5px] text-foreground">{leader.role}</p>
@@ -105,11 +118,16 @@ export function Leadership() {
           </Reveal>
 
           <div className="grid gap-px bg-hairline md:col-span-8 md:grid-cols-2">
-            {coreTeam.map((member, index) => (
-              <Reveal key={member.name} delay={100 + index * 80}>
+            {coreTeam.map((member, i) => (
+              <Reveal key={member.name} delay={100 + i * 80}>
                 <article className="min-h-48 bg-background p-7 md:p-9">
-                  <p className="text-[11px] text-electric">0{index + 1}</p>
-                  <h4 className="mt-8 text-lg font-medium text-foreground">{member.name}</h4>
+                  <img
+                    src={member.photo}
+                    alt={`${member.name}, ${member.role} at IDSSPL`}
+                    loading="lazy"
+                    className="h-16 w-16 rounded-md border border-hairline object-cover grayscale"
+                  />
+                  <h4 className="mt-6 text-lg font-medium text-foreground">{member.name}</h4>
                   <p className="mt-1 text-[12.5px] text-cyan">{member.role}</p>
                   <p className="mt-5 max-w-sm text-[13px] leading-relaxed text-muted-foreground">
                     {member.description}
