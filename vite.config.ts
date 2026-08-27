@@ -7,7 +7,18 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // S3 serves static files and has no server runtime. TanStack's prerenderer
+  // provides the deploy output, so the Nitro/Cloudflare server build is skipped.
+  nitro: false,
   tanstackStart: {
+    // Generate deploy-ready HTML for every static route so the site can be
+    // hosted directly from object storage such as Amazon S3.
+    prerender: {
+      enabled: true,
+      autoStaticPathsDiscovery: true,
+      crawlLinks: true,
+      failOnError: true,
+    },
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
