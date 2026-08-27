@@ -1,32 +1,46 @@
 const columns = [
   {
     title: "Company",
-    links: ["Home", "About us", "Leadership", "Resources", "Contact"],
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About Us", href: "/about" },
+      { label: "Leadership", href: "/leadership" },
+      { label: "Our Team", href: "/team" },
+      { label: "Contact", href: "/#contact" },
+    ],
   },
   {
     title: "Services",
     links: [
-      "Core & Digital Banking Platforms",
-      "UPI, IMPS & ATM Switching",
-      "Card & Payment Management",
-      "Risk & Compliance Platforms",
-      "Reconciliation & Settlement",
-      "Secure Networking & Infrastructure",
+      { label: "Core & Digital Banking Platforms", href: "/products" },
+      { label: "UPI, IMPS & ATM Switching", href: "/products" },
+      { label: "Card & Payment Management", href: "/products" },
+      { label: "Risk & Compliance Platforms", href: "/products" },
+      { label: "Reconciliation & Settlement", href: "/products" },
+      { label: "Secure Networking & Infrastructure", href: "/products" },
     ],
   },
   {
     title: "Resources",
-    links: ["Product Overview", "Case Studies", "Documentation", "Support"],
+    links: [
+      { label: "Product Overview", href: "/products" },
+      { label: "Case Studies", href: "/#resources" },
+      { label: "Documentation", href: "/products" },
+      { label: "Support", href: "/#contact" },
+    ],
   },
   {
     title: "Policies",
-    links: ["Privacy Policy", "Terms & Conditions"],
+    links: [
+      { label: "Privacy Policy", href: "/#contact" },
+      { label: "Terms & Conditions", href: "/#contact" },
+    ],
   },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-hairline pt-28 pb-14">
+    <footer className="border-t border-hairline pt-20 pb-10">
       <div className="shell">
         <div className="grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-4">
@@ -61,13 +75,13 @@ export function Footer() {
               <div key={c.title}>
                 <p className="eyebrow">{c.title}</p>
                 <ul className="mt-6 space-y-3">
-                  {c.links.map((l) => (
-                    <li key={l}>
+                  {c.links.map((link) => (
+                    <li key={link.label}>
                       <a
-                        href="#top"
+                        href={link.href}
                         className="text-[13px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
                       >
-                        {l}
+                        {link.label}
                       </a>
                     </li>
                   ))}
@@ -77,7 +91,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-24 flex flex-col gap-4 border-t border-hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-hairline pt-7 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[12px] text-muted-foreground">
             © 2026 IDSSPL Technologies Private Limited. All rights reserved.
           </p>

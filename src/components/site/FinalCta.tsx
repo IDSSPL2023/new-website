@@ -13,7 +13,7 @@ export function FinalCta() {
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
 
-      <div className="shell relative py-40 md:py-56">
+      <div className="shell relative py-28 md:py-36">
         <Reveal>
           <p className="eyebrow">Ready for the next generation of banking?</p>
         </Reveal>
@@ -34,13 +34,13 @@ export function FinalCta() {
           <div className="mt-12 flex flex-wrap gap-3">
             <a
               href="mailto:info@idsspl.com"
-              className="rounded-full bg-foreground px-6 py-3.5 text-[13.5px] font-medium text-background transition-opacity duration-300 hover:opacity-85"
+              className="shiny-button rounded-full px-6 py-3.5 text-[13.5px] font-semibold"
             >
               Contact Us
             </a>
             <a
               href="mailto:info@idsspl.com?subject=Request%20a%20Demo"
-              className="rounded-full border border-hairline px-6 py-3.5 text-[13.5px] text-foreground transition-colors duration-300 hover:bg-surface-2"
+              className="glass-button rounded-full px-6 py-3.5 text-[13.5px] text-foreground"
             >
               Request Demo
             </a>

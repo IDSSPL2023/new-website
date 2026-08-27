@@ -34,7 +34,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="border-t border-hairline py-32 md:py-48">
+    <section className="border-t border-hairline py-24 md:py-32">
       <div className="shell grid gap-14 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Reveal>

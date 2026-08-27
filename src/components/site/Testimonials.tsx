@@ -28,7 +28,7 @@ export function Testimonials() {
   const s = stories[i] ?? stories[0]!;
 
   return (
-    <section id="resources" className="border-t border-hairline py-32 md:py-48">
+    <section id="resources" className="border-t border-hairline py-24 md:py-32">
       <div className="shell">
         <Reveal>
           <p className="eyebrow">What our customers say</p>

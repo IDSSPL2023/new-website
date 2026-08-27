@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import heroVideo from "@/assets/idsspl-hero.mp4.asset.json";
-import heroPoster from "@/assets/idsspl-hero-poster.jpg.asset.json";
+import heroVideo from "@/assets/idsspl-hero.mp4";
+import heroPoster from "@/assets/idsspl-hero-poster.jpg";
 import { CinematicMedia } from "./CinematicMedia";
 
 const nodes = [
@@ -25,20 +25,21 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="top" className="relative min-h-[88vh] overflow-hidden border-b border-hairline pt-28 md:min-h-[94vh] md:pt-0">
-      <div className="absolute inset-x-0 top-0 h-full md:left-[43%]">
+    <section id="top" className="relative min-h-[100svh] overflow-hidden border-b border-hairline">
+      <div className="absolute inset-0 h-full w-full">
         <div
-          className="relative h-full transition-transform duration-100"
-          style={{ transform: `translateY(${Math.min(y * 0.025, 22)}px)` }}
+          className="relative h-full w-full transition-transform duration-100"
+          style={{ transform: `scale(1.035) translateY(${Math.min(y * 0.018, 14)}px)` }}
         >
           <CinematicMedia
-            video={heroVideo.url}
-            poster={heroPoster.url}
+            video={heroVideo}
+            poster={heroPoster}
             alt="Cinematic visualization of the infrastructure behind modern banking"
-            className="h-full min-h-[88vh] object-cover md:min-h-[94vh]"
+            className="h-full min-h-[100svh] w-full object-cover"
           />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/65 to-background/5" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/35" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/95 via-background/60 to-background/10" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-background/35" />
+          <div className="hero-vignette pointer-events-none absolute inset-0" />
 
           {nodes.map((n, i) => (
             <span
@@ -56,29 +57,32 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="shell relative z-10 flex min-h-[calc(88vh-7rem)] items-end pb-16 md:min-h-[94vh] md:items-center md:pb-0">
-        <div className="max-w-3xl md:w-[58%]">
+      <div className="shell relative z-10 flex min-h-[100svh] items-center pt-24 pb-12 md:pt-20 md:pb-10">
+        <div className="max-w-4xl md:w-[60%]">
           <p className="eyebrow animate-fade-in">AI-Powered Banking Technology</p>
-          <h1 className="display mt-7 text-[clamp(2.9rem,6.6vw,6.8rem)] text-foreground">
-            The infrastructure
-            <br />
-            behind <span className="text-muted-foreground">modern banking.</span>
+          <h1 className="display mt-6 max-w-[10ch] text-[clamp(3.2rem,6vw,6.5rem)] text-foreground">
+            <span className="block">The</span>
+            <span className="block">Infrastructure</span>
+            <span className="block">
+              Behind <span className="text-muted-foreground">Modern</span>
+            </span>
+            <span className="block text-muted-foreground">Banking.</span>
           </h1>
-          <p className="mt-8 max-w-lg text-[15px] leading-relaxed text-muted-foreground">
+          <p className="mt-7 max-w-lg text-[15px] leading-relaxed text-muted-foreground">
             Secure, scalable technology for core banking, payments, cards, risk and financial
             infrastructure — engineered for institutions that move economies forward.
           </p>
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href="#products"
-              className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-[13.5px] font-medium text-background transition-opacity duration-300 hover:opacity-85"
+              href="/products"
+              className="shiny-button group inline-flex items-center gap-2 rounded-full px-5 py-3 text-[13.5px] font-semibold"
             >
               Explore our solutions
               <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
             </a>
             <a
-              href="#contact"
-              className="rounded-full border border-hairline px-5 py-3 text-[13.5px] text-foreground transition-colors duration-300 hover:bg-surface-2"
+              href="/#contact"
+              className="glass-button rounded-full px-5 py-3 text-[13.5px] text-foreground"
             >
               Request a demo
             </a>

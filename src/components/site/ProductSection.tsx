@@ -18,7 +18,7 @@ export type Product = {
 
 export function ProductSection({ product }: { product: Product }) {
   return (
-    <section className="border-t border-hairline py-28 md:py-40">
+    <section className="border-t border-hairline py-20 md:py-28">
       <div className="shell">
         <div
           className={cn(
@@ -66,7 +66,7 @@ export function ProductSection({ product }: { product: Product }) {
 
             <Reveal delay={260}>
               <a
-                href="#contact"
+                href="/#contact"
                 className="group mt-10 inline-flex items-center gap-2 text-[13.5px] font-medium text-foreground"
               >
                 {product.cta}

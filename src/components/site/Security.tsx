@@ -1,5 +1,5 @@
 import vaultImg from "@/assets/vault.jpg";
-import vaultVideo from "@/assets/vault.mp4.asset.json";
+import vaultVideo from "@/assets/vault.mp4";
 import { Reveal } from "./Reveal";
 import { CinematicMedia } from "./CinematicMedia";
 
@@ -13,7 +13,7 @@ const controls = [
 
 export function Security() {
   return (
-    <section className="border-t border-hairline py-32 md:py-48">
+    <section className="border-t border-hairline py-24 md:py-32">
       <div className="shell grid items-center gap-16 lg:grid-cols-2 lg:gap-24">
         <div>
           <Reveal>
@@ -51,7 +51,7 @@ export function Security() {
           <div className="relative">
             <div className="glow-blue pointer-events-none absolute inset-0 scale-125 opacity-40" />
             <CinematicMedia
-              video={vaultVideo.url}
+              video={vaultVideo}
               poster={vaultImg}
               alt="Minimal 3D secure vault protecting banking data"
               className="relative w-full rounded-2xl border border-hairline object-cover"

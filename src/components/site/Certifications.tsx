@@ -9,7 +9,7 @@ const marks = [
 
 export function Certifications() {
   return (
-    <section className="relative overflow-hidden border-t border-hairline py-32 md:py-48">
+    <section className="relative overflow-hidden border-t border-hairline py-24 md:py-32">
       <div className="glow-blue pointer-events-none absolute bottom-0 left-1/2 h-[380px] w-[760px] -translate-x-1/2 translate-y-1/3 opacity-25" />
       <div className="shell relative">
         <Reveal>
@@ -21,7 +21,7 @@ export function Certifications() {
           </h2>
         </Reveal>
 
-        <div className="mt-24 grid gap-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-12 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
           {marks.map((m, i) => (
             <Reveal key={m.title} delay={i * 100}>
               <div

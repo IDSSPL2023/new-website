@@ -5,7 +5,7 @@ const outputs = ["Insights", "Automation", "Decision Support", "Reporting"];
 
 export function AILayer() {
   return (
-    <section className="relative overflow-hidden border-t border-hairline py-32 md:py-48">
+    <section className="relative overflow-hidden border-t border-hairline py-24 md:py-32">
       <div className="glow-blue pointer-events-none absolute top-1/2 left-1/2 h-[440px] w-[820px] -translate-x-1/2 -translate-y-1/2 opacity-30" />
       <div className="shell relative">
         <Reveal>
@@ -17,7 +17,7 @@ export function AILayer() {
           </h2>
         </Reveal>
 
-        <div className="mx-auto mt-20 max-w-4xl">
+        <div className="mx-auto mt-14 max-w-4xl md:mt-16">
           <Reveal delay={140}>
             <div className="flex flex-wrap justify-center gap-2.5">
               {inputs.map((i) => (

@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import logoMark from "@/assets/idsspl-logo-white.png";
+import logoMark from "@/assets/idsspl-logo.svg";
+import lightLogo from "@/assets/idsspl-logo-light.png";
+import { LanguageSelector } from "./LanguageSelector";
+import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
-  { label: "Products", href: "#products" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Technology", href: "#technology" },
-  { label: "About", href: "#about" },
-  { label: "Leadership", href: "#leadership" },
-  { label: "Resources", href: "#resources" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Our Products", href: "/products" },
+  { label: "Leadership", href: "/leadership" },
+  { label: "Our Team", href: "/team" },
 ];
 
 export function Nav() {
@@ -28,19 +30,24 @@ export function Nav() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
-          ? "border-b border-hairline bg-background/70 backdrop-blur-xl"
+          ? "site-header-scrolled border-b border-hairline bg-background/72 backdrop-blur-2xl"
           : "border-b border-transparent",
       )}
     >
       <nav className="shell flex h-16 items-center justify-between">
-        <a href="#top" className="flex items-center gap-2.5">
-          <img src={logoMark} alt="IDSSPL logo" className="h-8 w-auto" />
-          <span className="text-[16px] font-semibold tracking-[0.02em] text-foreground">
-            IDSSPL
+        <a href="/" aria-label="IDSSPL home" className="site-logo flex items-center">
+          <img
+            src={logoMark}
+            alt=""
+            aria-hidden="true"
+            className="site-logo-dark h-11 w-auto md:h-12"
+          />
+          <span className="site-logo-light" aria-hidden="true">
+            <img src={lightLogo} alt="" />
           </span>
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           {links.map((l) => (
             <a
               key={l.label}
@@ -52,32 +59,34 @@ export function Nav() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-5 md:flex">
+        <div className="flex items-center gap-2 md:gap-4">
+          <LanguageSelector />
+          <ThemeToggle />
           <a
-            href="#contact"
-            className="text-[13.5px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            href="/#contact"
+            className="hidden text-[13.5px] text-muted-foreground transition-colors duration-300 hover:text-foreground lg:block"
           >
-            Contact Us
+            Speak With an Expert
           </a>
           <a
-            href="#contact"
-            className="rounded-full bg-foreground px-4 py-2 text-[13px] font-medium text-background transition-opacity duration-300 hover:opacity-85"
+            href="/#contact"
+            className="shiny-button hidden rounded-full px-4 py-2 text-[13px] font-semibold lg:block"
           >
             Request Demo
           </a>
+          <button
+            aria-label="Toggle navigation"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="grid h-9 w-9 place-items-center rounded-full border border-hairline text-muted-foreground transition-colors hover:text-foreground lg:hidden"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
-
-        <button
-          aria-label="Toggle navigation"
-          onClick={() => setOpen((v) => !v)}
-          className="text-muted-foreground md:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
       </nav>
 
       {open && (
-        <div className="border-t border-hairline bg-background/95 backdrop-blur-xl md:hidden">
+        <div className="border-t border-hairline bg-background/92 shadow-2xl backdrop-blur-2xl lg:hidden">
           <div className="shell flex flex-col gap-1 py-6">
             {links.map((l) => (
               <a
@@ -90,9 +99,16 @@ export function Nav() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
-              className="mt-4 rounded-full bg-foreground px-5 py-3 text-center text-sm font-medium text-background"
+              className="mt-3 py-2.5 text-lg text-muted-foreground"
+            >
+              Speak With an Expert
+            </a>
+            <a
+              href="/#contact"
+              onClick={() => setOpen(false)}
+              className="shiny-button mt-2 rounded-full px-5 py-3 text-center text-sm font-semibold"
             >
               Request Demo
             </a>

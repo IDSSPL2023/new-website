@@ -11,7 +11,7 @@ const pillars = [
 
 export function TechApproach() {
   return (
-    <section id="technology" className="border-t border-hairline py-32 md:py-48">
+    <section id="technology" className="border-t border-hairline py-24 md:py-32">
       <div className="shell">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -35,7 +35,7 @@ export function TechApproach() {
             <div className="grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-2">
               {pillars.map((p, i) => (
                 <Reveal key={p.title} delay={i * 70}>
-                  <div className="group h-full bg-background p-8 transition-colors duration-500 hover:bg-surface">
+                  <div className="glossy-panel group h-full p-8 transition-all duration-500 hover:-translate-y-0.5 hover:border-cyan/25">
                     <div className="flex items-center gap-3">
                       <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40 transition-colors duration-500 group-hover:bg-cyan" />
                       <h3 className="text-[15px] font-medium tracking-[-0.01em] text-foreground">

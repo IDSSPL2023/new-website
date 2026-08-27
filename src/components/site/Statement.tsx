@@ -2,7 +2,7 @@ import { Reveal } from "./Reveal";
 
 export function Statement() {
   return (
-    <section id="about" className="py-32 md:py-52">
+    <section id="about" className="py-20 md:py-32">
       <div className="shell">
         <Reveal>
           <p className="eyebrow">Powering the future of financial technology</p>
