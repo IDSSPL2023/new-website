@@ -50,7 +50,11 @@ Resources:
             Condition:
               StringEquals:
                 token.actions.githubusercontent.com:aud: sts.amazonaws.com
-                token.actions.githubusercontent.com:sub: repo:IDSSPL2023@301616450/new-website@1348509283:environment:production
+                token.actions.githubusercontent.com:repository_id: "1348509283"
+                token.actions.githubusercontent.com:repository_owner_id: "301616450"
+                token.actions.githubusercontent.com:environment: production
+              StringLike:
+                token.actions.githubusercontent.com:sub: repo:*
       Policies:
         - PolicyName: DeployStaticWebsiteToS3
           PolicyDocument:
