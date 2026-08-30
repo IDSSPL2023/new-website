@@ -1,94 +1,162 @@
-import { ArrowRight } from "lucide-react";
-import { Reveal } from "./Reveal";
+import subproductModuleIcon from "@/assets/product-icons/subproduct-module-3d.jpg";
+
 import { CinematicMedia } from "./CinematicMedia";
-import { cn } from "@/lib/utils";
+import { Reveal } from "./Reveal";
+
+export type ProductPoint = {
+  title: string;
+  description: string;
+};
 
 export type Product = {
-  index: string;
+  id: string;
   label: string;
+  shortDescription: string;
   heading: string[];
-  body: string;
-  points: string[];
-  cta: string;
+  overview: string[];
+  subProducts: string[];
+  keyFeatures: ProductPoint[];
+  featureIcons: string[];
+  benefits: ProductPoint[];
+  benefitIcons: string[];
   image: string;
   video: string;
   alt: string;
-  reverse?: boolean;
 };
+
+function ProductPointGrid({
+  eyebrow,
+  title,
+  introduction,
+  points,
+  icons,
+  variant,
+}: {
+  eyebrow: string;
+  title: string;
+  introduction: string;
+  points: ProductPoint[];
+  icons: string[];
+  variant: "feature" | "benefit";
+}) {
+  return (
+    <section className={`product-point-section product-point-section-${variant}`}>
+      <Reveal>
+        <div className="product-point-heading">
+          <div>
+            <span>{eyebrow}</span>
+            <h3>{title}</h3>
+          </div>
+          <p>{introduction}</p>
+        </div>
+      </Reveal>
+
+      <div className="product-point-grid">
+        {points.map((point, index) => {
+          const icon = icons[index % icons.length];
+          return (
+            <Reveal key={point.title} delay={50 + index * 55}>
+              <article className="product-point-card">
+                <span className="product-point-icon" aria-hidden="true">
+                  <img src={icon} alt="" loading="lazy" decoding="async" />
+                </span>
+                <div>
+                  <h4>{point.title}</h4>
+                  <p>{point.description}</p>
+                </div>
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
 
 export function ProductSection({ product }: { product: Product }) {
   return (
-    <section className="border-t border-hairline py-20 md:py-28">
+    <section id={product.id} className="product-detail-section product-single-detail">
       <div className="shell">
-        <div
-          className={cn(
-            "grid items-center gap-14 lg:grid-cols-12 lg:gap-20",
-            product.reverse && "lg:[&>*:first-child]:order-2",
-          )}
-        >
-          <div className="lg:col-span-5">
-            <Reveal>
-              <div className="flex items-center gap-4">
-                <span className="text-[11px] tracking-[0.2em] text-electric">
-                  {product.index}
+        <div className="product-detail-hero">
+          <Reveal className="product-detail-hero-copy">
+            <div className="product-detail-kicker">
+              <span>{product.label}</span>
+            </div>
+            <h2 className="display product-detail-title" aria-label={product.heading.join(" ")}>
+              {product.heading.map((line) => (
+                <span key={line} aria-hidden="true">
+                  {line}{" "}
                 </span>
-                <span className="h-px w-8 bg-hairline" />
-                <span className="eyebrow">{product.label}</span>
+              ))}
+            </h2>
+            <p className="product-detail-summary">{product.shortDescription}</p>
+            <div className="product-detail-overview">
+              <span>Overview</span>
+              {product.overview.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal className="product-detail-hero-media">
+            <div className="product-cinematic-frame group">
+              <CinematicMedia
+                video={product.video}
+                poster={product.image}
+                alt={product.alt}
+                className="product-cinematic-media"
+              />
+              <div className="product-cinematic-shade" aria-hidden="true" />
+              <div className="product-cinematic-label">
+                <span>Product Experience</span>
+                <strong>{product.label}</strong>
               </div>
-            </Reveal>
-
-            <Reveal delay={80}>
-              <h3 className="display mt-8 text-[clamp(1.9rem,3.9vw,3.4rem)] text-foreground">
-                {product.heading.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h3>
-            </Reveal>
-
-            <Reveal delay={150}>
-              <p className="mt-7 max-w-md text-[15px] leading-relaxed text-muted-foreground">
-                {product.body}
-              </p>
-            </Reveal>
-
-            <Reveal delay={210}>
-              <ul className="mt-9 space-y-3.5 border-t border-hairline pt-8">
-                {product.points.map((p) => (
-                  <li key={p} className="flex gap-3 text-[13.5px] text-muted-foreground">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-electric" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-
-            <Reveal delay={260}>
-              <a
-                href="/#contact"
-                className="group mt-10 inline-flex items-center gap-2 text-[13.5px] font-medium text-foreground"
-              >
-                {product.cta}
-                <ArrowRight className="h-3.5 w-3.5 text-electric transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-7">
-            <Reveal delay={120}>
-              <div className="frame group relative overflow-hidden rounded-2xl p-1.5 transition-all duration-700 hover:shadow-[0_40px_120px_-40px_color-mix(in_oklab,var(--electric)_45%,transparent)]">
-                <CinematicMedia
-                  video={product.video}
-                  poster={product.image}
-                  alt={product.alt}
-                  className="aspect-[4/3] rounded-xl transition-transform duration-[1200ms] ease-out group-hover:scale-[1.02]"
-                />
-                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-background/45 via-transparent to-transparent" />
-              </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
         </div>
+
+        <Reveal>
+          <section className="product-subproducts-section">
+            <div className="product-point-heading">
+              <div>
+                <span>Connected Product Ecosystem</span>
+                <h3>Sub-products</h3>
+              </div>
+              <p>
+                Modular capabilities that can be adopted independently or connected as one cohesive
+                banking platform.
+              </p>
+            </div>
+            <div className="product-subproduct-grid">
+              {product.subProducts.map((item) => (
+                <article key={item}>
+                  <span className="product-subproduct-icon" aria-hidden="true">
+                    <img src={subproductModuleIcon} alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <strong>{item}</strong>
+                </article>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+
+        <ProductPointGrid
+          eyebrow="Platform Capability"
+          title="Key Features"
+          introduction="Purpose-built technology that brings intelligence, control, security, and operational depth into every banking workflow."
+          points={product.keyFeatures}
+          icons={product.featureIcons}
+          variant="feature"
+        />
+
+        <ProductPointGrid
+          eyebrow="Measurable Business Value"
+          title="Benefits"
+          introduction="Clear operational and customer outcomes designed to improve efficiency today while creating room for sustainable growth."
+          points={product.benefits}
+          icons={product.benefitIcons}
+          variant="benefit"
+        />
       </div>
     </section>
   );

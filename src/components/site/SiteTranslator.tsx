@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import {
   getSavedSiteLanguage,
   isSiteLanguageCode,
-  SITE_LANGUAGE_EVENT,
   SITE_LANGUAGE_STORAGE_KEY,
+  siteI18n,
   translateSiteText,
   type SiteLanguageCode,
 } from "@/lib/site-i18n";
@@ -26,6 +26,8 @@ export function SiteTranslator() {
     const originalAttributes = new WeakMap<Element, Map<string, string>>();
     let language = getSavedSiteLanguage();
     let scheduled = false;
+
+    if (siteI18n.language !== language) void siteI18n.changeLanguage(language);
 
     const shouldIgnore = (element: Element | null) =>
       !element || Boolean(element.closest(ignoredSelector));
@@ -100,8 +102,7 @@ export function SiteTranslator() {
       window.requestAnimationFrame(translateTree);
     };
 
-    const onLanguageChange = (event: Event) => {
-      const code = (event as CustomEvent<{ code?: string }>).detail?.code ?? null;
+    const onLanguageChange = (code: string) => {
       if (!isSiteLanguageCode(code)) return;
       language = code;
       scheduleTranslation();
@@ -109,8 +110,7 @@ export function SiteTranslator() {
 
     const onStorage = (event: StorageEvent) => {
       if (event.key !== SITE_LANGUAGE_STORAGE_KEY || !isSiteLanguageCode(event.newValue)) return;
-      language = event.newValue;
-      scheduleTranslation();
+      void siteI18n.changeLanguage(event.newValue);
     };
 
     const observer = new MutationObserver(scheduleTranslation);
@@ -122,13 +122,13 @@ export function SiteTranslator() {
       attributeFilter: [...translatedAttributes],
     });
 
-    window.addEventListener(SITE_LANGUAGE_EVENT, onLanguageChange);
+    siteI18n.on("languageChanged", onLanguageChange);
     window.addEventListener("storage", onStorage);
     translateTree();
 
     return () => {
       observer.disconnect();
-      window.removeEventListener(SITE_LANGUAGE_EVENT, onLanguageChange);
+      siteI18n.off("languageChanged", onLanguageChange);
       window.removeEventListener("storage", onStorage);
     };
   }, []);

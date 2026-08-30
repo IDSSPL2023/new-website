@@ -2,22 +2,22 @@ import { Reveal } from "./Reveal";
 
 export function Statement() {
   return (
-    <section id="about" className="py-20 md:py-32">
-      <div className="shell">
-        <Reveal>
-          <p className="eyebrow">Powering the future of financial technology</p>
-        </Reveal>
-        <Reveal delay={120}>
-          <h2 className="display mt-10 max-w-[20ch] text-[clamp(2rem,5.4vw,4.6rem)] text-foreground">
-            Technology that helps financial institutions operate smarter, scale faster and
-            serve better.
-          </h2>
-        </Reveal>
+    <section id="about" className="py-16 md:py-24">
+      <div className="shell section-heading-split">
+        <div>
+          <Reveal>
+            <p className="eyebrow">Powering Financial Technology</p>
+          </Reveal>
+          <Reveal delay={120}>
+            <h2 className="display section-heading-title text-foreground">
+              Technology That Moves Banking Forward.
+            </h2>
+          </Reveal>
+        </div>
         <Reveal delay={220}>
-          <p className="mt-12 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-            IDSSPL is a trusted technology partner for secure, scalable and high-performance
-            banking solutions — delivering the systems that run core banking, payments and
-            financial operations every day.
+          <p className="section-heading-copy">
+            IDSSPL delivers secure, scalable systems for core banking, payments, and financial
+            operations—helping institutions operate smarter and grow with confidence.
           </p>
         </Reveal>
       </div>

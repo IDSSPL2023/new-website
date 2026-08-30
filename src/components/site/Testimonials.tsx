@@ -28,18 +28,18 @@ export function Testimonials() {
   const s = stories[i] ?? stories[0]!;
 
   return (
-    <section id="resources" className="border-t border-hairline py-24 md:py-32">
+    <section id="resources" className="border-t border-hairline py-16 md:py-24">
       <div className="shell">
         <Reveal>
           <p className="eyebrow">What our customers say</p>
         </Reveal>
 
-        <div className="mt-14 min-h-[320px] md:min-h-[300px]">
+        <div className="mt-10 min-h-[260px] md:min-h-[240px]">
           <blockquote key={i} className="animate-fade-in">
             <p className="display max-w-[24ch] text-[clamp(1.6rem,3.5vw,3rem)] text-foreground">
               “{s.quote}”
             </p>
-            <footer className="mt-12 flex items-center gap-4">
+            <footer className="mt-8 flex items-center gap-4">
               <span className="grid h-9 w-9 place-items-center rounded-md border border-hairline bg-surface text-[11px] text-electric">
                 {s.name.slice(0, 2).toUpperCase()}
               </span>
@@ -51,7 +51,7 @@ export function Testimonials() {
           </blockquote>
         </div>
 
-        <div className="mt-10 flex items-center gap-3">
+        <div className="mt-6 flex items-center gap-3">
           <button
             aria-label="Previous story"
             onClick={() => setI((v) => (v - 1 + stories.length) % stories.length)}

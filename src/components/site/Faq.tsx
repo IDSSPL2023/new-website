@@ -34,17 +34,26 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="border-t border-hairline py-24 md:py-32">
-      <div className="shell grid gap-14 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <Reveal>
-            <h2 className="display text-[clamp(2.2rem,5vw,4.2rem)] text-foreground">
-              Questions?
-            </h2>
+    <section className="border-t border-hairline py-16 md:py-24">
+      <div className="shell">
+        <div className="section-heading-split">
+          <div>
+            <Reveal>
+              <p className="eyebrow">Knowledge Center</p>
+            </Reveal>
+            <Reveal delay={80}>
+              <h2 className="display section-heading-title text-foreground">Common Questions.</h2>
+            </Reveal>
+          </div>
+          <Reveal delay={140}>
+            <p className="section-heading-copy">
+              Clear answers about IDSSPL&apos;s banking platforms, payment capabilities, security,
+              integration, and institutional fit.
+            </p>
           </Reveal>
         </div>
 
-        <div className="lg:col-span-8">
+        <div className="mt-9 border-t border-hairline md:mt-12">
           {faqs.map((f, i) => {
             const isOpen = open === i;
             return (
@@ -52,14 +61,12 @@ export function Faq() {
                 <div className="border-b border-hairline">
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-start gap-6 py-7 text-left"
+                    className="flex w-full items-start gap-5 py-5 text-left"
                   >
                     <span className="mt-1 text-[11px] tracking-[0.18em] text-muted-foreground/60">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="flex-1 text-[16px] text-foreground md:text-[18px]">
-                      {f.q}
-                    </span>
+                    <span className="flex-1 text-[16px] text-foreground md:text-[18px]">{f.q}</span>
                     <Plus
                       className={cn(
                         "mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-500",
@@ -72,7 +79,7 @@ export function Faq() {
                     style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                   >
                     <div className="overflow-hidden">
-                      <p className="max-w-2xl pb-8 pl-11 text-[14px] leading-relaxed text-muted-foreground">
+                      <p className="max-w-2xl pb-6 pl-10 text-[14px] leading-relaxed text-muted-foreground">
                         {f.a}
                       </p>
                     </div>

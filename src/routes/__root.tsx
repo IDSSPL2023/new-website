@@ -14,6 +14,36 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 const themeBootstrap = `(function(){try{var saved=window.localStorage.getItem("idsspl-theme");var theme=saved==="light"||saved==="dark"?saved:window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";var root=document.documentElement;root.dataset.theme=theme;root.classList.toggle("light",theme==="light");root.classList.toggle("dark",theme==="dark");root.style.colorScheme=theme;}catch(error){document.documentElement.dataset.theme="dark";document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark";}})();`;
 
+const organizationSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "IDSSPL Technologies Private Limited",
+  alternateName: "IDSSPL",
+  url: "https://www.idsspl.com/",
+  email: "info@idsspl.com",
+  telephone: "+91-231-2530950",
+  description:
+    "Banking technology company delivering AI-powered core banking, digital payments, card management, merchant management, and enterprise financial infrastructure.",
+  address: [
+    {
+      "@type": "PostalAddress",
+      streetAddress: "11, Gurukrupa, Friends Colony",
+      addressLocality: "Kolhapur",
+      addressRegion: "Maharashtra",
+      postalCode: "416005",
+      addressCountry: "IN",
+    },
+    {
+      "@type": "PostalAddress",
+      streetAddress: "Office No. 406, De Elmas, Sonawala Lane, Goregaon East",
+      addressLocality: "Mumbai",
+      addressRegion: "Maharashtra",
+      postalCode: "400063",
+      addressCountry: "IN",
+    },
+  ],
+});
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -83,19 +113,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "IDSSPL — Banking Technology Infrastructure" },
       {
         name: "description",
-        content:
-          "Secure, scalable and future-ready banking technology for financial institutions.",
+        content: "Secure, scalable and future-ready banking technology for financial institutions.",
       },
       { name: "author", content: "IDSSPL Technologies Private Limited" },
       { property: "og:title", content: "IDSSPL — Banking Technology Infrastructure" },
       {
         property: "og:description",
-        content:
-          "Secure, scalable and future-ready banking technology for financial institutions.",
+        content: "Secure, scalable and future-ready banking technology for financial institutions.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "application-name", content: "IDSSPL" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -122,6 +150,10 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en" className="dark" data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: organizationSchema }}
+        />
         <HeadContent />
       </head>
       <body>

@@ -1,12 +1,8 @@
 import {
-  ArrowUpRight,
   BadgeCheck,
-  Code2,
   Handshake,
   Landmark,
-  Linkedin,
   Medal,
-  Megaphone,
   Route,
   Sparkles,
   Target,
@@ -17,6 +13,8 @@ import {
 } from "lucide-react";
 import type { CSSProperties } from "react";
 
+import arunGawasImg from "@/assets/arun-gawas.png";
+import cgoProfileImg from "@/assets/cgo-profile.png";
 import vinayakImg from "@/assets/vinayak-more.jpg";
 import vishalImg from "@/assets/vishal-singh.jpg";
 import surajImg from "@/assets/suraj-pathak.jpg";
@@ -29,7 +27,6 @@ const leaders = [
     role: "Associate Director & CEO",
     focus: "Banking & Strategy Leader",
     photo: vinayakImg,
-    linkedin: undefined,
     credentials: [
       { title: "25+", label: "Years Experience", icon: Medal },
       { title: "Banking Technology", label: "Domain Expertise", icon: Landmark },
@@ -42,7 +39,6 @@ const leaders = [
     role: "Director — Sales & Growth",
     focus: "Sales & Growth Strategist",
     photo: vishalImg,
-    linkedin: undefined,
     credentials: [
       { title: "10+", label: "Years Experience", icon: Medal },
       { title: "Strategic Partnerships", label: "Business Expertise", icon: Handshake },
@@ -55,7 +51,6 @@ const leaders = [
     role: "Director — Operations",
     focus: "Operations Excellence Leader",
     photo: surajImg,
-    linkedin: undefined,
     credentials: [
       { title: "12+", label: "Years Experience", icon: Medal },
       { title: "Process Excellence", label: "Operational Expertise", icon: Workflow },
@@ -70,41 +65,53 @@ const chiefOfficers = [
     role: "Chief Technology Officer",
     abbreviation: "CTO",
     functionName: "Technology Strategy & Engineering",
-    name: "Profile To Be Announced",
-    icon: Code2,
+    name: "Krishna Telgave",
     accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     bio: "Guides the technology vision, architecture standards, engineering excellence, and secure platform strategy behind IDSSPL's banking solutions.",
-    linkedin: undefined,
   },
   {
     role: "Chief Marketing Officer",
     abbreviation: "CMO",
     functionName: "Brand, Market & Growth",
-    name: "Profile To Be Announced",
-    icon: Megaphone,
+    name: "Mahesh Waingankar",
     accent: { start: "#6536c9", end: "#c45cff", glow: "#c084fc" },
     bio: "Shapes the brand, market strategy, communication, and growth direction that connects IDSSPL with financial institutions and partners.",
-    linkedin: undefined,
   },
   {
-    role: "Vice President — CBS",
-    abbreviation: "VP CBS",
+    role: "AVP-Technology (CBS)",
+    abbreviation: "AVP CBS",
     functionName: "Core Banking Solutions",
-    name: "Profile To Be Announced",
-    icon: Landmark,
+    name: "Arun Gavas",
+    photo: arunGawasImg,
+    photoAlt: "Arun Gavas, AVP-Technology (CBS) at IDSSPL",
     accent: { start: "#087f72", end: "#39d5bd", glow: "#2dd4bf" },
     bio: "Leads the Core Banking Solutions portfolio, aligning banking-domain expertise, product strategy, implementation quality, and long-term customer outcomes.",
-    linkedin: undefined,
   },
   {
-    role: "Vice President — Operations",
-    abbreviation: "VP OPS",
-    functionName: "Enterprise Operations & Delivery",
-    name: "Profile To Be Announced",
-    icon: Workflow,
+    role: "Chief Growth & Technology Officer",
+    abbreviation: "CGTO",
+    functionName: "Growth, Technology & Partnerships",
+    name: "Prince Singh",
+    photo: cgoProfileImg,
+    photoAlt: "Prince Singh, Chief Growth & Technology Officer at IDSSPL",
     accent: { start: "#d55725", end: "#ffad4d", glow: "#fb923c" },
-    bio: "Directs enterprise operations and delivery governance, strengthening execution, coordination, quality, and dependable service across every engagement.",
-    linkedin: undefined,
+    bio: "Leads sustainable business growth, technology direction, strategic partnerships, market expansion, and revenue initiatives that strengthen IDSSPL's long-term impact.",
+  },
+  {
+    role: "Sr. Compliance Officer",
+    abbreviation: "SCO",
+    functionName: "Compliance, Security & Governance",
+    name: "Omkar Bhagwat",
+    accent: { start: "#075f8f", end: "#30d6f2", glow: "#22d3ee" },
+    bio: "Defines the enterprise security vision, cyber-risk governance, compliance standards, and resilient controls that protect customer data and critical banking systems.",
+  },
+  {
+    role: "Manager - HR & Admin",
+    abbreviation: "HR & ADMIN",
+    functionName: "People, Culture & Administration",
+    name: "Suja Nair",
+    accent: { start: "#3157b8", end: "#68a7ff", glow: "#60a5fa" },
+    bio: "Builds a high-performing people culture through thoughtful talent acquisition, employee development, engagement, and dependable human-resource operations.",
   },
 ];
 
@@ -135,28 +142,27 @@ export function Leadership() {
   return (
     <section
       id="leadership"
-      className="leadership-section border-b border-hairline pt-28 pb-20 md:pt-36 md:pb-28"
+      className="leadership-section border-b border-hairline pt-24 pb-16 md:pt-28 md:pb-20"
     >
       <div className="shell">
-        <div>
-          <Reveal>
-            <p className="eyebrow">Leadership</p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="display mt-8 max-w-[14ch] text-[clamp(2.8rem,7vw,6.4rem)] text-foreground">
-              Our Leaders
-            </h1>
-          </Reveal>
+        <div className="section-heading-split">
+          <div>
+            <Reveal>
+              <p className="eyebrow">Leadership</p>
+            </Reveal>
+            <Reveal delay={80}>
+              <h1 className="display section-heading-title text-foreground">Our Leaders</h1>
+            </Reveal>
+          </div>
           <Reveal delay={140}>
-            <p className="mt-9 max-w-2xl text-[15px] leading-relaxed text-muted-foreground md:text-[17px]">
-              Experienced leaders driving innovation and excellence in banking technology,
-              combining deep industry expertise with a clear vision for the future of
-              financial infrastructure.
+            <p className="section-heading-copy">
+              Experienced leaders combining banking expertise, technology insight, and a clear
+              direction for IDSSPL&apos;s growth.
             </p>
           </Reveal>
         </div>
 
-        <div className="leadership-card-grid mt-14 md:mt-20">
+        <div className="leadership-card-grid mt-10 md:mt-14">
           {leaders.map((leader, index) => (
             <Reveal key={leader.name} delay={120 + index * 90} className="h-full">
               <article className="leadership-card group">
@@ -167,36 +173,18 @@ export function Leadership() {
                     loading={index === 0 ? "eager" : "lazy"}
                     className="h-full w-full object-cover"
                   />
-                  <span className="leadership-card-number" aria-hidden="true">
-                    0{index + 1}
-                  </span>
-                  {leader.linkedin ? (
-                    <a
-                      href={leader.linkedin}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="leadership-photo-link"
-                      aria-label={`View ${leader.name} on LinkedIn`}
-                    >
-                      <Linkedin aria-hidden="true" size={16} />
-                    </a>
-                  ) : (
-                    <span className="leadership-photo-link is-pending" title="LinkedIn link pending">
-                      <Linkedin aria-hidden="true" size={16} />
-                    </span>
-                  )}
                 </div>
 
-                <div className="flex flex-1 flex-col px-6 pt-6 pb-7 md:px-7 md:pb-8">
+                <div className="flex flex-1 flex-col px-5 pt-5 pb-6 md:px-6 md:pb-7">
                   <div>
                     <span className="leader-role-badge">{leader.role}</span>
-                    <h2 className="mt-4 text-2xl font-semibold tracking-[-0.035em] text-foreground md:text-[1.65rem]">
+                    <h2 className="mt-3 text-2xl font-semibold tracking-[-0.035em] text-foreground md:text-[1.65rem]">
                       {leader.name}
                     </h2>
                     <p className="mt-2 text-[13px] font-medium text-cyan">{leader.focus}</p>
                   </div>
 
-                  <div className="mt-6 space-y-3 border-t border-hairline pt-5">
+                  <div className="mt-5 space-y-3 border-t border-hairline pt-4">
                     {leader.credentials.map((credential) => {
                       const Icon = credential.icon;
                       return (
@@ -213,57 +201,38 @@ export function Leadership() {
                     })}
                   </div>
 
-                  <p className="mt-6 text-[13px] leading-[1.75] text-muted-foreground">{leader.bio}</p>
-
-                  <div className="mt-auto pt-7">
-                    {leader.linkedin ? (
-                      <a
-                        href={leader.linkedin}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="leader-link"
-                      >
-                        <Linkedin aria-hidden="true" size={15} />
-                        View LinkedIn Profile
-                        <ArrowUpRight aria-hidden="true" size={14} />
-                      </a>
-                    ) : (
-                      <span className="leader-link is-pending" title="Add the leader's LinkedIn URL later">
-                        <Linkedin aria-hidden="true" size={15} />
-                        LinkedIn Link Pending
-                      </span>
-                    )}
-                  </div>
+                  <p className="mt-5 text-[13px] leading-[1.75] text-muted-foreground">
+                    {leader.bio}
+                  </p>
                 </div>
               </article>
             </Reveal>
           ))}
         </div>
 
-        <section className="chief-leadership mt-16 md:mt-24" aria-labelledby="chief-officers-title">
-          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.72fr)] md:items-end">
+        <section className="chief-leadership mt-12 md:mt-16" aria-labelledby="chief-officers-title">
+          <div className="section-heading-split">
             <Reveal>
               <div>
                 <p className="eyebrow">Executive Officers</p>
                 <h2
                   id="chief-officers-title"
-                  className="display mt-6 max-w-[14ch] text-[clamp(2.35rem,5vw,4.8rem)] text-foreground"
+                  className="display section-heading-title text-foreground"
                 >
-                  Leadership Across Technology, Banking, And Operations.
+                  Leadership Across Every Function.
                 </h2>
               </div>
             </Reveal>
             <Reveal delay={100}>
-              <p className="max-w-xl text-[14px] leading-relaxed text-muted-foreground md:justify-self-end md:text-[15px]">
-                The chief and vice president roles shaping IDSSPL's technology, brand,
-                core banking, and enterprise operations alongside the board and directors.
+              <p className="section-heading-copy">
+                Meet the executive officers shaping technology, core banking, growth, compliance,
+                brand, and people strategy.
               </p>
             </Reveal>
           </div>
 
-          <div className="chief-card-grid mt-10 md:mt-14">
+          <div className="chief-card-grid mt-8 md:mt-10">
             {chiefOfficers.map((chief, index) => {
-              const Icon = chief.icon;
               const chiefStyle = {
                 "--chief-start": chief.accent.start,
                 "--chief-end": chief.accent.end,
@@ -274,49 +243,34 @@ export function Leadership() {
                 <Reveal key={chief.abbreviation} delay={140 + index * 90} className="h-full">
                   <article className="chief-card" style={chiefStyle}>
                     <div className="chief-card-visual">
-                      <span className="chief-card-icon" aria-hidden="true">
-                        <Icon size={30} />
-                      </span>
-                      <span className="chief-card-number" aria-hidden="true">
-                        0{leaders.length + index + 1}
-                      </span>
-                      <span className="chief-card-placeholder" aria-hidden="true">
-                        <strong>{chief.abbreviation}</strong>
-                      </span>
+                      {chief.photo ? (
+                        <img
+                          src={chief.photo}
+                          alt={chief.photoAlt ?? `${chief.name}, ${chief.role} at IDSSPL`}
+                          loading="lazy"
+                          className="chief-card-photo"
+                        />
+                      ) : (
+                        <span className="chief-card-placeholder" aria-hidden="true">
+                          <strong>{chief.abbreviation}</strong>
+                        </span>
+                      )}
                     </div>
 
                     <div className="chief-card-content">
                       <span className="leader-role-badge">{chief.abbreviation}</span>
                       <h3 className="mt-4 text-2xl font-semibold tracking-[-0.035em] text-white md:text-[1.7rem]">
-                        {chief.role}
+                        {chief.name}
                       </h3>
-                      <p className="mt-2 text-[12px] font-medium text-white/62">{chief.name}</p>
-                      <p className="chief-card-function mt-5">{chief.functionName}</p>
-                      <p className="mt-4 text-[13px] leading-[1.75] text-white/66">{chief.bio}</p>
+                      <p className="mt-2 text-[12px] font-medium text-white/62">{chief.role}</p>
+                      <p className="chief-card-function mt-4">{chief.functionName}</p>
+                      <p className="mt-3 text-[13px] leading-[1.7] text-white/66">{chief.bio}</p>
 
-                      <div className="chief-card-footer mt-auto pt-6">
+                      <div className="chief-card-footer mt-auto pt-5">
                         <span className="chief-profile-status">
                           <Users aria-hidden="true" size={14} />
                           Profile Details Coming Soon
                         </span>
-                        {chief.linkedin ? (
-                          <a
-                            href={chief.linkedin}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="chief-linkedin"
-                            aria-label={`View ${chief.role} on LinkedIn`}
-                          >
-                            <Linkedin aria-hidden="true" size={15} />
-                            View LinkedIn Profile
-                            <ArrowUpRight aria-hidden="true" size={14} />
-                          </a>
-                        ) : (
-                          <span className="chief-linkedin is-pending">
-                            <Linkedin aria-hidden="true" size={15} />
-                            LinkedIn Link Pending
-                          </span>
-                        )}
                       </div>
                     </div>
                   </article>
@@ -327,7 +281,7 @@ export function Leadership() {
         </section>
 
         <Reveal delay={220}>
-          <div className="leadership-values mt-16 md:mt-20">
+          <div className="leadership-values mt-10 md:mt-12">
             {leadershipValues.map((value) => {
               const Icon = value.icon;
               return (
@@ -344,7 +298,7 @@ export function Leadership() {
         </Reveal>
 
         <Reveal delay={260}>
-          <div className="mt-8 flex items-center justify-center gap-2 text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
+          <div className="mt-6 flex items-center justify-center gap-2 text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
             <Sparkles aria-hidden="true" size={13} className="text-cyan" />
             Guided By Experience · Built For What Comes Next
           </div>

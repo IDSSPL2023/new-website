@@ -2,18 +2,19 @@
 
 import { Check, ChevronDown, Languages } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   getSavedSiteLanguage,
   isSiteLanguageCode,
   setSiteLanguage,
-  SITE_LANGUAGE_EVENT,
   SITE_LANGUAGE_STORAGE_KEY,
   siteLanguages,
   type SiteLanguageCode,
 } from "@/lib/site-i18n";
 
 export function LanguageSelector() {
+  const { i18n } = useTranslation();
   const [selectedCode, setSelectedCode] = useState<SiteLanguageCode>("en");
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,28 +30,27 @@ export function LanguageSelector() {
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
-    const syncLanguage = (event: Event) => {
-      const code = (event as CustomEvent<{ code?: string }>).detail?.code ?? null;
+    const syncLanguage = (code: string) => {
       if (isSiteLanguageCode(code)) setSelectedCode(code);
     };
     const syncAcrossTabs = (event: StorageEvent) => {
       if (event.key === SITE_LANGUAGE_STORAGE_KEY && isSiteLanguageCode(event.newValue)) {
-        setSelectedCode(event.newValue);
+        void i18n.changeLanguage(event.newValue);
       }
     };
 
     document.addEventListener("mousedown", closeOnOutsideClick);
     document.addEventListener("keydown", closeOnEscape);
-    window.addEventListener(SITE_LANGUAGE_EVENT, syncLanguage);
+    i18n.on("languageChanged", syncLanguage);
     window.addEventListener("storage", syncAcrossTabs);
 
     return () => {
       document.removeEventListener("mousedown", closeOnOutsideClick);
       document.removeEventListener("keydown", closeOnEscape);
-      window.removeEventListener(SITE_LANGUAGE_EVENT, syncLanguage);
+      i18n.off("languageChanged", syncLanguage);
       window.removeEventListener("storage", syncAcrossTabs);
     };
-  }, []);
+  }, [i18n]);
 
   const selectedLanguage =
     siteLanguages.find((language) => language.code === selectedCode) ?? siteLanguages[0];

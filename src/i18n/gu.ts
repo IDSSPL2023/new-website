@@ -1,12 +1,117 @@
+import { productTranslations } from "./products";
+
 export const guTranslations: Record<string, string> = {
-  "Home": "મુખ્ય પૃષ્ઠ",
+  ...productTranslations.gu,
+  Home: "મુખ્ય પૃષ્ઠ",
   "About Us": "અમારા વિશે",
   "Our Products": "અમારા ઉત્પાદનો",
-  "Leadership": "નેતૃત્વ",
+  "Product Portfolio": "પ્રોડક્ટ પોર્ટફોલિયો",
+  "Explore Banking Technology By Capability.": "ક્ષમતા પ્રમાણે બેન્કિંગ ટેક્નોલોજી જાણો.",
+  "View All Products": "બધા ઉત્પાદનો જુઓ",
+  "Payment Switching": "પેમેન્ટ સ્વિચિંગ",
+  "AI-enabled core banking, digital channels, analytics, and intelligent automation.":
+    "AI આધારિત કોર બેન્કિંગ, ડિજિટલ ચેનલ્સ, એનાલિટિક્સ અને બુદ્ધિશાળી ઓટોમેશન.",
+  "High-throughput UPI, IMPS, ATM, and gateway transaction switching.":
+    "ઉચ્ચ ક્ષમતાવાળું UPI, IMPS, ATM અને ગેટવે ટ્રાન્ઝેક્શન સ્વિચિંગ.",
+  "Complete card issuing, authorization, limits, and lifecycle control.":
+    "કાર્ડ ઇશ્યૂ, અધિકૃતતા, મર્યાદા અને સંપૂર્ણ લાઇફસાઇકલ નિયંત્રણ.",
+  "Real-time fraud monitoring, compliance workflows, and complete auditability.":
+    "રિયલ-ટાઇમ ફ્રોડ મોનિટરિંગ, અનુપાલન પ્રક્રિયા અને સંપૂર્ણ ઑડિટ ક્ષમતા.",
+  "Automated multi-source matching, exception handling, and settlement.":
+    "સ્વચાલિત બહુ-સ્રોત મેળવણી, અપવાદ વ્યવસ્થાપન અને સેટલમેન્ટ.",
+  "Secure networks, data-centre connectivity, and continuous availability.":
+    "સુરક્ષિત નેટવર્ક, ડેટા-સેન્ટર કનેક્ટિવિટી અને સતત ઉપલબ્ધતા.",
+  "Explore Our Core Products": "અમારા મુખ્ય ઉત્પાદનો જાણો",
+  "Four Banking Capabilities. One Connected Foundation.":
+    "ચાર બેન્કિંગ ક્ષમતાઓ. એક જોડાયેલ ટેક્નોલોજી આધાર.",
+  "Start with a concise view of the platforms that power banking operations, payments, cards, and financial control.":
+    "બેન્કિંગ કામગીરી, પેમેન્ટ્સ, કાર્ડ્સ અને નાણાકીય નિયંત્રણને શક્તિ આપતા પ્લેટફોર્મનો સંક્ષિપ્ત પરિચય જુઓ.",
+  "Explore All Products": "બધા ઉત્પાદનો જાણો",
+  "View Product Overview": "પ્રોડક્ટ પરિચય જુઓ",
+  "IDSSPL core and digital banking platform": "IDSSPL કોર અને ડિજિટલ બેન્કિંગ પ્લેટફોર્મ",
+  "IDSSPL payment switching network": "IDSSPL પેમેન્ટ સ્વિચિંગ નેટવર્ક",
+  "IDSSPL card and payment management": "IDSSPL કાર્ડ અને પેમેન્ટ મેનેજમેન્ટ",
+  "IDSSPL risk and compliance platform": "IDSSPL જોખમ અને અનુપાલન પ્લેટફોર્મ",
+  Leadership: "નેતૃત્વ",
   "Our Team": "અમારી ટીમ",
+  Intelligent: "બુદ્ધિશાળી",
+  "Infrastructure For": "ઇન્ફ્રાસ્ટ્રક્ચર",
+  "Modern Banking.": "આધુનિક બેન્કિંગ માટે.",
+  "Technology Built For Modern Banking.": "આધુનિક બેન્કિંગ માટે બનાવેલું ટેક્નોલોજી.",
+  "People Behind The Platform.": "પ્લેટફોર્મ પાછળની ટીમ.",
   "Speak With an Expert": "નિષ્ણાત સાથે વાત કરો",
+  "Talk To Our Expert": "અમારા નિષ્ણાત સાથે વાત કરો",
+  "Let's Open The Right Door": "યોગ્ય ઉકેલનો માર્ગ ખોલીએ",
+  "Talk To An IDSSPL Expert.": "IDSSPL નિષ્ણાત સાથે વાત કરો.",
+  "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist.":
+    "તમારી સંસ્થા અને તમે ઉકેલવા માંગતા બેન્કિંગ પડકાર વિશે જણાવો. અમારી ટીમ તમને યોગ્ય નિષ્ણાત સાથે જોડશે.",
+  "Your Enquiry Stays Private": "તમારી પૂછપરછ ખાનગી રહે છે",
+  "Your details are used only to understand and respond to this request.":
+    "તમારી વિગતોનો ઉપયોગ માત્ર આ વિનંતીને સમજવા અને જવાબ આપવા માટે થાય છે.",
+  "How should our expert reach you?": "અમારા નિષ્ણાતે તમારો સંપર્ક કેવી રીતે કરવો?",
+  Email: "ઇમેઇલ",
+  "Contact Information": "સંપર્ક માહિતી",
+  "Verified company contact details and office addresses.":
+    "કંપનીની ચકાસાયેલ સંપર્ક વિગતો અને કાર્યાલયના સરનામાં.",
+  Contact: "સંપર્ક",
+  Phone: "ફોન",
+  "Registered Office": "નોંધાયેલ કાર્યાલય",
+  "Corporate Office": "કોર્પોરેટ કાર્યાલય",
+  "11, Gurukrupa, Friends Colony, Kolhapur – 416005 (Maharashtra), India":
+    "11, ગુરુકૃપા, ફ્રેન્ડ્સ કોલોની, કોલ્હાપુર – 416005 (મહારાષ્ટ્ર), ભારત",
+  "Office No. 406, De Elmas, Next to Ginger Hotel, Sonawala Lane, Avenue Sonawala Road, Goregaon (East), Mumbai Suburban, Maharashtra – 400063, India":
+    "ઓફિસ નં. 406, ડી એલ્માસ, જિન્જર હોટેલની બાજુમાં, સોનાવાલા લેન, એવન્યુ સોનાવાલા રોડ, ગોરેગાંવ (પૂર્વ), મુંબઈ ઉપનગર, મહારાષ્ટ્ર – 400063, ભારત",
+  "Phone / SMS": "ફોન / SMS",
+  "Mobile number": "મોબાઇલ નંબર",
+  "What would you like to solve?": "તમે કઈ સમસ્યા ઉકેલવા માંગો છો?",
+  "Tell us about your banking technology requirement":
+    "તમારી બેન્કિંગ ટેક્નોલોજી જરૂરિયાત વિશે જણાવો",
+  "I agree that IDSSPL may contact me about this enquiry.":
+    "આ પૂછપરછ અંગે IDSSPL મારો સંપર્ક કરી શકે તે માટે હું સંમત છું.",
+  "Sending Enquiry...": "પૂછપરછ મોકલાઈ રહી છે...",
+  "Enquiry Sent": "પૂછપરછ મોકલાઈ",
+  "Talk To An Expert": "નિષ્ણાત સાથે વાત કરો",
+  "Thank you. An IDSSPL expert will contact you shortly.":
+    "આભાર. IDSSPL નિષ્ણાત ટૂંક સમયમાં તમારો સંપર્ક કરશે.",
+  "We could not send your enquiry. Please try again.":
+    "તમારી પૂછપરછ મોકલી શકાઈ નથી. કૃપા કરીને ફરી પ્રયત્ન કરો.",
+  "The enquiry form is temporarily unavailable. Please email info@idsspl.com.":
+    "પૂછપરછ ફોર્મ હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને info@idsspl.com પર ઇમેઇલ કરો.",
   "Request Demo": "ડેમોની વિનંતી કરો",
   "Company Brochure": "કંપની બ્રોશર",
+  "Get the IDSSPL brochure": "IDSSPL બ્રોશર મેળવો",
+  "Tell us a little about your organization and what you need. The brochure will download immediately after submission.":
+    "તમારી સંસ્થા અને જરૂરિયાત વિશે અમને ટૂંકમાં જણાવો. ફોર્મ સબમિટ થતાં જ બ્રોશર ડાઉનલોડ થશે.",
+  "Full name": "પૂરું નામ",
+  "Your full name": "તમારું પૂરું નામ",
+  "Organization name": "સંસ્થાનું નામ",
+  "Bank or organization": "બેંક અથવા સંસ્થા",
+  "Work email address": "કાર્યસ્થળનું ઇમેઇલ સરનામું",
+  "What are you looking for?": "તમે કયો ઉકેલ શોધી રહ્યા છો?",
+  "Select a requirement": "જરૂરિયાત પસંદ કરો",
+  "Core & Digital Banking": "કોર અને ડિજિટલ બેન્કિંગ",
+  "UPI, IMPS & Payment Switching": "UPI, IMPS અને પેમેન્ટ સ્વિચિંગ",
+  "Cards & Payment Management": "કાર્ડ અને પેમેન્ટ મેનેજમેન્ટ",
+  "Risk & Compliance": "જોખમ અને અનુપાલન",
+  "Reconciliation & Settlement": "મેળવણી અને સેટલમેન્ટ",
+  "Infrastructure & Security": "ઇન્ફ્રાસ્ટ્રક્ચર અને સુરક્ષા",
+  "AI & Banking Automation": "AI અને બેન્કિંગ ઓટોમેશન",
+  "Other Requirement": "અન્ય જરૂરિયાત",
+  "Tell us more (optional)": "વધુ જણાવો (વૈકલ્પિક)",
+  "Share your current banking technology requirement":
+    "તમારી હાલની બેન્કિંગ ટેક્નોલોજી જરૂરિયાત જણાવો",
+  "I agree that IDSSPL may contact me about relevant banking technology solutions.":
+    "સંબંધિત બેન્કિંગ ટેક્નોલોજી ઉકેલો વિશે IDSSPL મારો સંપર્ક કરી શકે તે માટે હું સંમત છું.",
+  "Your details are private and will only be used to follow up on this enquiry.":
+    "તમારી વિગતો ખાનગી રહેશે અને માત્ર આ પૂછપરછના અનુસંધાન માટે ઉપયોગમાં લેવાશે.",
+  "Submitting...": "સબમિટ થઈ રહ્યું છે...",
+  "Download starting": "ડાઉનલોડ શરૂ થઈ રહ્યું છે",
+  "Submit & Download": "સબમિટ કરો અને ડાઉનલોડ કરો",
+  "Thank you. Your brochure download is starting.": "આભાર. તમારું બ્રોશર ડાઉનલોડ શરૂ થઈ રહ્યું છે.",
+  "We could not start the download. Please try again.":
+    "ડાઉનલોડ શરૂ થઈ શક્યું નથી. કૃપા કરીને ફરી પ્રયત્ન કરો.",
+  "Brochure download is temporarily unavailable. Please contact IDSSPL.":
+    "બ્રોશર ડાઉનલોડ હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને IDSSPL નો સંપર્ક કરો.",
   "Discover The Technology Behind Modern Banking.": "આધુનિક બેન્કિંગ પાછળની ટેક્નોલોજી જાણો.",
   "Explore IDSSPL's AI-driven core banking, intelligent payments, digital infrastructure, products, services, and enterprise capabilities in one concise company overview.":
     "IDSSPL ની AI આધારિત કોર બેન્કિંગ, બુદ્ધિશાળી પેમેન્ટ્સ, ડિજિટલ ઇન્ફ્રાસ્ટ્રક્ચર, ઉત્પાદનો, સેવાઓ અને એન્ટરપ્રાઇઝ ક્ષમતાઓ એક સંક્ષિપ્ત કંપની પરિચયમાં જાણો.",
@@ -18,7 +123,7 @@ export const guTranslations: Record<string, string> = {
   "The People Behind Intelligent Banking.": "બુદ્ધિશાળી બેન્કિંગ પાછળના લોકો.",
   "Functional leaders supported by a multidisciplinary team of banking, engineering, delivery, growth, quality, and design specialists.":
     "બેન્કિંગ, એન્જિનિયરિંગ, ડિલિવરી, વિકાસ, ગુણવત્તા અને ડિઝાઇન નિષ્ણાતોની બહુવિધ ટીમના સહકારથી કાર્યરત નેતાઓ.",
-  "40+ People": "40+ સભ્યો",
+  "50+ People": "50+ સભ્યો",
   "8 Core Functions": "8 મુખ્ય કાર્યક્ષેત્રો",
   "Team Image Ready": "ટીમ તસવીર માટે તૈયાર",
   "Functional Leadership": "કાર્યાત્મક નેતૃત્વ",
@@ -61,7 +166,7 @@ export const guTranslations: Record<string, string> = {
   "Builds strategic partnerships, identifies market opportunities, and aligns solutions with long-term client growth.":
     "વ્યૂહાત્મક ભાગીદારી બનાવે છે, બજારની તકો ઓળખે છે અને ઉકેલોને ગ્રાહકોના લાંબા ગાળાના વિકાસ સાથે જોડે છે.",
   "Meet The Full Team": "સંપૂર્ણ ટીમને મળો",
-  "40+ People. One Team.": "40+ સભ્યો. એક ટીમ.",
+  "50+ People. One Team.": "50+ સભ્યો. એક ટીમ.",
   "Behind every functional lead is a wider team of specialists working together to build, deliver, and support dependable financial technology.":
     "દરેક કાર્ય વડા પાછળ વિશ્વસનીય નાણાકીય ટેક્નોલોજી બનાવવા, પહોંચાડવા અને સહાય કરવા માટે સાથે કામ કરતી નિષ્ણાતોની મોટી ટીમ છે.",
   "Meet Our Full Team": "અમારી સંપૂર્ણ ટીમને મળો",
@@ -72,15 +177,15 @@ export const guTranslations: Record<string, string> = {
   "All Team": "સંપૂર્ણ ટીમ",
   "Operations & Administration": "ઓપરેશન્સ અને વહીવટ",
   "Engineering & AI": "એન્જિનિયરિંગ અને AI",
-  "Design": "ડિઝાઇન",
+  Design: "ડિઝાઇન",
   "Team Profiles": "ટીમ પ્રોફાઇલ્સ",
   "View Team Profile": "ટીમ પ્રોફાઇલ જુઓ",
   "Team Profile": "ટીમ પ્રોફાઇલ",
   "Personal Image Coming Soon": "વ્યક્તિગત તસવીર ટૂંક સમયમાં આવશે",
   "Profile Image Added": "પ્રોફાઇલ તસવીર ઉમેરાઈ",
   "Operations Head": "ઓપરેશન્સ વડા",
-  "Operations": "ઓપરેશન્સ",
-  "Accounts": "હિસાબ",
+  Operations: "ઓપરેશન્સ",
+  Accounts: "હિસાબ",
   "Human Resources": "માનવ સંસાધન",
   "HR & Admin Head": "HR અને વહીવટ વડા",
   "Compliance Security": "અનુપાલન અને સુરક્ષા",
@@ -89,7 +194,7 @@ export const guTranslations: Record<string, string> = {
   "Software Developer": "સોફ્ટવેર ડેવલપર",
   "Software Development": "સોફ્ટવેર ડેવલપમેન્ટ",
   "AI & Automation": "AI અને ઓટોમેશન",
-  "Designer": "ડિઝાઇનર",
+  Designer: "ડિઝાઇનર",
   "Contributes to reliable operations and coordinated delivery across IDSSPL.":
     "IDSSPLમાં વિશ્વસનીય કામગીરી અને સંકલિત ડિલિવરીમાં યોગદાન આપે છે.",
   "Builds and supports secure, scalable financial technology products.":
@@ -101,22 +206,22 @@ export const guTranslations: Record<string, string> = {
   "View more team profiles": "વધુ ટીમ પ્રોફાઇલ્સ જુઓ",
   "Providing reliable and future-ready technology solutions to transform banking, payments, and financial operations.":
     "બેન્કિંગ, ચુકવણી અને નાણાકીય કામગીરીમાં પરિવર્તન લાવવા માટે વિશ્વસનીય અને ભવિષ્યસજ્જ ટેક્નોલોજી ઉકેલો.",
-  "Join": "જોડાઓ",
-  "Company": "કંપની",
-  "Contact": "સંપર્ક",
-  "Services": "સેવાઓ",
+  Join: "જોડાઓ",
+  Company: "કંપની",
+  Contact: "સંપર્ક",
+  Services: "સેવાઓ",
   "Core & Digital Banking Platforms": "કોર અને ડિજિટલ બેન્કિંગ પ્લેટફોર્મ",
   "UPI, IMPS & ATM Switching": "UPI, IMPS અને ATM સ્વિચિંગ",
   "Card & Payment Management": "કાર્ડ અને ચુકવણી વ્યવસ્થાપન",
   "Risk & Compliance Platforms": "જોખમ અને અનુપાલન પ્લેટફોર્મ",
   "Reconciliation & Settlement": "મેળવણી અને સેટલમેન્ટ",
   "Secure Networking & Infrastructure": "સુરક્ષિત નેટવર્કિંગ અને ઇન્ફ્રાસ્ટ્રક્ચર",
-  "Resources": "સંસાધનો",
+  Resources: "સંસાધનો",
   "Product Overview": "ઉત્પાદન ઝાંખી",
   "Case Studies": "કેસ સ્ટડીઝ",
-  "Documentation": "દસ્તાવેજીકરણ",
-  "Support": "સહાય",
-  "Policies": "નીતિઓ",
+  Documentation: "દસ્તાવેજીકરણ",
+  Support: "સહાય",
+  Policies: "નીતિઓ",
   "Privacy Policy": "ગોપનીયતા નીતિ",
   "Terms & Conditions": "નિયમો અને શરતો",
   "© 2026 IDSSPL Technologies Private Limited. All rights reserved.":

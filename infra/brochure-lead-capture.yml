@@ -1,0 +1,227 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Secure lead capture for the IDSSPL brochure download form.
+
+Parameters:
+  AllowedOrigin:
+    Type: String
+    Default: https://d1aobasss0elb9.cloudfront.net
+    Description: The exact website origin allowed to submit brochure leads.
+
+  LeadTableName:
+    Type: String
+    Default: idsspl-brochure-leads
+    Description: Private DynamoDB table that stores brochure enquiries.
+
+Resources:
+  BrochureLeadTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      TableName: !Ref LeadTableName
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+      AttributeDefinitions:
+        - AttributeName: leadId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: leadId
+          KeyType: HASH
+      Tags:
+        - Key: Project
+          Value: IDSSPL Website
+        - Key: DataClassification
+          Value: Customer Enquiry
+
+  BrochureLeadRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: WriteBrochureLeadsAndLogs
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+              - Effect: Allow
+                Action: dynamodb:PutItem
+                Resource: !GetAtt BrochureLeadTable.Arn
+
+  BrochureLeadFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: idsspl-brochure-lead-api
+      Description: Validates and stores IDSSPL brochure download enquiries.
+      Runtime: python3.13
+      Handler: index.handler
+      Role: !GetAtt BrochureLeadRole.Arn
+      MemorySize: 128
+      Timeout: 6
+      ReservedConcurrentExecutions: 4
+      Environment:
+        Variables:
+          LEAD_TABLE: !Ref BrochureLeadTable
+          ALLOWED_ORIGIN: !Ref AllowedOrigin
+      Code:
+        ZipFile: |
+          import json
+          import os
+          import re
+          import uuid
+          from datetime import datetime, timezone
+
+          import boto3
+
+          table = boto3.resource("dynamodb").Table(os.environ["LEAD_TABLE"])
+          allowed_origin = os.environ["ALLOWED_ORIGIN"].rstrip("/")
+          email_pattern = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+          phone_pattern = re.compile(r"^[0-9+()\-\s]{8,20}$")
+          allowed_needs = {
+              "Core & Digital Banking",
+              "UPI, IMPS & Payment Switching",
+              "Cards & Payment Management",
+              "Risk & Compliance",
+              "Reconciliation & Settlement",
+              "Infrastructure & Security",
+              "AI & Banking Automation",
+              "Other Requirement",
+          }
+
+          def response(status_code, message=None):
+              payload = {"message": message} if message else {}
+              return {
+                  "statusCode": status_code,
+                  "headers": {"content-type": "application/json"},
+                  "body": json.dumps(payload),
+              }
+
+          def clean(value, maximum):
+              if not isinstance(value, str):
+                  return ""
+              return " ".join(value.strip().split())[:maximum]
+
+          def handler(event, context):
+              del context
+              request = event.get("requestContext", {}).get("http", {})
+              if request.get("method") != "POST":
+                  return response(405, "Method not allowed")
+
+              headers = {str(key).lower(): value for key, value in (event.get("headers") or {}).items()}
+              if str(headers.get("origin", "")).rstrip("/") != allowed_origin:
+                  return response(403, "Origin not allowed")
+
+              try:
+                  body = json.loads(event.get("body") or "{}")
+              except (TypeError, json.JSONDecodeError):
+                  return response(400, "Invalid request")
+
+              # A filled hidden field indicates automated form spam. Return success
+              # without storing it so bots do not learn how the trap works.
+              if clean(body.get("website"), 200):
+                  return response(204)
+
+              name = clean(body.get("name"), 120)
+              organization = clean(body.get("organization"), 160)
+              email = clean(body.get("email"), 254).lower()
+              source_path = clean(body.get("sourcePath"), 200) or "/"
+              language = clean(body.get("language"), 10) or "en"
+              event_type = clean(body.get("eventType"), 40) or "brochure_download_requested"
+              consent = body.get("consent") is True
+
+              if not name or not organization or not email_pattern.fullmatch(email) or not consent:
+                  return response(400, "Please provide valid contact details")
+
+              submitted_at = datetime.now(timezone.utc).isoformat(timespec="milliseconds")
+              lead_id = f"{submitted_at}#{uuid.uuid4()}"
+              item = {
+                  "leadId": lead_id,
+                  "submittedAt": submitted_at,
+                  "name": name,
+                  "organization": organization,
+                  "email": email,
+                  "sourcePath": source_path,
+                  "language": language,
+                  "consent": consent,
+              }
+
+              if event_type == "expert_enquiry":
+                  contact_preference = clean(body.get("contactPreference"), 12)
+                  mobile = clean(body.get("mobile"), 20)
+                  message = clean(body.get("message"), 1200)
+                  if contact_preference not in {"email", "sms"}:
+                      return response(400, "Please select a contact preference")
+                  if not phone_pattern.fullmatch(mobile) or len(message) < 10:
+                      return response(400, "Please provide a valid mobile number and enquiry")
+                  item.update({
+                      "event": "expert_enquiry",
+                      "contactPreference": contact_preference,
+                      "mobile": mobile,
+                      "message": message,
+                  })
+              elif event_type == "brochure_download_requested":
+                  need = clean(body.get("need"), 80)
+                  notes = clean(body.get("notes"), 800)
+                  if need not in allowed_needs:
+                      return response(400, "Please select a requirement")
+                  item.update({
+                      "event": "brochure_download_requested",
+                      "need": need,
+                      "notes": notes,
+                  })
+              else:
+                  return response(400, "Unsupported enquiry type")
+
+              table.put_item(Item=item, ConditionExpression="attribute_not_exists(leadId)")
+              return response(201, "Lead captured")
+
+  BrochureLeadFunctionUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      TargetFunctionArn: !GetAtt BrochureLeadFunction.Arn
+      AuthType: NONE
+      InvokeMode: BUFFERED
+      Cors:
+        AllowOrigins:
+          - !Ref AllowedOrigin
+        AllowMethods:
+          - POST
+        AllowHeaders:
+          - content-type
+        MaxAge: 3600
+
+  PublicInvokeUrlPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt BrochureLeadFunction.Arn
+      Action: lambda:InvokeFunctionUrl
+      Principal: "*"
+      FunctionUrlAuthType: NONE
+
+  PublicInvokeFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt BrochureLeadFunction.Arn
+      Action: lambda:InvokeFunction
+      Principal: "*"
+      InvokedViaFunctionUrl: true
+
+Outputs:
+  LeadEndpoint:
+    Description: Set this value as VITE_BROCHURE_LEAD_ENDPOINT when building the website.
+    Value: !GetAtt BrochureLeadFunctionUrl.FunctionUrl
+
+  LeadTable:
+    Description: Private table containing brochure leads and download-request count.
+    Value: !Ref BrochureLeadTable
