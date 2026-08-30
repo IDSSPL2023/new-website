@@ -17,6 +17,7 @@ permissions:
 env:
   AWS_REGION: ap-south-1
   S3_BUCKET: idsspl-new-website-2026
+  CLOUDFRONT_DISTRIBUTION_ID: E36Z9W9XL69U9M
 
 jobs:
   deploy:
@@ -66,3 +67,9 @@ jobs:
           --include "*.html"
           --cache-control "no-cache,no-store,must-revalidate"
           --content-type "text/html; charset=utf-8"
+
+      - name: Invalidate CloudFront cache
+        run: >-
+          aws cloudfront create-invalidation
+          --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}"
+          --paths "/*"

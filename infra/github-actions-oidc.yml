@@ -69,6 +69,10 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                 Resource: arn:aws:s3:::idsspl-new-website-2026/*
+              - Sid: InvalidateCloudFrontDistribution
+                Effect: Allow
+                Action: cloudfront:CreateInvalidation
+                Resource: !Sub arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/E36Z9W9XL69U9M
       Tags:
         - Key: ManagedBy
           Value: CloudFormation
