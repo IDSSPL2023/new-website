@@ -15,7 +15,9 @@ import {
   UserRound,
 } from "lucide-react";
 
-const leadEndpoint = import.meta.env.VITE_BROCHURE_LEAD_ENDPOINT?.trim();
+const leadEndpoint = (
+  import.meta.env.VITE_LEAD_ENDPOINT ?? import.meta.env.VITE_BROCHURE_LEAD_ENDPOINT
+)?.trim();
 
 type EnquiryForm = {
   contactPreference: "email" | "sms";

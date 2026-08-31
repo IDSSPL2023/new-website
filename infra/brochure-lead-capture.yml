@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Secure lead capture for the IDSSPL brochure download form.
+Description: Secure lead capture, storage, and email notifications for IDSSPL website enquiries.
 
 Parameters:
   AllowedOrigin:
@@ -11,6 +11,16 @@ Parameters:
     Type: String
     Default: idsspl-brochure-leads
     Description: Private DynamoDB table that stores brochure enquiries.
+
+  NotificationEmail:
+    Type: String
+    Default: info@idsspl.com
+    Description: Mailbox that receives website contact and brochure leads.
+
+  SenderEmail:
+    Type: String
+    Default: info@idsspl.com
+    Description: Verified Amazon SES identity used to send lead notifications.
 
 Resources:
   BrochureLeadTable:
@@ -58,12 +68,18 @@ Resources:
               - Effect: Allow
                 Action: dynamodb:PutItem
                 Resource: !GetAtt BrochureLeadTable.Arn
+              - Effect: Allow
+                Action: ses:SendEmail
+                Resource: "*"
+                Condition:
+                  StringEquals:
+                    ses:FromAddress: !Ref SenderEmail
 
   BrochureLeadFunction:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: idsspl-brochure-lead-api
-      Description: Validates and stores IDSSPL brochure download enquiries.
+      Description: Validates, stores, and emails IDSSPL expert enquiries and brochure leads.
       Runtime: python3.13
       Handler: index.handler
       Role: !GetAtt BrochureLeadRole.Arn
@@ -74,28 +90,37 @@ Resources:
         Variables:
           LEAD_TABLE: !Ref BrochureLeadTable
           ALLOWED_ORIGIN: !Ref AllowedOrigin
+          NOTIFICATION_EMAIL: !Ref NotificationEmail
+          SENDER_EMAIL: !Ref SenderEmail
       Code:
         ZipFile: |
+          import html
           import json
+          import logging
           import os
           import re
           import uuid
           from datetime import datetime, timezone
+          from urllib.parse import quote
 
           import boto3
 
           table = boto3.resource("dynamodb").Table(os.environ["LEAD_TABLE"])
+          ses = boto3.client("sesv2")
           allowed_origin = os.environ["ALLOWED_ORIGIN"].rstrip("/")
+          notification_email = os.environ["NOTIFICATION_EMAIL"]
+          sender_email = os.environ["SENDER_EMAIL"]
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
           email_pattern = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
           phone_pattern = re.compile(r"^[0-9+()\-\s]{8,20}$")
           allowed_needs = {
-              "Core & Digital Banking",
-              "UPI, IMPS & Payment Switching",
-              "Cards & Payment Management",
-              "Risk & Compliance",
-              "Reconciliation & Settlement",
-              "Infrastructure & Security",
-              "AI & Banking Automation",
+              "Next Gen AI Core Banking Solution",
+              "NPCI Products",
+              "Digital Banking Products",
+              "Enterprise Solution",
+              "Merchant Management Solution",
+              "Card Management",
               "Other Requirement",
           }
 
@@ -111,6 +136,130 @@ Resources:
               if not isinstance(value, str):
                   return ""
               return " ".join(value.strip().split())[:maximum]
+
+          def safe(value):
+              return html.escape(str(value or "—"), quote=True)
+
+          def detail_row(label, value):
+              return f"""
+                <tr>
+                  <td style="padding:10px 0;border-bottom:1px solid #dbe6f0;color:#60748a;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;width:34%;vertical-align:top;">{safe(label)}</td>
+                  <td style="padding:10px 0;border-bottom:1px solid #dbe6f0;color:#0a1a2b;font-size:14px;font-weight:600;vertical-align:top;">{safe(value)}</td>
+                </tr>
+              """
+
+          def build_notification(item):
+              is_expert = item["event"] == "expert_enquiry"
+              lead_label = "Expert Enquiry" if is_expert else "Brochure Download"
+              accent = "#16c7f3" if is_expert else "#5b8cff"
+              subject_prefix = "New Expert Enquiry" if is_expert else "New Brochure Lead"
+              subject_detail = item.get("message", "")[:54] if is_expert else item.get("need", "")
+              subject = f"[IDSSPL] {subject_prefix} — {item['organization']} — {item['name']}"
+
+              rows = [
+                  detail_row("Name", item["name"]),
+                  detail_row("Organization", item["organization"]),
+                  detail_row("Email", item["email"]),
+              ]
+              if is_expert:
+                  rows.extend([
+                      detail_row("Mobile", item.get("mobile")),
+                      detail_row("Preferred Contact", item.get("contactPreference", "").title()),
+                  ])
+                  request_label = "Banking Technology Requirement"
+                  request_text = item.get("message")
+              else:
+                  rows.append(detail_row("Requirement", item.get("need")))
+                  request_label = "Additional Notes"
+                  request_text = item.get("notes") or "No additional notes provided."
+
+              rows.extend([
+                  detail_row("Source Page", item.get("sourcePath")),
+                  detail_row("Language", item.get("language", "en").upper()),
+                  detail_row("Submitted", item.get("submittedAt")),
+              ])
+
+              reply_href = f"mailto:{quote(item['email'])}?subject={quote('Re: Your IDSSPL enquiry')}"
+              phone_href = ""
+              if is_expert and item.get("mobile"):
+                  phone_href = f'<a href="tel:{quote(item["mobile"])}" style="display:inline-block;margin-left:8px;padding:12px 18px;border:1px solid #b9ccdc;border-radius:8px;color:#15334c;font-size:13px;font-weight:700;text-decoration:none;">Call Lead</a>'
+
+              html_body = f"""<!doctype html>
+              <html lang="en">
+                <body style="margin:0;background:#eef4f8;font-family:Arial,Helvetica,sans-serif;color:#0a1a2b;">
+                  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">{safe(lead_label)} from {safe(item['name'])} at {safe(item['organization'])}: {safe(subject_detail)}</div>
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef4f8;padding:28px 12px;">
+                    <tr><td align="center">
+                      <table role="presentation" width="640" cellspacing="0" cellpadding="0" style="width:100%;max-width:640px;background:#ffffff;border:1px solid #d8e4ee;border-radius:18px;overflow:hidden;box-shadow:0 18px 45px rgba(12,43,68,.12);">
+                        <tr>
+                          <td style="padding:26px 30px;background:linear-gradient(135deg,#05111f,#0a2d48);">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr>
+                              <td><strong style="color:#ffffff;font-size:21px;letter-spacing:.08em;">IDSSPL</strong><div style="margin-top:5px;color:#91a9bd;font-size:11px;letter-spacing:.12em;text-transform:uppercase;">Website Lead Notification</div></td>
+                              <td align="right"><span style="display:inline-block;padding:7px 11px;border:1px solid {accent};border-radius:999px;color:{accent};font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;">{safe(lead_label)}</span></td>
+                            </tr></table>
+                          </td>
+                        </tr>
+                        <tr><td style="padding:30px;">
+                          <div style="color:#60748a;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;">A new lead is ready for follow-up</div>
+                          <h1 style="margin:10px 0 8px;color:#071b2f;font-size:27px;line-height:1.2;letter-spacing:-.02em;">{safe(item['name'])}</h1>
+                          <p style="margin:0 0 22px;color:#60748a;font-size:14px;line-height:1.6;">{safe(item['organization'])} submitted a {safe(lead_label.lower())} request through the IDSSPL website.</p>
+                          <table role="presentation" width="100%" cellspacing="0" cellpadding="0">{''.join(rows)}</table>
+                          <div style="margin-top:24px;padding:18px;border-left:4px solid {accent};border-radius:8px;background:#f4f8fb;">
+                            <div style="margin-bottom:8px;color:#60748a;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;">{safe(request_label)}</div>
+                            <div style="color:#15334c;font-size:14px;line-height:1.7;white-space:pre-wrap;">{safe(request_text)}</div>
+                          </div>
+                          <div style="margin-top:26px;">
+                            <a href="{reply_href}" style="display:inline-block;padding:13px 20px;border-radius:8px;background:#0bbbea;color:#001421;font-size:13px;font-weight:800;text-decoration:none;">Reply To Lead</a>
+                            {phone_href}
+                          </div>
+                        </td></tr>
+                        <tr><td style="padding:18px 30px;border-top:1px solid #dbe6f0;background:#f8fbfd;color:#7b8fa1;font-size:11px;line-height:1.6;">This message was generated securely by the IDSSPL website. The lead consented to follow-up about relevant banking technology solutions.</td></tr>
+                      </table>
+                    </td></tr>
+                  </table>
+                </body>
+              </html>"""
+
+              text_lines = [
+                  f"IDSSPL WEBSITE LEAD — {lead_label.upper()}",
+                  "",
+                  f"Name: {item['name']}",
+                  f"Organization: {item['organization']}",
+                  f"Email: {item['email']}",
+              ]
+              if is_expert:
+                  text_lines.extend([
+                      f"Mobile: {item.get('mobile', '')}",
+                      f"Preferred contact: {item.get('contactPreference', '').title()}",
+                  ])
+              else:
+                  text_lines.append(f"Requirement: {item.get('need', '')}")
+              text_lines.extend([
+                  "",
+                  f"{request_label}: {request_text}",
+                  "",
+                  f"Source page: {item.get('sourcePath', '/')}",
+                  f"Language: {item.get('language', 'en').upper()}",
+                  f"Submitted: {item.get('submittedAt', '')}",
+              ])
+              return subject, html_body, "\n".join(text_lines)
+
+          def send_notification(item):
+              subject, html_body, text_body = build_notification(item)
+              ses.send_email(
+                  FromEmailAddress=sender_email,
+                  Destination={"ToAddresses": [notification_email]},
+                  ReplyToAddresses=[item["email"]],
+                  Content={
+                      "Simple": {
+                          "Subject": {"Data": subject, "Charset": "UTF-8"},
+                          "Body": {
+                              "Html": {"Data": html_body, "Charset": "UTF-8"},
+                              "Text": {"Data": text_body, "Charset": "UTF-8"},
+                          },
+                      }
+                  },
+              )
 
           def handler(event, context):
               del context
@@ -184,6 +333,11 @@ Resources:
                   return response(400, "Unsupported enquiry type")
 
               table.put_item(Item=item, ConditionExpression="attribute_not_exists(leadId)")
+              try:
+                  send_notification(item)
+              except Exception:
+                  # The lead remains safely stored in DynamoDB even if SES is temporarily unavailable.
+                  logger.exception("Lead captured but email notification failed", extra={"leadId": lead_id})
               return response(201, "Lead captured")
 
   BrochureLeadFunctionUrl:
@@ -219,7 +373,7 @@ Resources:
 
 Outputs:
   LeadEndpoint:
-    Description: Set this value as VITE_BROCHURE_LEAD_ENDPOINT when building the website.
+    Description: Set this value as the GitHub production variable VITE_LEAD_ENDPOINT.
     Value: !GetAtt BrochureLeadFunctionUrl.FunctionUrl
 
   LeadTable:

@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/dialog";
 
 const brochureUrl = "/downloads/IDSSPL-Brochure.pdf";
-const leadEndpoint = import.meta.env.VITE_BROCHURE_LEAD_ENDPOINT?.trim();
+const leadEndpoint = (
+  import.meta.env.VITE_LEAD_ENDPOINT ?? import.meta.env.VITE_BROCHURE_LEAD_ENDPOINT
+)?.trim();
 
 type LeadForm = {
   name: string;
