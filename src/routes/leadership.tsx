@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Leadership } from "@/components/site/Leadership";
-import { FinalCta } from "@/components/site/FinalCta";
 import { SitePage } from "@/components/site/SitePage";
 
 export const Route = createFileRoute("/leadership")({
@@ -37,7 +36,6 @@ function LeadershipPage() {
   return (
     <SitePage>
       <Leadership />
-      <FinalCta />
     </SitePage>
   );
 }

@@ -15,6 +15,10 @@ import type { CSSProperties } from "react";
 
 import arunGawasImg from "@/assets/arun-gawas.png";
 import cgoProfileImg from "@/assets/cgo-profile.png";
+import krishnaTelgaveImg from "@/assets/krishna-telgave-cutout-card.png";
+import maheshWaingankarImg from "@/assets/mahesh-waingankar-cutout-card.png";
+import omkarBhagwatImg from "@/assets/omkar-bhagwat-cutout-card.png";
+import sujaNairImg from "@/assets/suja-nair-cutout-card-v3.png";
 import vinayakImg from "@/assets/vinayak-more.jpg";
 import vishalImg from "@/assets/vishal-singh.jpg";
 import surajImg from "@/assets/suraj-pathak.jpg";
@@ -23,6 +27,7 @@ import { Reveal } from "./Reveal";
 
 const leaders = [
   {
+    id: "vinayak-more",
     name: "Vinayak More",
     role: "Associate Director & CEO",
     focus: "Banking & Strategy Leader",
@@ -35,6 +40,7 @@ const leaders = [
     bio: "With deep expertise across Core Banking, Digital Banking, UPI issuing and acquiring, ATM, POS, AePS, merchant management, and digital payments, he leads IDSSPL's strategy for secure, scalable, and future-ready banking solutions.",
   },
   {
+    id: "vishal-singh",
     name: "Vishal Singh",
     role: "Director — Sales & Growth",
     focus: "Sales & Growth Strategist",
@@ -47,6 +53,7 @@ const leaders = [
     bio: "With a strong understanding of the fintech and banking landscape, he identifies new opportunities, expands market presence, and aligns every solution with client goals and long-term business success.",
   },
   {
+    id: "suraj-pathak",
     name: "Suraj Pathak",
     role: "Director — Operations",
     focus: "Operations Excellence Leader",
@@ -62,22 +69,29 @@ const leaders = [
 
 const chiefOfficers = [
   {
+    id: "cto",
     role: "Chief Technology Officer",
     abbreviation: "CTO",
     functionName: "Technology Strategy & Engineering",
     name: "Krishna Telgave",
+    photo: krishnaTelgaveImg,
+    photoAlt: "Krishna Telgave, Chief Technology Officer at IDSSPL",
     accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     bio: "Guides the technology vision, architecture standards, engineering excellence, and secure platform strategy behind IDSSPL's banking solutions.",
   },
   {
+    id: "cmo",
     role: "Chief Marketing Officer",
     abbreviation: "CMO",
     functionName: "Brand, Market & Growth",
     name: "Mahesh Waingankar",
+    photo: maheshWaingankarImg,
+    photoAlt: "Mahesh Waingankar, Chief Marketing Officer at IDSSPL",
     accent: { start: "#6536c9", end: "#c45cff", glow: "#c084fc" },
     bio: "Shapes the brand, market strategy, communication, and growth direction that connects IDSSPL with financial institutions and partners.",
   },
   {
+    id: "avp-cbs",
     role: "AVP-Technology (CBS)",
     abbreviation: "AVP CBS",
     functionName: "Core Banking Solutions",
@@ -88,6 +102,7 @@ const chiefOfficers = [
     bio: "Leads the Core Banking Solutions portfolio, aligning banking-domain expertise, product strategy, implementation quality, and long-term customer outcomes.",
   },
   {
+    id: "cgto",
     role: "Chief Growth & Technology Officer",
     abbreviation: "CGTO",
     functionName: "Growth, Technology & Partnerships",
@@ -98,18 +113,24 @@ const chiefOfficers = [
     bio: "Leads sustainable business growth, technology direction, strategic partnerships, market expansion, and revenue initiatives that strengthen IDSSPL's long-term impact.",
   },
   {
-    role: "Sr. Compliance Officer",
-    abbreviation: "SCO",
-    functionName: "Compliance, Security & Governance",
+    id: "ciso",
+    role: "Chief Information Security Officer",
+    abbreviation: "CISO",
+    functionName: "Cybersecurity, Risk & Governance",
     name: "Omkar Bhagwat",
+    photo: omkarBhagwatImg,
+    photoAlt: "Omkar Bhagwat, Chief Information Security Officer at IDSSPL",
     accent: { start: "#075f8f", end: "#30d6f2", glow: "#22d3ee" },
     bio: "Defines the enterprise security vision, cyber-risk governance, compliance standards, and resilient controls that protect customer data and critical banking systems.",
   },
   {
+    id: "hr-admin",
     role: "Manager - HR & Admin",
     abbreviation: "HR & ADMIN",
     functionName: "People, Culture & Administration",
     name: "Suja Nair",
+    photo: sujaNairImg,
+    photoAlt: "Suja Nair, Manager - HR & Admin at IDSSPL",
     accent: { start: "#3157b8", end: "#68a7ff", glow: "#60a5fa" },
     bio: "Builds a high-performing people culture through thoughtful talent acquisition, employee development, engagement, and dependable human-resource operations.",
   },
@@ -165,7 +186,7 @@ export function Leadership() {
         <div className="leadership-card-grid mt-10 md:mt-14">
           {leaders.map((leader, index) => (
             <Reveal key={leader.name} delay={120 + index * 90} className="h-full">
-              <article className="leadership-card group">
+              <article className="leadership-card group" data-leader-id={leader.id}>
                 <div className="leadership-portrait">
                   <img
                     src={leader.photo}
@@ -241,7 +262,7 @@ export function Leadership() {
 
               return (
                 <Reveal key={chief.abbreviation} delay={140 + index * 90} className="h-full">
-                  <article className="chief-card" style={chiefStyle}>
+                  <article className="chief-card" data-chief-id={chief.id} style={chiefStyle}>
                     <div className="chief-card-visual">
                       {chief.photo ? (
                         <img

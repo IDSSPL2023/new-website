@@ -8,7 +8,6 @@ import {
   Code2,
   Database,
   Gauge,
-  Image as ImageIcon,
   Palette,
   RotateCcw,
   Smartphone,
@@ -18,7 +17,14 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
+import devendraPhoto from "@/assets/devendra-sawant-cutout-card-v2.png";
+import abhishekPhoto from "@/assets/abhishek-chowghale-cutout-card.png";
+import chetanPhoto from "@/assets/chetan-patil-cutout-card.png";
+import jitendraPhoto from "@/assets/jitendra-shirguppe-cutout-card.png";
+import manojPhoto from "@/assets/manoj-shinde-cutout-card.png";
+import nehaPhoto from "@/assets/neha-singh-cutout-card-v2.png";
 import prathameshPhoto from "@/assets/prathamesh-phadatare-cutout.png";
+import sanjayPhoto from "@/assets/sanjay-cutout-card.png";
 
 import { Reveal } from "./Reveal";
 
@@ -60,6 +66,7 @@ const functionLeads: FunctionLead[] = [
     monogram: "NS",
     icon: Code2,
     accent: { start: "#2578ff", end: "#55d6ff", glow: "#38bdf8" },
+    photo: nehaPhoto,
   },
   {
     id: "operations-lead",
@@ -71,6 +78,7 @@ const functionLeads: FunctionLead[] = [
     monogram: "DS",
     icon: Workflow,
     accent: { start: "#6455ff", end: "#b26dff", glow: "#a78bfa" },
+    photo: devendraPhoto,
   },
   {
     id: "backend-engineering-lead",
@@ -82,6 +90,7 @@ const functionLeads: FunctionLead[] = [
     monogram: "AC",
     icon: Boxes,
     accent: { start: "#007f89", end: "#35d7c5", glow: "#2dd4bf" },
+    photo: abhishekPhoto,
   },
   {
     id: "ai-automation-lead",
@@ -93,6 +102,7 @@ const functionLeads: FunctionLead[] = [
     monogram: "CP",
     icon: Sparkles,
     accent: { start: "#ff6531", end: "#ffb347", glow: "#fb923c" },
+    photo: chetanPhoto,
   },
   {
     id: "ui-ux-design-lead",
@@ -110,34 +120,37 @@ const functionLeads: FunctionLead[] = [
     id: "database-engineering-lead",
     functionName: "Data Architecture",
     role: "Database Engineering Lead",
-    name: "Mangesh",
+    name: "Manoj Shinde",
     summary:
       "Leads database architecture, performance optimization, data integrity, and resilient storage practices across critical platforms.",
-    monogram: "M",
+    monogram: "MS",
     icon: Database,
     accent: { start: "#2668d8", end: "#54b8ff", glow: "#60a5fa" },
+    photo: manojPhoto,
   },
   {
     id: "flutter-application-developer",
     functionName: "Mobile Engineering",
     role: "Flutter Application Developer",
-    name: "Sanjay",
+    name: "Sanjay Janghid",
     summary:
       "Builds reliable cross-platform mobile applications with Flutter, translating product requirements into responsive and consistent user experiences.",
-    monogram: "S",
+    monogram: "SJ",
     icon: Smartphone,
     accent: { start: "#0f9275", end: "#54df9d", glow: "#34d399" },
+    photo: sanjayPhoto,
   },
   {
     id: "software-development-lead",
     functionName: "Software Engineering",
     role: "Software Development Lead",
-    name: "Jitendra",
+    name: "Jitendra Shirguppe",
     summary:
       "Leads day-to-day software development, engineering coordination, code quality, and dependable delivery across product initiatives.",
-    monogram: "J",
+    monogram: "JS",
     icon: Code2,
     accent: { start: "#006ec7", end: "#26d2e8", glow: "#22d3ee" },
+    photo: jitendraPhoto,
   },
 ];
 
@@ -293,30 +306,73 @@ const getMonogram = (name: string) =>
     .slice(0, 2)
     .toUpperCase();
 
+function PersonName({ name }: { name: string }) {
+  const [firstName, ...surnameParts] = name.trim().split(/\s+/);
+  const surname = surnameParts.join(" ");
+
+  return (
+    <>
+      <span className="block" aria-hidden="true">
+        {firstName}
+      </span>
+      {surname ? (
+        <span className="block" aria-hidden="true">
+          {surname}
+        </span>
+      ) : null}
+    </>
+  );
+}
+
 function TeamHeroVisual() {
   return (
-    <div className="team-hero-visual" aria-label="Reserved area for the IDSSPL team photograph">
+    <div
+      className="team-hero-visual"
+      aria-label="One connected IDSSPL team turning ideas into secure, dependable banking technology"
+    >
       <div className="team-hero-grid" aria-hidden="true" />
       <div className="team-hero-orbit" aria-hidden="true" />
-      <div className="relative z-10 grid h-full grid-cols-6 grid-rows-6 gap-3 p-5 sm:p-8">
-        {functionLeads.slice(0, 5).map((lead, index) => (
-          <div
-            key={lead.id}
-            className={`team-hero-person team-hero-person-${index + 1}`}
-            style={
-              {
-                "--team-start": lead.accent.start,
-                "--team-end": lead.accent.end,
-                "--team-glow": lead.accent.glow,
-              } as CSSProperties
-            }
-          >
-            <span>{lead.monogram}</span>
-          </div>
-        ))}
-        <div className="team-hero-label">
-          <ImageIcon aria-hidden="true" size={16} />
-          <span>Team Image Ready</span>
+      <div className="team-hero-scan" aria-hidden="true" />
+
+      <div className="team-hero-system" aria-hidden="true">
+        <svg className="team-hero-links" viewBox="0 0 720 420" preserveAspectRatio="none">
+          <path d="M132 84 C236 84 248 174 360 210" pathLength="1" />
+          <path d="M588 84 C484 84 472 174 360 210" pathLength="1" />
+          <path d="M132 334 C236 334 248 246 360 210" pathLength="1" />
+          <path d="M588 334 C484 334 472 246 360 210" pathLength="1" />
+        </svg>
+
+        <div className="team-hero-core">
+          <span>IDSSPL Collective</span>
+          <strong>One Team</strong>
+          <small>Connected By Purpose</small>
+        </div>
+
+        <div className="team-hero-node team-hero-node-1">
+          <i />
+          <strong>Imagine</strong>
+          <span>Ideas Into Clarity</span>
+        </div>
+        <div className="team-hero-node team-hero-node-2">
+          <i />
+          <strong>Engineer</strong>
+          <span>Built To Perform</span>
+        </div>
+        <div className="team-hero-node team-hero-node-3">
+          <i />
+          <strong>Secure</strong>
+          <span>Trust By Design</span>
+        </div>
+        <div className="team-hero-node team-hero-node-4">
+          <i />
+          <strong>Deliver</strong>
+          <span>Impact At Scale</span>
+        </div>
+
+        <div className="team-hero-story">
+          <span>Human Expertise</span>
+          <i aria-hidden="true" />
+          <span>Connected Delivery</span>
         </div>
       </div>
     </div>
@@ -336,7 +392,11 @@ function FunctionLeadCard({
   const frontMode = lead.photo ? " has-photo" : "";
 
   return (
-    <article className={`function-lead-card${frontMode}`} style={cardStyle(lead)}>
+    <article
+      className={`function-lead-card${frontMode}`}
+      data-lead-id={lead.id}
+      style={cardStyle(lead)}
+    >
       <div className={`function-lead-inner${flipped ? " is-flipped" : ""}`}>
         <button
           type="button"
@@ -356,8 +416,11 @@ function FunctionLeadCard({
           ) : null}
           <span className="function-lead-copy mt-auto block">
             <span className="function-lead-function">{lead.functionName}</span>
-            <strong className="function-lead-person-name mt-3 block text-[1.55rem] font-semibold leading-tight tracking-[-0.035em] text-foreground">
-              {displayName}
+            <strong
+              className="function-lead-person-name mt-3 block text-[1.55rem] font-semibold leading-tight tracking-[-0.035em] text-foreground"
+              aria-label={displayName}
+            >
+              <PersonName name={displayName} />
             </strong>
             <span className="function-lead-designation mt-2 block text-[13px] font-medium leading-snug text-muted-foreground">
               {lead.role}
@@ -380,8 +443,11 @@ function FunctionLeadCard({
           </button>
           <div>
             <span className="function-lead-function">{lead.functionName}</span>
-            <h3 className="mt-4 max-w-[14ch] text-2xl font-semibold leading-tight text-foreground">
-              {displayName}
+            <h3
+              className="mt-4 max-w-[14ch] text-2xl font-semibold leading-tight text-foreground"
+              aria-label={displayName}
+            >
+              <PersonName name={displayName} />
             </h3>
             <p className="mt-2 text-[12px] text-muted-foreground">{lead.role}</p>
           </div>
@@ -434,8 +500,11 @@ function TeamMemberCard({
           </span>
           <span className="team-card-copy mt-auto block">
             <span className="team-card-group">{member.group}</span>
-            <strong className="team-card-person-name mt-3 block text-[1.55rem] font-semibold leading-tight tracking-[-0.035em] text-white">
-              {member.name}
+            <strong
+              className="team-card-person-name mt-3 block text-[1.55rem] font-semibold leading-tight tracking-[-0.035em] text-white"
+              aria-label={member.name}
+            >
+              <PersonName name={member.name} />
             </strong>
             <span className="team-card-designation mt-2 block text-[12px] leading-snug text-white/62">
               {member.role}
@@ -458,8 +527,11 @@ function TeamMemberCard({
           </button>
           <div>
             <span className="team-card-group">Team Profile</span>
-            <h3 className="mt-5 max-w-[12ch] text-2xl font-semibold leading-tight text-white">
-              {member.name}
+            <h3
+              className="mt-5 max-w-[12ch] text-2xl font-semibold leading-tight text-white"
+              aria-label={member.name}
+            >
+              <PersonName name={member.name} />
             </h3>
             <p className="mt-2 text-[12px] text-white/62">{member.role}</p>
           </div>

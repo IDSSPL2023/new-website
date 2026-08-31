@@ -4,8 +4,8 @@ import { InteriorHero } from "@/components/site/InteriorHero";
 import { TechApproach } from "@/components/site/TechApproach";
 import { Certifications } from "@/components/site/Certifications";
 import { Faq } from "@/components/site/Faq";
-import { FinalCta } from "@/components/site/FinalCta";
 import { SitePage } from "@/components/site/SitePage";
+import aboutLogoReveal from "@/assets/about-logo-reveal.mp4";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -56,12 +56,13 @@ function AboutPage() {
         eyebrow="About IDSSPL"
         title="Technology Built For Modern Banking."
         body="IDSSPL designs secure banking platforms and digital financial infrastructure that help banks, fintech companies, and financial institutions modernize operations, connect payment ecosystems, and grow with confidence."
+        video={aboutLogoReveal}
+        videoLabel="Animated IDSSPL logo reveal"
       />
       <AboutCompany />
       <TechApproach />
       <Certifications />
       <Faq />
-      <FinalCta />
     </SitePage>
   );
 }

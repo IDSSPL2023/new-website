@@ -6,7 +6,6 @@ import { AILayer } from "@/components/site/AILayer";
 import { CertificateTrust } from "@/components/site/CertificateTrust";
 import { Testimonials } from "@/components/site/Testimonials";
 import { Faq } from "@/components/site/Faq";
-import { FinalCta } from "@/components/site/FinalCta";
 import { SitePage } from "@/components/site/SitePage";
 
 export const Route = createFileRoute("/")({
@@ -49,7 +48,6 @@ function HomePage() {
       <CertificateTrust />
       <Testimonials />
       <Faq />
-      <FinalCta />
     </SitePage>
   );
 }
