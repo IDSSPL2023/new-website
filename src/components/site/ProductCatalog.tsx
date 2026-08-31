@@ -108,6 +108,28 @@ const products: CatalogProduct[] = [
           "Reusable services and configurable workflows help institutions introduce new offerings without rebuilding the underlying banking foundation.",
       },
     ],
+    faqs: [
+      {
+        title: "Who is the AI-powered core banking platform designed for?",
+        description:
+          "The platform is designed for banks, co-operative institutions, credit societies, NBFCs, and financial organisations that need a secure and scalable foundation for core operations, digital services, reporting, and growth.",
+      },
+      {
+        title: "Can it integrate with an institution's existing systems?",
+        description:
+          "Yes. Its modular, API-ready architecture can connect with existing payment rails, digital channels, identity services, reporting tools, and third-party applications so modernisation can be planned in practical phases.",
+      },
+      {
+        title: "Which deployment models are supported?",
+        description:
+          "Institutions can evaluate managed cloud, SaaS, or controlled on-premises deployment according to their operating model, security requirements, integration landscape, and internal governance policies.",
+      },
+      {
+        title: "How are security and operational control addressed?",
+        description:
+          "The platform supports role-based access, maker-checker workflows, audit trails, controlled approvals, encryption, monitoring, and configurable controls that help institutions maintain disciplined and traceable banking operations.",
+      },
+    ],
     image: coreBankingUi,
     video: coreBankingVideo,
     alt: "AI-powered IDSSPL next-generation core banking platform",
@@ -197,6 +219,28 @@ const products: CatalogProduct[] = [
         title: "Improved access for customers and members",
         description:
           "More payment options and connected channels make essential financial services easier to reach across customer segments.",
+      },
+    ],
+    faqs: [
+      {
+        title: "Which NPCI payment products can the suite support?",
+        description:
+          "The portfolio includes capabilities for UPI, IMPS, AePS, BBPS, NACH, APBS, NFS ATM switching, CTS, and e-mandate journeys, subject to the institution's certification, sponsorship, and implementation requirements.",
+      },
+      {
+        title: "Can the payment suite connect with an existing core banking system?",
+        description:
+          "Yes. A shared integration layer can connect payment channels with core banking, fraud monitoring, reconciliation, settlement, notification, and operational systems through controlled interfaces and APIs.",
+      },
+      {
+        title: "How does the platform support high transaction volumes?",
+        description:
+          "The solution is designed around resilient processing, scalable channel connectivity, controlled routing, monitoring, and exception handling so institutions can plan capacity for peak and always-on payment activity.",
+      },
+      {
+        title: "What operational visibility is available?",
+        description:
+          "Teams can monitor transaction status, failures, reversals, exceptions, service performance, reconciliation context, and traceable reference data from a connected operational environment.",
       },
     ],
     image: paymentSwitching,
@@ -291,6 +335,28 @@ const products: CatalogProduct[] = [
           "Shared platform services make it easier to add channels, features, partners, and new customer journeys as digital adoption grows.",
       },
     ],
+    faqs: [
+      {
+        title: "Which customer channels are included?",
+        description:
+          "The digital banking portfolio supports internet banking, mobile banking, SMS and WhatsApp journeys, customer self-service, corporate internet banking, merchant applications, digital onboarding, and digital account opening.",
+      },
+      {
+        title: "Can digital onboarding follow our approval process?",
+        description:
+          "Yes. Identity, document, consent, verification, maker-checker, and approval steps can be configured around the institution's products, risk policies, customer segments, and operating procedures.",
+      },
+      {
+        title: "How are digital journeys secured?",
+        description:
+          "Role-based permissions, transaction limits, approval controls, secure service integration, traceable activity, and consistent identity patterns help protect customer and institutional actions across channels.",
+      },
+      {
+        title: "Can the experience support multiple languages and brands?",
+        description:
+          "The interfaces are designed to support language-ready content, responsive journeys, configurable services, and institution-specific presentation without maintaining a separate technology stack for every channel.",
+      },
+    ],
     image: vault,
     video: vaultVideo,
     alt: "Secure digital banking channels connected through IDSSPL technology",
@@ -380,6 +446,28 @@ const products: CatalogProduct[] = [
         title: "Higher productivity across teams",
         description:
           "Employees spend less time coordinating routine work and more time resolving exceptions, serving customers, and improving outcomes.",
+      },
+    ],
+    faqs: [
+      {
+        title: "Which enterprise processes can be connected?",
+        description:
+          "The portfolio can support treasury, e-KYC, CKYC, reconciliation, document and enterprise management, loan origination, loan management, compliance, and fraud-risk workflows within one controlled operating model.",
+      },
+      {
+        title: "Does implementation require replacing every existing system?",
+        description:
+          "No. Modular services and integration-ready workflows allow institutions to prioritise specific operational gaps, connect existing systems, and expand the solution in managed phases.",
+      },
+      {
+        title: "How does the platform strengthen governance?",
+        description:
+          "Configurable roles, maker-checker controls, documented approvals, audit trails, service targets, escalations, and management dashboards create clearer accountability across enterprise processes.",
+      },
+      {
+        title: "Can workflows be adapted to institutional policies?",
+        description:
+          "Yes. Routing, rules, reviews, supporting documents, approvals, responsibilities, and reporting can be configured around the institution's organisation structure and operating policies.",
       },
     ],
     image: reconciliation,
@@ -473,6 +561,28 @@ const products: CatalogProduct[] = [
           "Controlled workflows, audit trails, access rules, and active monitoring reduce gaps across the merchant lifecycle.",
       },
     ],
+    faqs: [
+      {
+        title: "Which stages of the merchant lifecycle are covered?",
+        description:
+          "The solution connects merchant application, KYC, approval, activation, QR and POS assignment, transaction monitoring, settlement, reconciliation, service requests, analytics, and closure.",
+      },
+      {
+        title: "Can it manage both QR and POS operations?",
+        description:
+          "Yes. Institutions can manage QR assets, devices, assignments, activation states, replacements, maintenance actions, merchant relationships, and transaction visibility within a shared operating view.",
+      },
+      {
+        title: "How are settlement and reconciliation handled?",
+        description:
+          "Connected transaction records, structured matching, exception workflows, approval controls, and settlement visibility help operations teams follow activity from transaction capture through merchant credit.",
+      },
+      {
+        title: "Can merchant onboarding rules be customised?",
+        description:
+          "Institution-specific KYC, risk, pricing, hierarchy, document, approval, and maker-checker requirements can be configured into the acquisition and ongoing servicing journey.",
+      },
+    ],
     image: riskUi,
     video: riskVideo,
     alt: "IDSSPL merchant management dashboard and analytics",
@@ -563,6 +673,28 @@ const products: CatalogProduct[] = [
         title: "A better cardholder experience",
         description:
           "Faster fulfilment, clearer servicing, digital controls, and reliable support improve confidence throughout the card lifecycle.",
+      },
+    ],
+    faqs: [
+      {
+        title: "Which card products and services can be managed?",
+        description:
+          "The platform supports debit and virtual card journeys together with personalisation, issuance, activation, PIN services, usage controls, monitoring, servicing, replacement, hotlisting, renewal, and closure.",
+      },
+      {
+        title: "Does it cover the complete card lifecycle?",
+        description:
+          "Yes. Customer requests, approvals, production, activation, service actions, status changes, controls, monitoring, and audit history remain connected through one operational workflow.",
+      },
+      {
+        title: "How are PIN operations protected?",
+        description:
+          "PIN generation and reset journeys are handled through controlled processes with appropriate access restrictions, approvals, traceability, and integration with the institution's security environment.",
+      },
+      {
+        title: "Can it integrate with existing banking and payment systems?",
+        description:
+          "The platform is designed to connect with core banking, card production, transaction switching, fraud monitoring, digital channels, notifications, and operational systems through secure interfaces.",
       },
     ],
     image: cardsImg,

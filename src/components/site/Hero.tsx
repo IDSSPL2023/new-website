@@ -80,12 +80,6 @@ export function Hero() {
               Explore our solutions
               <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
             </a>
-            <a
-              href="/#contact"
-              className="glass-button rounded-full px-5 py-3 text-[13.5px] text-foreground"
-            >
-              Request a demo
-            </a>
           </div>
         </div>
       </div>

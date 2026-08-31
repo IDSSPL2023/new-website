@@ -1,4 +1,27 @@
-import { Building2, Mail, MapPin, Phone } from "lucide-react";
+import { Building2, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
+
+const socialLinks = [
+  {
+    label: "X",
+    href: "https://x.com/Idsspl_pvt",
+    icon: Twitter,
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/IDSSPLTechnology/",
+    icon: Facebook,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/idsspl_technology/",
+    icon: Instagram,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/112565186/",
+    icon: Linkedin,
+  },
+];
 
 const columns = [
   {
@@ -40,8 +63,8 @@ const columns = [
   {
     title: "Policies",
     links: [
-      { label: "Privacy Policy", href: "/#contact" },
-      { label: "Terms & Conditions", href: "/#contact" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms & Conditions", href: "/terms-conditions" },
     ],
   },
 ];
@@ -76,6 +99,21 @@ export function Footer() {
                 Join
               </button>
             </form>
+
+            <div className="footer-social-links" aria-label="IDSSPL social profiles">
+              {socialLinks.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={`Follow IDSSPL on ${label}`}
+                  title={label}
+                >
+                  <Icon size={17} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-4">

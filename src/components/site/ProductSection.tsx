@@ -1,3 +1,5 @@
+import { Plus } from "lucide-react";
+
 import subproductModuleIcon from "@/assets/product-icons/subproduct-module-3d.jpg";
 
 import { CinematicMedia } from "./CinematicMedia";
@@ -19,6 +21,7 @@ export type Product = {
   featureIcons: string[];
   benefits: ProductPoint[];
   benefitIcons: string[];
+  faqs: ProductPoint[];
   image: string;
   video: string;
   alt: string;
@@ -74,8 +77,22 @@ function ProductPointGrid({
 }
 
 export function ProductSection({ product }: { product: Product }) {
+  const faqSchema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: product.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.title,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.description,
+      },
+    })),
+  });
+
   return (
     <section id={product.id} className="product-detail-section product-single-detail">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqSchema }} />
       <div className="shell">
         <div className="product-detail-hero">
           <Reveal className="product-detail-hero-copy">
@@ -157,6 +174,41 @@ export function ProductSection({ product }: { product: Product }) {
           icons={product.benefitIcons}
           variant="benefit"
         />
+
+        <section
+          className="product-faq-section"
+          aria-labelledby={`${product.id}-faq-title`}
+        >
+          <Reveal>
+            <div className="product-point-heading">
+              <div>
+                <span>Product Knowledge Center</span>
+                <h3 id={`${product.id}-faq-title`}>Frequently Asked Questions</h3>
+              </div>
+              <p>
+                Practical answers about implementation, integration, security, scalability, and
+                institutional fit for {product.label}.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="product-faq-list">
+            {product.faqs.map((faq, index) => (
+              <Reveal key={faq.title} delay={45 + index * 45}>
+                <details className="product-faq-item">
+                  <summary>
+                    <span className="product-faq-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <strong>{faq.title}</strong>
+                    <Plus className="product-faq-toggle" aria-hidden="true" />
+                  </summary>
+                  <p>{faq.description}</p>
+                </details>
+              </Reveal>
+            ))}
+          </div>
+        </section>
       </div>
     </section>
   );

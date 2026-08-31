@@ -22,6 +22,12 @@ const organizationSchema = JSON.stringify({
   url: "https://www.idsspl.com/",
   email: "info@idsspl.com",
   telephone: "+91-231-2530950",
+  sameAs: [
+    "https://x.com/Idsspl_pvt",
+    "https://www.facebook.com/IDSSPLTechnology/",
+    "https://www.instagram.com/idsspl_technology/",
+    "https://www.linkedin.com/company/112565186/",
+  ],
   description:
     "Banking technology company delivering AI-powered core banking, digital payments, card management, merchant management, and enterprise financial infrastructure.",
   address: [
