@@ -45,8 +45,6 @@ jobs:
 
       - name: Build static website
         run: pnpm build
-        env:
-          VITE_LEAD_ENDPOINT: ${{ vars.VITE_LEAD_ENDPOINT }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4

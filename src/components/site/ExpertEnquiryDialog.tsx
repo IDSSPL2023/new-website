@@ -14,10 +14,7 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
-
-const leadEndpoint = (
-  import.meta.env.VITE_LEAD_ENDPOINT ?? import.meta.env.VITE_BROCHURE_LEAD_ENDPOINT
-)?.trim();
+import { sendLeadEmail } from "@/lib/form-submit";
 
 type EnquiryForm = {
   contactPreference: "email" | "sms";
@@ -67,40 +64,30 @@ export function ExpertEnquirySection() {
     event.preventDefault();
     if (status === "submitting") return;
 
-    if (!leadEndpoint) {
-      if (import.meta.env.DEV) {
-        showSuccess();
-        return;
-      }
-
-      setErrorMessage("The enquiry form is temporarily unavailable. Please email info@idsspl.com.");
-      setStatus("error");
-      return;
-    }
-
     setStatus("submitting");
     setErrorMessage("");
 
     try {
-      const response = await fetch(leadEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          eventType: "expert_enquiry",
-          contactPreference: form.contactPreference,
-          name: form.name.trim(),
-          organization: form.organization.trim(),
-          email: form.email.trim().toLowerCase(),
-          mobile: form.mobile.trim(),
-          message: form.message.trim(),
-          website: form.website,
-          consent,
-          sourcePath: window.location.pathname,
-          language: document.documentElement.lang || "en",
-        }),
-      });
+      const name = form.name.trim();
+      const organization = form.organization.trim();
+      const email = form.email.trim().toLowerCase();
 
-      if (!response.ok) throw new Error(`Expert enquiry failed with status ${response.status}`);
+      await sendLeadEmail({
+        _subject: `[IDSSPL] New Expert Enquiry — ${organization} — ${name}`,
+        _replyto: email,
+        _honey: form.website,
+        "Lead Type": "Talk To An Expert",
+        "Full Name": name,
+        Organization: organization,
+        "Work Email": email,
+        "Mobile Number": form.mobile.trim(),
+        "Preferred Contact": form.contactPreference === "sms" ? "Phone / SMS" : "Email",
+        "Banking Technology Requirement": form.message.trim(),
+        "Source Page": window.location.pathname,
+        Language: (document.documentElement.lang || "en").toUpperCase(),
+        Consent: consent ? "Yes — visitor agreed to enquiry follow-up" : "No",
+        "Submitted At": new Date().toISOString(),
+      });
       showSuccess();
     } catch (error) {
       console.error("Unable to submit expert enquiry", error);

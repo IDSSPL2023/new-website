@@ -49,6 +49,7 @@ const privacySections: LegalSection[] = [
     title: "Sharing and Service Providers",
     paragraphs: [
       "IDSSPL does not sell or rent personal information. Information may be shared with authorised employees and trusted service providers that support website hosting, communications, security, analytics, customer-enquiry management, or document delivery, subject to appropriate confidentiality and security requirements.",
+      "Website contact and brochure forms are routed to info@idsspl.com through FormSubmit, a third-party form delivery provider. FormSubmit processes the submitted fields to deliver the enquiry and may retain submission data according to its own privacy terms.",
       "We may also disclose information when required by law, to protect legal rights, or to investigate fraud, security incidents, or misuse of our services.",
     ],
   },
@@ -130,7 +131,7 @@ function PrivacyPolicyPage() {
         eyebrow="Privacy and Data Protection"
         title="Privacy Policy"
         summary="How IDSSPL handles information shared through website enquiries, brochure requests, subscriptions, and chatbot conversations."
-        updated="31 August 2026"
+        updated="1 September 2026"
         sections={privacySections}
       />
     </SitePage>

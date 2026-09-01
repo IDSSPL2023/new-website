@@ -10,11 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { sendLeadEmail } from "@/lib/form-submit";
 
 const brochureUrl = "/downloads/IDSSPL-Brochure.pdf";
-const leadEndpoint = (
-  import.meta.env.VITE_LEAD_ENDPOINT ?? import.meta.env.VITE_BROCHURE_LEAD_ENDPOINT
-)?.trim();
 
 type LeadForm = {
   name: string;
@@ -87,43 +85,29 @@ export function BrochureLeadCapture() {
     event.preventDefault();
     if (status === "submitting") return;
 
-    if (!leadEndpoint) {
-      if (import.meta.env.DEV) {
-        startBrochureDownload();
-        setStatus("success");
-        window.setTimeout(() => {
-          setOpen(false);
-          reset();
-        }, 900);
-        return;
-      }
-
-      setErrorMessage("Brochure download is temporarily unavailable. Please contact IDSSPL.");
-      setStatus("error");
-      return;
-    }
-
     setStatus("submitting");
     setErrorMessage("");
 
     try {
-      const response = await fetch(leadEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          organization: form.organization.trim(),
-          email: form.email.trim().toLowerCase(),
-          need: form.need,
-          notes: form.notes.trim(),
-          website: form.website,
-          consent,
-          sourcePath: window.location.pathname,
-          language: document.documentElement.lang || "en",
-        }),
-      });
+      const name = form.name.trim();
+      const organization = form.organization.trim();
+      const email = form.email.trim().toLowerCase();
 
-      if (!response.ok) throw new Error(`Lead submission failed with status ${response.status}`);
+      await sendLeadEmail({
+        _subject: `[IDSSPL] New Brochure Lead — ${organization} — ${name}`,
+        _replyto: email,
+        _honey: form.website,
+        "Lead Type": "Brochure Download",
+        "Full Name": name,
+        Organization: organization,
+        "Work Email": email,
+        Requirement: form.need,
+        "Additional Notes": form.notes.trim() || "No additional notes provided",
+        "Source Page": window.location.pathname,
+        Language: (document.documentElement.lang || "en").toUpperCase(),
+        Consent: consent ? "Yes — visitor agreed to relevant follow-up" : "No",
+        "Submitted At": new Date().toISOString(),
+      });
 
       setStatus("success");
       startBrochureDownload();
