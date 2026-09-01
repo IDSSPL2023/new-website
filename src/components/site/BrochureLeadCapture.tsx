@@ -13,6 +13,7 @@ import {
 import { sendLeadEmail } from "@/lib/form-submit";
 
 const brochureUrl = "/downloads/IDSSPL-Brochure.pdf";
+const showFloatingBrochureCta = false;
 
 type LeadForm = {
   name: string;
@@ -124,17 +125,19 @@ export function BrochureLeadCapture() {
 
   return (
     <>
-      <button
-        type="button"
-        className="brochure-float-button"
-        onClick={() => setOpen(true)}
-        aria-label="Download Brochure"
-      >
-        <span className="brochure-float-icon" aria-hidden="true">
-          <Download size={17} strokeWidth={2.2} />
-        </span>
-        <span>Download Brochure</span>
-      </button>
+      {showFloatingBrochureCta && (
+        <button
+          type="button"
+          className="brochure-float-button"
+          onClick={() => setOpen(true)}
+          aria-label="Download Brochure"
+        >
+          <span className="brochure-float-icon" aria-hidden="true">
+            <Download size={17} strokeWidth={2.2} />
+          </span>
+          <span>Download Brochure</span>
+        </button>
+      )}
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent className="brochure-lead-dialog max-h-[calc(100vh-2rem)] max-w-[34rem] overflow-y-auto border-0 p-0">

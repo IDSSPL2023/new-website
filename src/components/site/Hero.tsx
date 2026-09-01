@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
 import heroVideo from "@/assets/idsspl-hero.mp4";
 import heroPoster from "@/assets/idsspl-hero-poster.jpg";
 import { CinematicMedia } from "./CinematicMedia";
@@ -72,15 +71,6 @@ export function Hero() {
             Secure, scalable technology for core banking, payments, cards, risk and financial
             infrastructure — engineered for institutions that move economies forward.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href="/products"
-              className="shiny-button group inline-flex items-center gap-2 rounded-full px-5 py-3 text-[13.5px] font-semibold"
-            >
-              Explore our solutions
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </a>
-          </div>
         </div>
       </div>
     </section>

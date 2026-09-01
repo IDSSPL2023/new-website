@@ -84,7 +84,7 @@ const functionLeads: FunctionLead[] = [
     id: "backend-engineering-lead",
     functionName: "Backend Engineering",
     role: "Backend Engineering Lead",
-    name: "Abhishek Chowghale",
+    name: "Abhishek Chougule",
     summary:
       "Leads secure backend architecture, service development, system integration, and performance engineering for scalable banking platforms.",
     monogram: "AC",

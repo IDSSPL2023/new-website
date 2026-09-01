@@ -6844,7 +6844,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
 
 .chatbot-launcher {
   position: fixed;
-  left: max(1rem, env(safe-area-inset-left));
+  right: max(1rem, env(safe-area-inset-right));
   bottom: max(0.7rem, env(safe-area-inset-bottom));
   z-index: 62;
   display: block;
@@ -6932,7 +6932,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
 .chatbot-launcher-tooltip {
   position: absolute;
   bottom: 2.65rem;
-  left: calc(100% + 0.25rem);
+  right: calc(100% + 0.25rem);
   padding: 0.38rem 0.58rem;
   border: 1px solid color-mix(in oklab, var(--cyan) 34%, var(--hairline));
   border-radius: 999px;
@@ -6944,7 +6944,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-0.35rem) scale(0.94);
+  transform: translateX(0.35rem) scale(0.94);
   transition:
     opacity 180ms ease,
     transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -6981,7 +6981,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
 
 .chatbot-panel {
   position: fixed;
-  left: max(1rem, env(safe-area-inset-left));
+  right: max(1rem, env(safe-area-inset-right));
   bottom: max(8.15rem, calc(7.45rem + env(safe-area-inset-bottom)));
   z-index: 61;
   display: flex;
@@ -8049,12 +8049,12 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
 
 @media (min-width: 768px) {
   .chatbot-launcher {
-    left: 1.5rem;
+    right: 1.5rem;
     bottom: 0.9rem;
   }
 
   .chatbot-panel {
-    left: 1.5rem;
+    right: 1.5rem;
     bottom: 8.45rem;
   }
 }
@@ -8065,7 +8065,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
   }
 
   .chatbot-panel {
-    left: 0.5rem;
+    right: 0.5rem;
     bottom: calc(7rem + env(safe-area-inset-bottom));
     height: min(42rem, calc(100dvh - 7.65rem));
     min-height: 0;
