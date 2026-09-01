@@ -6,6 +6,11 @@ type FormSubmitResult = {
 };
 
 export async function sendLeadEmail(fields: Record<string, string>) {
+  const sourceUrl =
+    typeof window === "undefined"
+      ? "https://www.idsspl.com/"
+      : `${window.location.origin}${window.location.pathname}`;
+
   const response = await fetch(formSubmitEndpoint, {
     method: "POST",
     headers: {
@@ -15,6 +20,7 @@ export async function sendLeadEmail(fields: Record<string, string>) {
     body: JSON.stringify({
       _template: "table",
       _captcha: "false",
+      _url: sourceUrl,
       ...fields,
     }),
   });
