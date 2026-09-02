@@ -17,12 +17,12 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-import devendraPhoto from "@/assets/devendra-sawant-cutout-card-v2.png";
 import abhishekPhoto from "@/assets/abhishek-chowghale-cutout-card.png";
 import chetanPhoto from "@/assets/chetan-patil-cutout-card.png";
 import jitendraPhoto from "@/assets/jitendra-shirguppe-cutout-card.png";
 import manojPhoto from "@/assets/manoj-shinde-cutout-card.png";
 import nehaPhoto from "@/assets/neha-singh-cutout-card-v2.png";
+import omkarPhoto from "@/assets/omkar-bhagwat-cutout-card.png";
 import prathameshPhoto from "@/assets/prathamesh-phadatare-cutout.png";
 import sanjayPhoto from "@/assets/sanjay-cutout-card.png";
 
@@ -69,16 +69,16 @@ const functionLeads: FunctionLead[] = [
     photo: nehaPhoto,
   },
   {
-    id: "operations-lead",
-    functionName: "Business Operations",
-    role: "Operations Lead",
-    name: "Devendra Sawant",
+    id: "information-security-lead",
+    functionName: "Cybersecurity, Risk & Governance",
+    role: "Chief Information Security Officer",
+    name: "Omkar Bhagwat",
     summary:
-      "Oversees operational planning, cross-functional coordination, process discipline, and dependable execution across the organization.",
-    monogram: "DS",
+      "Defines the enterprise security vision, cyber-risk governance, compliance standards, and resilient controls that protect customer data and critical banking systems.",
+    monogram: "OB",
     icon: Workflow,
-    accent: { start: "#6455ff", end: "#b26dff", glow: "#a78bfa" },
-    photo: devendraPhoto,
+    accent: { start: "#075f8f", end: "#30d6f2", glow: "#22d3ee" },
+    photo: omkarPhoto,
   },
   {
     id: "backend-engineering-lead",
@@ -187,13 +187,6 @@ const teamMembers: TeamMember[] = [
     id: "subajala-nair",
     name: "Subajala Nair",
     role: "HR & Admin Head",
-    group: "Operations & Administration",
-    summary: "Contributes to reliable operations and coordinated delivery across IDSSPL.",
-  },
-  {
-    id: "omkar-bhagwat",
-    name: "Omkar Bhagwat",
-    role: "Compliance Security",
     group: "Operations & Administration",
     summary: "Contributes to reliable operations and coordinated delivery across IDSSPL.",
   },

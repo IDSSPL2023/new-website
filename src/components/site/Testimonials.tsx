@@ -30,11 +30,26 @@ export function Testimonials() {
   return (
     <section id="resources" className="border-t border-hairline py-16 md:py-24">
       <div className="shell">
-        <Reveal>
-          <p className="eyebrow">What our customers say</p>
-        </Reveal>
+        <div className="section-heading-split">
+          <div>
+            <Reveal>
+              <p className="eyebrow">Customer Stories</p>
+            </Reveal>
+            <Reveal delay={80}>
+              <h2 className="display section-heading-title text-foreground">
+                Experience, In Their Words.
+              </h2>
+            </Reveal>
+          </div>
+          <Reveal delay={140}>
+            <p className="section-heading-copy">
+              Direct reflections from financial institutions that have worked with IDSSPL on their
+              banking technology journey.
+            </p>
+          </Reveal>
+        </div>
 
-        <div className="mt-10 min-h-[260px] md:min-h-[240px]">
+        <div className="mt-9 min-h-[260px] md:mt-12 md:min-h-[240px]">
           <blockquote key={i} className="animate-fade-in">
             <p className="display max-w-[24ch] text-[clamp(1.6rem,3.5vw,3rem)] text-foreground">
               “{s.quote}”

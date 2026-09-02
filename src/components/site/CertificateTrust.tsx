@@ -42,8 +42,8 @@ export function CertificateTrust() {
             </Reveal>
             <Reveal delay={140}>
               <p className="certificate-trust-description">
-                Independent certifications validate the security controls and payment-data practices
-                behind the banking technology we design, deliver, and support.
+                Security-first architecture is reinforced by independent certifications covering
+                information-security controls and payment-data practices.
               </p>
             </Reveal>
 
@@ -58,6 +58,11 @@ export function CertificateTrust() {
                   <span>PCI</span>
                   <strong>Payment Data Protection</strong>
                   <small>Cardholder data safeguards</small>
+                </div>
+                <div>
+                  <span>SEC</span>
+                  <strong>Security Architecture</strong>
+                  <small>Controlled access, auditability, and monitoring</small>
                 </div>
               </div>
             </Reveal>

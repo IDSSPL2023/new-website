@@ -16,6 +16,7 @@ import {
 import { useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 
 import aiBotMascot from "@/assets/idsspl-ai-bot.png";
+import { getLocalAdvisorReply } from "@/lib/idsspl-ai-advisor";
 import {
   getSavedSiteLanguage,
   isSiteLanguageCode,
@@ -25,7 +26,7 @@ import {
 
 const chatbotEndpoint = import.meta.env["VITE_CHATBOT_ENDPOINT"]?.trim();
 
-const CHAT_STORAGE_KEY = "idsspl-chat-session-v1";
+const CHAT_STORAGE_KEY = "idsspl-chat-session-v2";
 const MAX_STORED_MESSAGES = 18;
 
 type ChatMessage = {
@@ -73,16 +74,16 @@ type ChatCopy = {
 
 const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
   en: {
-    assistantName: "IDSSPL AI Assistant",
-    online: "Banking technology guidance",
+    assistantName: "IDSSPL AI Advisor",
+    online: "Banking technology advisor",
     launcher: "Ask IDSSPL AI",
     close: "Close assistant",
     reset: "Start a new conversation",
     greeting:
-      "Hello. I’m the IDSSPL AI Assistant. I can help you explore our banking products, compare capabilities, or connect you with the right expert.",
+      "Hi, I'm the IDSSPL AI Advisor. How can I help you explore IDSSPL's banking technology solutions today?",
     placeholder: "Ask about products, payments or banking technology…",
     send: "Send message",
-    typing: "IDSSPL AI is thinking",
+    typing: "IDSSPL AI Advisor is thinking",
     suggestions: [
       "Which IDSSPL product fits my bank?",
       "Tell me about AI Core Banking.",
@@ -107,16 +108,16 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     cancel: "Back to chat",
   },
   hi: {
-    assistantName: "IDSSPL AI सहायक",
+    assistantName: "IDSSPL AI Advisor",
     online: "बैंकिंग तकनीक मार्गदर्शन",
     launcher: "IDSSPL AI से पूछें",
     close: "सहायक बंद करें",
     reset: "नई बातचीत शुरू करें",
     greeting:
-      "नमस्ते। मैं IDSSPL AI सहायक हूँ। मैं हमारे बैंकिंग उत्पादों, क्षमताओं और सही विशेषज्ञ से जुड़ने में आपकी सहायता कर सकता हूँ।",
+      "नमस्ते। मैं IDSSPL AI Advisor हूँ। IDSSPL के बैंकिंग टेक्नोलॉजी समाधानों को समझने और सही विशेषज्ञ से जुड़ने में मैं आपकी मदद कर सकता हूँ।",
     placeholder: "उत्पाद, भुगतान या बैंकिंग तकनीक के बारे में पूछें…",
     send: "संदेश भेजें",
-    typing: "IDSSPL AI उत्तर तैयार कर रहा है",
+    typing: "IDSSPL AI Advisor उत्तर तैयार कर रहा है",
     suggestions: [
       "मेरे बैंक के लिए कौन सा उत्पाद सही है?",
       "AI कोर बैंकिंग के बारे में बताएं।",
@@ -141,16 +142,16 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     cancel: "चैट पर वापस जाएं",
   },
   mr: {
-    assistantName: "IDSSPL AI सहाय्यक",
+    assistantName: "IDSSPL AI Advisor",
     online: "बँकिंग तंत्रज्ञान मार्गदर्शन",
     launcher: "IDSSPL AI ला विचारा",
     close: "सहाय्यक बंद करा",
     reset: "नवीन संभाषण सुरू करा",
     greeting:
-      "नमस्कार. मी IDSSPL AI सहाय्यक आहे. आमची बँकिंग उत्पादने समजून घेण्यासाठी आणि योग्य तज्ज्ञाशी जोडण्यासाठी मी मदत करू शकतो.",
+      "नमस्कार. मी IDSSPL AI Advisor आहे. IDSSPL ची बँकिंग तंत्रज्ञान समाधाने समजून घेण्यासाठी आणि योग्य तज्ज्ञाशी जोडण्यासाठी मी मदत करू शकतो.",
     placeholder: "उत्पादने, पेमेंट्स किंवा बँकिंग तंत्रज्ञानाबद्दल विचारा…",
     send: "संदेश पाठवा",
-    typing: "IDSSPL AI उत्तर तयार करत आहे",
+    typing: "IDSSPL AI Advisor उत्तर तयार करत आहे",
     suggestions: [
       "माझ्या बँकेसाठी कोणते उत्पादन योग्य आहे?",
       "AI कोअर बँकिंगबद्दल सांगा.",
@@ -174,16 +175,16 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     cancel: "चॅटवर परत जा",
   },
   ta: {
-    assistantName: "IDSSPL AI உதவியாளர்",
+    assistantName: "IDSSPL AI Advisor",
     online: "வங்கி தொழில்நுட்ப வழிகாட்டல்",
     launcher: "IDSSPL AI-யிடம் கேளுங்கள்",
     close: "உதவியாளரை மூடு",
     reset: "புதிய உரையாடலைத் தொடங்கு",
     greeting:
-      "வணக்கம். நான் IDSSPL AI உதவியாளர். எங்கள் வங்கி தயாரிப்புகளை அறியவும் சரியான நிபுணருடன் இணையவும் உதவுகிறேன்.",
+      "வணக்கம். நான் IDSSPL AI Advisor. IDSSPL வங்கி தொழில்நுட்பத் தீர்வுகளைப் புரிந்துகொள்ளவும் சரியான நிபுணருடன் இணையவும் உதவுகிறேன்.",
     placeholder: "தயாரிப்புகள், பணப்பரிவர்த்தனை அல்லது வங்கி தொழில்நுட்பம் பற்றி கேளுங்கள்…",
     send: "செய்தி அனுப்பு",
-    typing: "IDSSPL AI பதிலைத் தயாரிக்கிறது",
+    typing: "IDSSPL AI Advisor பதிலைத் தயாரிக்கிறது",
     suggestions: [
       "என் வங்கிக்கு எந்த தயாரிப்பு பொருந்தும்?",
       "AI கோர் பேங்கிங் பற்றி சொல்லுங்கள்.",
@@ -207,16 +208,16 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     cancel: "அரட்டைக்குத் திரும்பு",
   },
   gu: {
-    assistantName: "IDSSPL AI સહાયક",
+    assistantName: "IDSSPL AI Advisor",
     online: "બેન્કિંગ ટેક્નોલોજી માર્ગદર્શન",
     launcher: "IDSSPL AI ને પૂછો",
     close: "સહાયક બંધ કરો",
     reset: "નવી વાતચીત શરૂ કરો",
     greeting:
-      "નમસ્તે. હું IDSSPL AI સહાયક છું. અમારા બેન્કિંગ ઉત્પાદનો સમજવા અને યોગ્ય નિષ્ણાત સાથે જોડાવામાં હું મદદ કરી શકું છું.",
+      "નમસ્તે. હું IDSSPL AI Advisor છું. IDSSPL ના બેન્કિંગ ટેક્નોલોજી સોલ્યુશન્સ સમજવા અને યોગ્ય નિષ્ણાત સાથે જોડાવામાં હું મદદ કરી શકું છું.",
     placeholder: "ઉત્પાદનો, પેમેન્ટ્સ અથવા બેન્કિંગ ટેક્નોલોજી વિશે પૂછો…",
     send: "સંદેશ મોકલો",
-    typing: "IDSSPL AI જવાબ તૈયાર કરી રહ્યું છે",
+    typing: "IDSSPL AI Advisor જવાબ તૈયાર કરી રહ્યું છે",
     suggestions: [
       "મારી બેન્ક માટે કયું ઉત્પાદન યોગ્ય છે?",
       "AI કોર બેન્કિંગ વિશે જણાવો.",
@@ -250,38 +251,96 @@ const initialLead: ChatLead = {
   website: "",
 };
 
+const greetingLocales: Record<SiteLanguageCode, string> = {
+  en: "en-IN",
+  hi: "hi-IN",
+  mr: "mr-IN",
+  ta: "ta-IN",
+  gu: "gu-IN",
+};
+
+function getVisitGreeting(language: SiteLanguageCode, date: Date) {
+  const hour = date.getHours();
+  const period = hour < 12 ? "morning" : hour < 17 ? "afternoon" : "evening";
+
+  const greetings: Record<
+    SiteLanguageCode,
+    Record<"morning" | "afternoon" | "evening", { salutation: string; message: string }>
+  > = {
+    en: {
+      morning: { salutation: "Good morning", message: "Welcome to IDSSPL. How can I help?" },
+      afternoon: {
+        salutation: "Good afternoon",
+        message: "Welcome to IDSSPL. How can I help?",
+      },
+      evening: { salutation: "Good evening", message: "Welcome to IDSSPL. How can I help?" },
+    },
+    hi: {
+      morning: { salutation: "सुप्रभात", message: "IDSSPL में आपका स्वागत है। मैं कैसे मदद करूँ?" },
+      afternoon: {
+        salutation: "नमस्कार",
+        message: "IDSSPL में आपका स्वागत है। मैं कैसे मदद करूँ?",
+      },
+      evening: {
+        salutation: "शुभ संध्या",
+        message: "IDSSPL में आपका स्वागत है। मैं कैसे मदद करूँ?",
+      },
+    },
+    mr: {
+      morning: { salutation: "शुभ सकाळ", message: "IDSSPL मध्ये स्वागत आहे. मी कशी मदत करू?" },
+      afternoon: {
+        salutation: "नमस्कार",
+        message: "IDSSPL मध्ये स्वागत आहे. मी कशी मदत करू?",
+      },
+      evening: {
+        salutation: "शुभ संध्याकाळ",
+        message: "IDSSPL मध्ये स्वागत आहे. मी कशी मदत करू?",
+      },
+    },
+    ta: {
+      morning: {
+        salutation: "காலை வணக்கம்",
+        message: "IDSSPL-க்கு வரவேற்கிறோம். நான் எப்படி உதவலாம்?",
+      },
+      afternoon: {
+        salutation: "மதிய வணக்கம்",
+        message: "IDSSPL-க்கு வரவேற்கிறோம். நான் எப்படி உதவலாம்?",
+      },
+      evening: {
+        salutation: "மாலை வணக்கம்",
+        message: "IDSSPL-க்கு வரவேற்கிறோம். நான் எப்படி உதவலாம்?",
+      },
+    },
+    gu: {
+      morning: {
+        salutation: "સુપ્રભાત",
+        message: "IDSSPL માં આપનું સ્વાગત છે. હું કેવી રીતે મદદ કરું?",
+      },
+      afternoon: {
+        salutation: "નમસ્કાર",
+        message: "IDSSPL માં આપનું સ્વાગત છે. હું કેવી રીતે મદદ કરું?",
+      },
+      evening: {
+        salutation: "શુભ સાંજ",
+        message: "IDSSPL માં આપનું સ્વાગત છે. હું કેવી રીતે મદદ કરું?",
+      },
+    },
+  };
+
+  return {
+    ...greetings[language][period],
+    time: new Intl.DateTimeFormat(greetingLocales[language], {
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(date),
+  };
+}
+
 function createId(prefix: string) {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return `${prefix}-${crypto.randomUUID()}`;
   }
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-}
-
-function getLocalPreviewReply(message: string, language: SiteLanguageCode) {
-  const normalized = message.toLocaleLowerCase();
-  const copy = chatCopy[language];
-
-  if (/npci|upi|imps|payment|पेमेंट|भुगतान|பணம்|પેમેન્ટ/.test(normalized)) {
-    return language === "en"
-      ? "IDSSPL’s NPCI portfolio supports secure, real-time transaction journeys across UPI, IMPS and connected payment operations. The platform is designed for resilient switching, monitoring, reconciliation and institutional-scale integration. For an exact fit, share the payment rails and transaction volumes you need to support."
-      : `${copy.assistantName}: NPCI, UPI மற்றும் IMPS உள்ளிட்ட நிகழ்நேர பணப்பரிவர்த்தனை தேவைகளுக்கு IDSSPL ஒருங்கிணைந்த தீர்வுகளை வழங்குகிறது. உங்கள் தேவையைப் பகிர்ந்தால் சரியான தயாரிப்பை பரிந்துரைக்க முடியும்.`;
-  }
-
-  if (/core|bank|बैंक|बँक|வங்கி|બેન્ક|ai/.test(normalized)) {
-    return language === "en"
-      ? "The Next Gen AI Core Banking Solution is IDSSPL’s secure and scalable banking foundation. It brings core operations, connected modules, analytics and intelligent automation into one platform designed for financial institutions. Tell me whether you are modernising an existing CBS or planning a new implementation."
-      : `${copy.assistantName}: IDSSPL चे Next Gen AI Core Banking Solution सुरक्षित, विस्तारक्षम आणि बुद्धिमान बँकिंग पायाभूत व्यवस्था देते. अधिक अचूक मार्गदर्शनासाठी तुमची सध्याची प्रणाली आणि उद्दिष्ट सांगा.`;
-  }
-
-  if (/security|secure|compliance|risk|सुरक्षा|பாதுகாப்பு|સુરક્ષા/.test(normalized)) {
-    return language === "en"
-      ? "IDSSPL applies security-first architecture across banking systems, including controlled access, auditability, resilient infrastructure and compliance-ready operations. The company also holds ISO/IEC 27001:2022 and PCI DSS v4.0.1 certifications."
-      : `${copy.assistantName}: IDSSPL સુરક્ષા, નિયંત્રિત ઍક્સેસ, ઑડિટ અને અનુપાલન-તૈયાર આર્કિટેક્ચર પર ધ્યાન કેન્દ્રિત કરે છે.`;
-  }
-
-  return language === "en"
-    ? "IDSSPL provides six connected product families: AI Core Banking, NPCI Products, Digital Banking, Enterprise Solutions, Merchant Management and Card Management. Tell me about your institution and the outcome you need, and I’ll narrow down the best starting point."
-    : `${copy.greeting} ${copy.talkToExpert} विकल्पातून तुम्ही तुमची गरज थेट आमच्या टीमसोबतही शेअर करू शकता.`;
 }
 
 function ChatbotRobot({ className = "" }: { className?: string }) {
@@ -302,6 +361,8 @@ function ChatbotRobot({ className = "" }: { className?: string }) {
 
 export function AIChatbot() {
   const [open, setOpen] = useState(false);
+  const [showVisitGreeting, setShowVisitGreeting] = useState(false);
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [language, setLanguage] = useState<SiteLanguageCode>("en");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [draft, setDraft] = useState("");
@@ -316,6 +377,7 @@ export function AIChatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const sessionIdRef = useRef("");
   const copy = chatCopy[language];
+  const visitGreeting = currentTime ? getVisitGreeting(language, currentTime) : null;
 
   useEffect(() => {
     const savedLanguage = getSavedSiteLanguage();
@@ -353,6 +415,19 @@ export function AIChatbot() {
 
     siteI18n.on("languageChanged", onLanguageChange);
     return () => siteI18n.off("languageChanged", onLanguageChange);
+  }, []);
+
+  useEffect(() => {
+    setCurrentTime(new Date());
+    const clockTimer = window.setInterval(() => setCurrentTime(new Date()), 30_000);
+    const revealTimer = window.setTimeout(() => setShowVisitGreeting(true), 1_250);
+    const dismissTimer = window.setTimeout(() => setShowVisitGreeting(false), 10_500);
+
+    return () => {
+      window.clearInterval(clockTimer);
+      window.clearTimeout(revealTimer);
+      window.clearTimeout(dismissTimer);
+    };
   }, []);
 
   useEffect(() => {
@@ -397,6 +472,7 @@ export function AIChatbot() {
 
   useEffect(() => {
     if (!open) return;
+    setShowVisitGreeting(false);
     const timer = window.setTimeout(() => inputRef.current?.focus(), 240);
     const onEscape = (event: globalThis.KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
@@ -460,7 +536,7 @@ export function AIChatbot() {
         reply = payload.reply;
       } else {
         await new Promise((resolve) => window.setTimeout(resolve, 650));
-        reply = getLocalPreviewReply(trimmed, language);
+        reply = getLocalAdvisorReply({ message: trimmed, language, history });
       }
 
       setMessages((current) => [
@@ -527,13 +603,36 @@ export function AIChatbot() {
 
   return (
     <div ref={rootRef} className="idsspl-chatbot notranslate" translate="no">
+      {showVisitGreeting && !open && visitGreeting && (
+        <button
+          type="button"
+          className="chatbot-visit-greeting"
+          aria-label={`${visitGreeting.salutation}. ${visitGreeting.message}`}
+          onClick={() => {
+            setShowVisitGreeting(false);
+            setOpen(true);
+          }}
+        >
+          <span className="chatbot-visit-greeting-copy">
+            <strong>{visitGreeting.salutation}</strong>
+            <span>{visitGreeting.message}</span>
+          </span>
+          <span className="chatbot-visit-greeting-time">
+            <i aria-hidden="true" />
+            {visitGreeting.time}
+          </span>
+        </button>
+      )}
       <button
         type="button"
         className={`chatbot-launcher${open ? " is-open" : ""}`}
         aria-label={open ? copy.close : copy.launcher}
         aria-expanded={open}
         aria-controls="idsspl-ai-chatbot"
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => {
+          setShowVisitGreeting(false);
+          setOpen((current) => !current);
+        }}
       >
         <span className="chatbot-launcher-orbit" aria-hidden="true" />
         <span className="chatbot-launcher-icon" aria-hidden="true">
@@ -544,7 +643,7 @@ export function AIChatbot() {
             </span>
           )}
         </span>
-        <span className="chatbot-launcher-tooltip">AI Bot</span>
+        <span className="chatbot-launcher-tooltip">{copy.assistantName}</span>
       </button>
 
       <div

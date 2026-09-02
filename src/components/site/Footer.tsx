@@ -1,4 +1,13 @@
-import { Building2, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
+import {
+  Building2,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Twitter,
+} from "lucide-react";
 
 const socialLinks = [
   {
@@ -55,7 +64,7 @@ const columns = [
     title: "Resources",
     links: [
       { label: "Product Overview", href: "/products" },
-      { label: "Case Studies", href: "/#resources" },
+      { label: "Case Studies", href: "/#customer-outcomes" },
       { label: "Documentation", href: "/products" },
       { label: "Support", href: "/#contact" },
     ],

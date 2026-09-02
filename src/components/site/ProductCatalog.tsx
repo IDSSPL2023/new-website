@@ -13,18 +13,13 @@ import riskUi from "@/assets/risk-compliance-ui.jpg";
 import riskVideo from "@/assets/risk-compliance-ui.mp4";
 import vault from "@/assets/vault.jpg";
 import vaultVideo from "@/assets/vault.mp4";
-import cardManagementIcon from "@/assets/product-icons/product-card-management-3d.jpg";
-import coreBankingIcon from "@/assets/product-icons/product-core-banking-3d.jpg";
-import digitalBankingIcon from "@/assets/product-icons/product-digital-banking-3d.jpg";
-import enterpriseIcon from "@/assets/product-icons/product-enterprise-3d.jpg";
-import merchantIcon from "@/assets/product-icons/product-merchant-3d.jpg";
-import npciIcon from "@/assets/product-icons/product-npci-3d.jpg";
 
+import { GlassIcon3D, type GlassIconName } from "./GlassIcon3D";
 import { ProductSection, type Product } from "./ProductSection";
 import { productIconSets } from "./ProductIconSets";
 import { Reveal } from "./Reveal";
 
-type CatalogProduct = Product & { icon: string };
+type CatalogProduct = Product & { icon: GlassIconName };
 
 const products: CatalogProduct[] = [
   {
@@ -133,7 +128,7 @@ const products: CatalogProduct[] = [
     image: coreBankingUi,
     video: coreBankingVideo,
     alt: "AI-powered IDSSPL next-generation core banking platform",
-    icon: coreBankingIcon,
+    icon: "bank",
   },
   {
     id: "npci-products",
@@ -246,7 +241,7 @@ const products: CatalogProduct[] = [
     image: paymentSwitching,
     video: paymentSwitchingVideo,
     alt: "IDSSPL NPCI payment product transaction network",
-    icon: npciIcon,
+    icon: "network",
   },
   {
     id: "digital-banking-products",
@@ -360,7 +355,7 @@ const products: CatalogProduct[] = [
     image: vault,
     video: vaultVideo,
     alt: "Secure digital banking channels connected through IDSSPL technology",
-    icon: digitalBankingIcon,
+    icon: "smartphone",
   },
   {
     id: "enterprise-solution",
@@ -473,7 +468,7 @@ const products: CatalogProduct[] = [
     image: reconciliation,
     video: reconciliationVideo,
     alt: "IDSSPL enterprise workflow and reconciliation solution",
-    icon: enterpriseIcon,
+    icon: "workflow",
   },
   {
     id: "merchant-management-solution",
@@ -586,7 +581,7 @@ const products: CatalogProduct[] = [
     image: riskUi,
     video: riskVideo,
     alt: "IDSSPL merchant management dashboard and analytics",
-    icon: merchantIcon,
+    icon: "store",
   },
   {
     id: "card-management",
@@ -700,7 +695,7 @@ const products: CatalogProduct[] = [
     image: cardsImg,
     video: cardsVideo,
     alt: "IDSSPL secure card management and lifecycle platform",
-    icon: cardManagementIcon,
+    icon: "creditCard",
   },
 ];
 
@@ -783,7 +778,7 @@ export function ProductCatalog() {
                     onClick={(event) => selectProduct(event, product.id)}
                   >
                     <span className="product-family-button-icon" aria-hidden="true">
-                      <img src={product.icon} alt="" loading="lazy" decoding="async" />
+                      <GlassIcon3D name={product.icon} size="sm" tone="cyan" />
                     </span>
                     <span>
                       <strong>{product.label}</strong>

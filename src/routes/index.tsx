@@ -1,29 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/site/Hero";
-import { Statement } from "@/components/site/Statement";
 import { HomeProductOverview } from "@/components/site/HomeProductOverview";
 import { AILayer } from "@/components/site/AILayer";
 import { CertificateTrust } from "@/components/site/CertificateTrust";
-import { Testimonials } from "@/components/site/Testimonials";
 import { Faq } from "@/components/site/Faq";
+import {
+  BankingArchitectureFlow,
+  CustomerOutcomes,
+  HomeTrustMetrics,
+  IndustrySolutions,
+} from "@/components/site/HomeJourney";
 import { SitePage } from "@/components/site/SitePage";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "IDSSPL | AI-Powered Core Banking & Digital Payments" },
+      { title: "IDSSPL | AI Banking Infrastructure, Core Banking & Payments" },
       {
         name: "description",
         content:
-          "IDSSPL delivers AI-powered core banking, NPCI payment products, digital banking, merchant, card, and enterprise technology for financial institutions.",
+          "IDSSPL delivers AI-powered core banking, NPCI payments, digital banking, merchant, card, and enterprise technology for banks, co-operative banks, NBFCs, fintechs, and payment providers.",
       },
       {
         name: "keywords",
         content:
-          "AI core banking software, digital banking platform, NPCI payment products, banking technology company India, card management, merchant management, IDSSPL",
+          "AI core banking software, digital banking platform, NPCI payment products, banking technology company India, co-operative bank software, NBFC technology, fintech infrastructure, card management, merchant management, IDSSPL",
       },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "IDSSPL | Intelligent Banking Infrastructure" },
+      {
+        property: "og:title",
+        content: "IDSSPL | Intelligent Infrastructure for the Future of Banking",
+      },
       {
         property: "og:description",
         content:
@@ -42,11 +49,13 @@ function HomePage() {
   return (
     <SitePage>
       <Hero />
-      <Statement />
+      <HomeTrustMetrics />
       <HomeProductOverview />
       <AILayer />
+      <BankingArchitectureFlow />
+      <IndustrySolutions />
       <CertificateTrust />
-      <Testimonials />
+      <CustomerOutcomes />
       <Faq />
     </SitePage>
   );

@@ -1,8 +1,7 @@
 import { Plus } from "lucide-react";
 
-import subproductModuleIcon from "@/assets/product-icons/subproduct-module-3d.jpg";
-
 import { CinematicMedia } from "./CinematicMedia";
+import { GlassIcon3D, type GlassIconName } from "./GlassIcon3D";
 import { Reveal } from "./Reveal";
 
 export type ProductPoint = {
@@ -18,9 +17,9 @@ export type Product = {
   overview: string[];
   subProducts: string[];
   keyFeatures: ProductPoint[];
-  featureIcons: string[];
+  featureIcons: GlassIconName[];
   benefits: ProductPoint[];
-  benefitIcons: string[];
+  benefitIcons: GlassIconName[];
   faqs: ProductPoint[];
   image: string;
   video: string;
@@ -39,7 +38,7 @@ function ProductPointGrid({
   title: string;
   introduction: string;
   points: ProductPoint[];
-  icons: string[];
+  icons: GlassIconName[];
   variant: "feature" | "benefit";
 }) {
   return (
@@ -61,7 +60,11 @@ function ProductPointGrid({
             <Reveal key={point.title} delay={50 + index * 55}>
               <article className="product-point-card">
                 <span className="product-point-icon" aria-hidden="true">
-                  <img src={icon} alt="" loading="lazy" decoding="async" />
+                  <GlassIcon3D
+                    name={icon}
+                    size="lg"
+                    tone={variant === "benefit" ? "teal" : "cyan"}
+                  />
                 </span>
                 <div>
                   <h4>{point.title}</h4>
@@ -148,7 +151,7 @@ export function ProductSection({ product }: { product: Product }) {
               {product.subProducts.map((item) => (
                 <article key={item}>
                   <span className="product-subproduct-icon" aria-hidden="true">
-                    <img src={subproductModuleIcon} alt="" loading="lazy" decoding="async" />
+                    <GlassIcon3D name="boxes" size="sm" tone="blue" />
                   </span>
                   <strong>{item}</strong>
                 </article>
@@ -175,10 +178,7 @@ export function ProductSection({ product }: { product: Product }) {
           variant="benefit"
         />
 
-        <section
-          className="product-faq-section"
-          aria-labelledby={`${product.id}-faq-title`}
-        >
+        <section className="product-faq-section" aria-labelledby={`${product.id}-faq-title`}>
           <Reveal>
             <div className="product-point-heading">
               <div>
@@ -197,9 +197,7 @@ export function ProductSection({ product }: { product: Product }) {
               <Reveal key={faq.title} delay={45 + index * 45}>
                 <details className="product-faq-item">
                   <summary>
-                    <span className="product-faq-number">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                    <span className="product-faq-number">{String(index + 1).padStart(2, "0")}</span>
                     <strong>{faq.title}</strong>
                     <Plus className="product-faq-toggle" aria-hidden="true" />
                   </summary>

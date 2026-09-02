@@ -61,11 +61,11 @@ export function Hero() {
           <p className="eyebrow animate-fade-in">AI-Powered Banking Technology</p>
           <h1
             className="display mt-6 max-w-[11ch] text-[clamp(2.8rem,5vw,5rem)] text-foreground"
-            aria-label="Intelligent Infrastructure For Modern Banking."
+            aria-label="Intelligent Infrastructure For The Future Of Banking."
           >
             <span className="block">Intelligent</span>{" "}
             <span className="block">Infrastructure For</span>{" "}
-            <span className="block text-muted-foreground">Modern Banking.</span>
+            <span className="block text-muted-foreground">The Future Of Banking.</span>
           </h1>
           <p className="mt-7 max-w-lg text-[15px] leading-relaxed text-muted-foreground">
             Secure, scalable technology for core banking, payments, cards, risk and financial

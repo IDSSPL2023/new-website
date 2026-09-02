@@ -8,6 +8,10 @@ import reconciliation from "@/assets/reconciliation.jpg";
 import reconciliationVideo from "@/assets/reconciliation.mp4";
 import vault from "@/assets/vault.jpg";
 import vaultVideo from "@/assets/vault.mp4";
+import infrastructure from "@/assets/infrastructure.jpg";
+import infrastructureVideo from "@/assets/infrastructure.mp4";
+import cards from "@/assets/cards.jpg";
+import cardsVideo from "@/assets/cards.mp4";
 
 import { CinematicMedia } from "./CinematicMedia";
 import { Reveal } from "./Reveal";
@@ -45,6 +49,22 @@ const featuredProducts = [
     video: reconciliationVideo,
     alt: "IDSSPL enterprise banking solution",
   },
+  {
+    label: "Merchant Management Solution",
+    description: "Connected onboarding, QR operations, servicing, settlement, and intelligence.",
+    href: "/products#merchant-management-solution",
+    image: infrastructure,
+    video: infrastructureVideo,
+    alt: "IDSSPL merchant management technology infrastructure",
+  },
+  {
+    label: "Card Management",
+    description: "Secure issuance, controls, monitoring, and complete card lifecycle operations.",
+    href: "/products#card-management",
+    image: cards,
+    video: cardsVideo,
+    alt: "IDSSPL card management platform",
+  },
 ];
 
 export function HomeProductOverview() {
@@ -54,7 +74,7 @@ export function HomeProductOverview() {
         <div className="section-heading-split">
           <div>
             <Reveal>
-              <p className="eyebrow">Explore Our Core Products</p>
+              <p className="eyebrow">Product Ecosystem</p>
             </Reveal>
             <Reveal delay={70}>
               <h2 className="display section-heading-title text-foreground">
@@ -65,8 +85,8 @@ export function HomeProductOverview() {
           <Reveal delay={130}>
             <div className="home-products-intro">
               <p className="section-heading-copy">
-                Start with four product families, then explore the complete portfolio of core,
-                payments, digital, enterprise, merchant, and card technologies.
+                Explore six connected product families spanning core banking, payments, digital
+                channels, enterprise operations, merchants, and cards.
               </p>
               <a href="/products">
                 Explore All Products

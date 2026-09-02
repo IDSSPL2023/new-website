@@ -586,7 +586,11 @@
   position: relative;
   padding: clamp(8.5rem, 15vw, 11rem) 0 clamp(3.5rem, 7vw, 5.5rem);
   background:
-    radial-gradient(circle at 78% 24%, color-mix(in oklab, var(--cyan) 12%, transparent), transparent 34%),
+    radial-gradient(
+      circle at 78% 24%,
+      color-mix(in oklab, var(--cyan) 12%, transparent),
+      transparent 34%
+    ),
     linear-gradient(135deg, color-mix(in oklab, var(--surface) 72%, transparent), transparent 68%);
 }
 
@@ -595,7 +599,12 @@
   inset: auto 0 0;
   height: 1px;
   content: "";
-  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--cyan) 68%, transparent), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--cyan) 68%, transparent),
+    transparent
+  );
 }
 
 .legal-hero-grid {
@@ -2391,7 +2400,12 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
     inset: 0;
     z-index: 6;
     pointer-events: none;
-    background: linear-gradient(180deg, transparent 0%, oklch(0.75 0.18 225 / 10%) 49%, transparent 51%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      oklch(0.75 0.18 225 / 10%) 49%,
+      transparent 51%
+    );
     background-size: 100% 7rem;
     mix-blend-mode: screen;
     opacity: 0.65;
@@ -2448,7 +2462,11 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
     border-radius: 999px;
     background:
       radial-gradient(circle at 38% 28%, oklch(0.8 0.15 225 / 18%), transparent 32%),
-      linear-gradient(145deg, color-mix(in oklab, var(--surface-2) 96%, transparent), var(--background));
+      linear-gradient(
+        145deg,
+        color-mix(in oklab, var(--surface-2) 96%, transparent),
+        var(--background)
+      );
     padding: 1.25rem;
     text-align: center;
     transform: translate(-50%, -50%);
@@ -5057,11 +5075,813 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
 
 @media (min-width: 1100px) {
   .home-product-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .home-product-card {
     min-height: 22rem;
+  }
+}
+
+/* Home page journey: metrics, architecture, industries, and verified outcomes. */
+.home-metrics {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 78% 12%,
+      color-mix(in oklab, var(--electric) 11%, transparent),
+      transparent 37%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--surface) 38%, transparent),
+      color-mix(in oklab, var(--background) 94%, transparent)
+    );
+}
+
+.home-metrics::before {
+  position: absolute;
+  top: 8%;
+  left: -7rem;
+  width: 20rem;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in oklab, var(--cyan) 10%, transparent);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.home-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.home-metric-card {
+  position: relative;
+  min-height: 17rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--cyan) 20%, var(--hairline));
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(
+      circle at 18% 2%,
+      color-mix(in oklab, var(--electric) 11%, transparent),
+      transparent 39%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--surface-2) 74%, transparent),
+      color-mix(in oklab, var(--background) 94%, transparent)
+    );
+  padding: 1rem;
+  box-shadow: inset 0 1px 0 color-mix(in oklab, white 7%, transparent);
+  transition:
+    border-color 280ms ease,
+    box-shadow 320ms ease,
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.home-metric-card:hover {
+  border-color: color-mix(in oklab, var(--cyan) 48%, var(--hairline));
+  box-shadow:
+    0 1.4rem 3.2rem color-mix(in oklab, var(--electric) 10%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 10%, transparent);
+  transform: translateY(-5px);
+}
+
+.home-metric-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.home-metric-card-top > span {
+  padding-top: 0.35rem;
+  color: color-mix(in oklab, var(--cyan) 72%, var(--muted-foreground));
+  font-size: 0.58rem;
+  font-weight: 760;
+  letter-spacing: 0.14em;
+}
+
+.home-metric-card-copy {
+  position: absolute;
+  right: 1rem;
+  bottom: 1.15rem;
+  left: 1rem;
+}
+
+.home-metric-value {
+  display: flex;
+  align-items: flex-start;
+  color: var(--foreground);
+  font-size: clamp(2.7rem, 6vw, 4.8rem);
+  font-weight: 560;
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+  font-variant-numeric: tabular-nums;
+}
+
+.home-metric-value em {
+  margin: 0.05em 0 0 0.08em;
+  color: var(--cyan);
+  font-size: 0.44em;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+.home-metric-card h3 {
+  margin-top: 0.72rem;
+  color: var(--foreground);
+  font-size: clamp(0.8rem, 1.4vw, 1rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.home-metric-card p {
+  max-width: 30rem;
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.64rem;
+  line-height: 1.55;
+}
+
+.home-metric-card-line {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.22;
+  transition: opacity 260ms ease;
+}
+
+.home-metric-card:hover .home-metric-card-line {
+  opacity: 0.8;
+}
+
+.home-metric-card:hover .glass-icon-3d-image {
+  filter: saturate(1.08) contrast(1.04)
+    drop-shadow(
+      0 calc(var(--glass-icon-size) * 0.14) calc(var(--glass-icon-size) * 0.16)
+        color-mix(in oklab, var(--glass-icon-deep) 55%, transparent)
+    );
+  transform: perspective(800px) translateY(-3px) rotateX(0) rotateY(0) scale(1.05);
+}
+
+.home-metric-card:hover .glass-icon-3d-aura {
+  opacity: 0.75;
+  transform: translate3d(6%, 7%, -1rem) scale(1.1);
+}
+
+.banking-flow-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.banking-flow-section::before {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  width: min(70rem, 90vw);
+  height: 18rem;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--electric) 9%, transparent);
+  filter: blur(7rem);
+  transform: translateX(-50%);
+  content: "";
+  pointer-events: none;
+}
+
+.banking-flow-track {
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.banking-flow-reveal {
+  position: relative;
+  display: grid;
+  min-width: 0;
+}
+
+.banking-flow-node {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 15.5rem;
+  align-content: end;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--cyan) 23%, var(--hairline));
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(
+      circle at 84% 4%,
+      color-mix(in oklab, var(--electric) 13%, transparent),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--surface-2) 76%, transparent),
+      color-mix(in oklab, var(--background) 92%, transparent)
+    );
+  padding: 1.25rem;
+  box-shadow: inset 0 1px 0 color-mix(in oklab, white 6%, transparent);
+  transition:
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 260ms ease,
+    box-shadow 320ms ease;
+}
+
+.banking-flow-node::before {
+  position: absolute;
+  top: -4.4rem;
+  left: 50%;
+  width: 11rem;
+  height: 11rem;
+  border: 1px solid color-mix(in oklab, var(--cyan) 13%, transparent);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--electric) 12%, transparent),
+    transparent 66%
+  );
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.banking-flow-node:hover {
+  border-color: color-mix(in oklab, var(--cyan) 46%, var(--hairline));
+  box-shadow:
+    0 1.2rem 3rem color-mix(in oklab, var(--electric) 11%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 10%, transparent);
+  transform: translateY(-4px);
+}
+
+.banking-flow-step {
+  position: absolute;
+  top: 1rem;
+  left: 1.15rem;
+  color: var(--cyan);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.banking-flow-pulse {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: var(--cyan);
+  box-shadow: 0 0 0.9rem var(--cyan);
+  animation: home-flow-pulse 2.4s ease-in-out infinite;
+}
+
+.banking-flow-icon {
+  position: absolute;
+  top: 2.15rem;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  transform: translateX(-50%);
+}
+
+.banking-flow-node h3 {
+  color: var(--foreground);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 620;
+  letter-spacing: -0.04em;
+}
+
+.banking-flow-node p {
+  margin-top: 0.6rem;
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+
+.banking-flow-connector {
+  display: flex;
+  width: 100%;
+  height: 2.4rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+}
+
+.banking-flow-connector i {
+  width: 1px;
+  height: 1rem;
+  background: linear-gradient(180deg, transparent, var(--cyan));
+}
+
+.banking-flow-connector svg {
+  transform: rotate(90deg);
+}
+
+@keyframes home-flow-pulse {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(0.84);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.industry-solutions {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in oklab, var(--surface) 34%, transparent)
+  );
+}
+
+.industry-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.industry-card {
+  position: relative;
+  display: grid;
+  min-height: 15.5rem;
+  align-content: space-between;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 1.1rem;
+  background: color-mix(in oklab, var(--surface) 66%, transparent);
+  padding: 1.2rem;
+  transition:
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 240ms ease,
+    background 240ms ease;
+}
+
+.industry-card:hover {
+  border-color: color-mix(in oklab, var(--cyan) 38%, var(--hairline));
+  background: color-mix(in oklab, var(--surface-2) 82%, transparent);
+  transform: translateY(-4px);
+}
+
+.industry-card::before {
+  position: absolute;
+  top: -5rem;
+  left: -4rem;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--electric) 13%, transparent),
+    transparent 67%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.industry-card-visual {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.industry-index {
+  color: color-mix(in oklab, var(--cyan) 72%, var(--muted-foreground));
+  font-size: 0.58rem;
+  font-weight: 760;
+  letter-spacing: 0.14em;
+}
+
+.industry-card h3 {
+  color: var(--foreground);
+  font-size: 1.1rem;
+  font-weight: 620;
+  letter-spacing: -0.025em;
+}
+
+.industry-card p {
+  max-width: 27rem;
+  margin-top: 0.55rem;
+  color: var(--muted-foreground);
+  font-size: 0.7rem;
+  line-height: 1.62;
+}
+
+.industry-card-line {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.industry-card:hover .industry-card-line {
+  opacity: 0.7;
+}
+
+:is(.banking-flow-node:hover, .industry-card:hover) .glass-icon-3d-image {
+  filter: saturate(1.08) contrast(1.04)
+    drop-shadow(
+      0 calc(var(--glass-icon-size) * 0.14) calc(var(--glass-icon-size) * 0.16)
+        color-mix(in oklab, var(--glass-icon-deep) 55%, transparent)
+    );
+  transform: perspective(800px) translateY(-3px) rotateX(0) rotateY(0) scale(1.05);
+}
+
+:is(.banking-flow-node:hover, .industry-card:hover) .glass-icon-3d-aura {
+  opacity: 0.75;
+  transform: translate3d(6%, 7%, -1rem) scale(1.1);
+}
+
+.customer-outcomes {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 84% 42%,
+      color-mix(in oklab, var(--electric) 10%, transparent),
+      transparent 34%
+    ),
+    linear-gradient(180deg, color-mix(in oklab, var(--surface) 28%, transparent), transparent);
+}
+
+.customer-outcomes-layout {
+  display: grid;
+  gap: 1rem;
+}
+
+.outcome-story-list > div {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.outcome-story-selector {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 7.7rem;
+  grid-template-columns: 2.3rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.9rem;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--surface-2) 68%, transparent),
+    color-mix(in oklab, var(--background) 92%, transparent)
+  );
+  padding: 1rem;
+  text-align: left;
+  transition:
+    border-color 260ms ease,
+    background 260ms ease,
+    box-shadow 260ms ease,
+    transform 260ms ease;
+}
+
+.outcome-story-selector:hover {
+  border-color: color-mix(in oklab, var(--cyan) 42%, var(--hairline));
+  transform: translateX(3px);
+}
+
+.outcome-story-selector.is-active {
+  border-color: color-mix(in oklab, var(--cyan) 76%, var(--hairline));
+  background: linear-gradient(
+    130deg,
+    color-mix(in oklab, var(--electric) 14%, var(--surface-2)),
+    color-mix(in oklab, var(--background) 90%, transparent)
+  );
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 8%, transparent),
+    0 0 2.2rem color-mix(in oklab, var(--electric) 8%, transparent);
+}
+
+.outcome-selector-index {
+  align-self: start;
+  padding-top: 0.15rem;
+  color: var(--cyan);
+  font-size: 0.67rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+.outcome-selector-copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.outcome-selector-copy small {
+  color: var(--cyan);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.outcome-selector-copy strong {
+  max-width: 28ch;
+  color: var(--foreground);
+  font-size: 0.92rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.outcome-selector-copy > span {
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+}
+
+.outcome-selector-marker {
+  width: 0.42rem;
+  height: 0.42rem;
+  border: 1px solid color-mix(in oklab, var(--muted-foreground) 50%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 transparent;
+  transition: 260ms ease;
+}
+
+.outcome-story-selector.is-active .outcome-selector-marker {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  box-shadow: 0 0 1rem color-mix(in oklab, var(--cyan) 80%, transparent);
+}
+
+.customer-outcome-panel {
+  position: relative;
+  display: flex;
+  min-height: 31rem;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--cyan) 34%, var(--hairline));
+  border-radius: 1.4rem;
+  background:
+    radial-gradient(
+      circle at 92% 6%,
+      color-mix(in oklab, var(--electric) 18%, transparent),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--surface-2) 86%, transparent),
+      color-mix(in oklab, var(--background) 94%, transparent)
+    );
+  padding: clamp(1.35rem, 3vw, 2.4rem);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 8%, transparent),
+    0 1.8rem 5rem color-mix(in oklab, black 22%, transparent);
+}
+
+.outcome-panel-orbit {
+  position: absolute;
+  top: -10rem;
+  right: -8rem;
+  width: 28rem;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in oklab, var(--cyan) 13%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.outcome-panel-orbit::before,
+.outcome-panel-orbit::after {
+  position: absolute;
+  inset: 18%;
+  border: 1px solid color-mix(in oklab, var(--cyan) 11%, transparent);
+  border-radius: inherit;
+  content: "";
+}
+
+.outcome-panel-orbit::after {
+  inset: 36%;
+}
+
+.customer-outcome-content {
+  position: relative;
+  z-index: 1;
+}
+
+.outcome-quote-mark {
+  display: grid;
+  width: 3.1rem;
+  height: 3.1rem;
+  place-items: center;
+  border: 1px solid color-mix(in oklab, var(--cyan) 42%, var(--hairline));
+  border-radius: 0.9rem;
+  background: color-mix(in oklab, var(--electric) 12%, var(--surface));
+  color: var(--cyan);
+  box-shadow: 0 0 2rem color-mix(in oklab, var(--electric) 14%, transparent);
+}
+
+.outcome-quote-mark svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.outcome-panel-label {
+  margin-top: clamp(1.8rem, 4vw, 3.2rem);
+  color: var(--cyan);
+  font-size: 0.63rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.customer-outcome-panel blockquote {
+  max-width: 25ch;
+  margin-top: 0.8rem;
+  color: var(--foreground);
+  font-size: clamp(1.45rem, 3vw, 2.65rem);
+  font-weight: 570;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.outcome-delivery-summary {
+  display: grid;
+  gap: 1.3rem;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--hairline);
+  padding-top: 1.2rem;
+}
+
+.outcome-delivery-summary small {
+  color: var(--cyan);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.outcome-delivery-summary p {
+  max-width: 47ch;
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.74rem;
+  line-height: 1.65;
+}
+
+.outcome-delivery-summary footer {
+  display: grid;
+  align-content: end;
+  gap: 0.3rem;
+}
+
+.outcome-delivery-summary footer strong {
+  color: var(--foreground);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.outcome-delivery-summary footer span {
+  color: var(--muted-foreground);
+  font-size: 0.65rem;
+}
+
+.outcome-panel-controls {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.outcome-panel-controls > div {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.outcome-panel-controls button {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--background) 76%, transparent);
+  color: var(--muted-foreground);
+  transition: 220ms ease;
+}
+
+.outcome-panel-controls button:hover {
+  border-color: color-mix(in oklab, var(--cyan) 58%, var(--hairline));
+  color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+.outcome-panel-controls svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.outcome-panel-controls > span {
+  color: var(--muted-foreground);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+@media (min-width: 640px) {
+  .industry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-metric-card {
+    min-height: 18rem;
+    padding: 1.2rem;
+  }
+
+  .home-metric-card-copy {
+    right: 1.2rem;
+    bottom: 1.35rem;
+    left: 1.2rem;
+  }
+}
+
+@media (min-width: 760px) {
+  .outcome-delivery-summary {
+    grid-template-columns: minmax(0, 1.4fr) minmax(11rem, 0.6fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .customer-outcomes-layout {
+    grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.28fr);
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 900px) {
+  .home-metrics-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .home-metric-card {
+    min-height: 21rem;
+  }
+
+  .banking-flow-track {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+
+  .banking-flow-reveal {
+    display: flex;
+  }
+
+  .banking-flow-connector {
+    position: absolute;
+    top: 50%;
+    right: -1.65rem;
+    z-index: 2;
+    width: 1.7rem;
+    height: auto;
+    flex-direction: row;
+    transform: translateY(-50%);
+  }
+
+  .banking-flow-connector i {
+    width: 1.1rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan));
+  }
+
+  .banking-flow-connector svg {
+    transform: none;
+  }
+
+  .industry-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banking-flow-pulse {
+    animation: none;
   }
 }
 
@@ -6622,7 +7442,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
   transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.about-purpose-visual span {
+.about-purpose-visual > span {
   position: absolute;
   inset: 13%;
   border: 1px solid color-mix(in oklab, var(--cyan) 24%, transparent);
@@ -6870,6 +7690,134 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
 .chatbot-launcher:focus-visible {
   outline: 3px solid color-mix(in oklab, var(--cyan) 35%, transparent);
   outline-offset: 0.18rem;
+}
+
+.chatbot-visit-greeting {
+  position: fixed;
+  right: max(6.15rem, calc(5.55rem + env(safe-area-inset-right)));
+  bottom: max(2.25rem, calc(1.7rem + env(safe-area-inset-bottom)));
+  z-index: 61;
+  display: grid;
+  width: min(17.5rem, calc(100vw - 7.5rem));
+  gap: 0.46rem;
+  padding: 0.82rem 0.95rem 0.72rem;
+  overflow: visible;
+  border: 1px solid color-mix(in oklab, var(--cyan) 40%, var(--hairline));
+  border-radius: 1.05rem 1.05rem 0.3rem 1.05rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--surface) 94%, transparent),
+    color-mix(in oklab, var(--background) 88%, transparent)
+  );
+  color: var(--foreground);
+  box-shadow:
+    0 1.15rem 2.6rem color-mix(in oklab, black 52%, transparent),
+    0 0 1.2rem color-mix(in oklab, var(--cyan) 10%, transparent),
+    inset 0 1px color-mix(in oklab, white 10%, transparent);
+  text-align: left;
+  cursor: pointer;
+  backdrop-filter: blur(1rem) saturate(135%);
+  transform-origin: right bottom;
+  animation:
+    chatbot-greeting-in 520ms cubic-bezier(0.16, 1, 0.3, 1) both,
+    chatbot-greeting-float 3.4s 600ms ease-in-out infinite;
+}
+
+.chatbot-visit-greeting::after {
+  position: absolute;
+  right: -0.42rem;
+  bottom: 0.38rem;
+  width: 0.78rem;
+  height: 0.78rem;
+  border-right: 1px solid color-mix(in oklab, var(--cyan) 40%, var(--hairline));
+  border-bottom: 1px solid color-mix(in oklab, var(--cyan) 40%, var(--hairline));
+  background: color-mix(in oklab, var(--surface) 94%, var(--background));
+  content: "";
+  transform: rotate(-45deg);
+}
+
+.chatbot-visit-greeting:hover,
+.chatbot-visit-greeting:focus-visible {
+  border-color: color-mix(in oklab, var(--cyan) 72%, white);
+  box-shadow:
+    0 1.25rem 3rem color-mix(in oklab, black 58%, transparent),
+    0 0 1.6rem color-mix(in oklab, var(--cyan) 20%, transparent);
+}
+
+.chatbot-visit-greeting:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--cyan) 28%, transparent);
+  outline-offset: 0.2rem;
+}
+
+.chatbot-visit-greeting-copy {
+  display: grid;
+  gap: 0.18rem;
+  line-height: 1.35;
+}
+
+.chatbot-visit-greeting-copy strong {
+  color: var(--foreground);
+  font-size: 0.82rem;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+}
+
+.chatbot-visit-greeting-copy > span {
+  color: var(--muted-foreground);
+  font-size: 0.69rem;
+}
+
+.chatbot-visit-greeting-time {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: color-mix(in oklab, var(--cyan) 82%, var(--foreground));
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chatbot-visit-greeting-time i {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0.75rem var(--cyan);
+  animation: chatbot-greeting-status 1.8s ease-in-out infinite;
+}
+
+@keyframes chatbot-greeting-in {
+  from {
+    opacity: 0;
+    transform: translate(0.8rem, 0.45rem) scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes chatbot-greeting-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -0.16rem;
+  }
+}
+
+@keyframes chatbot-greeting-status {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
 }
 
 .chatbot-launcher-orbit {
@@ -8057,6 +9005,11 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
     right: 1.5rem;
     bottom: 8.45rem;
   }
+
+  .chatbot-visit-greeting {
+    right: 7rem;
+    bottom: 2.55rem;
+  }
 }
 
 @media (max-width: 560px) {
@@ -8089,6 +9042,21 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
     bottom: 2.15rem;
   }
 
+  .chatbot-visit-greeting {
+    right: max(5.25rem, calc(4.75rem + env(safe-area-inset-right)));
+    bottom: max(1.65rem, calc(1.1rem + env(safe-area-inset-bottom)));
+    width: min(15.6rem, calc(100vw - 6rem));
+    padding: 0.72rem 0.78rem 0.66rem;
+  }
+
+  .chatbot-visit-greeting-copy strong {
+    font-size: 0.76rem;
+  }
+
+  .chatbot-visit-greeting-copy > span {
+    font-size: 0.64rem;
+  }
+
   .chatbot-header {
     min-height: 4.25rem;
   }
@@ -8113,6 +9081,11 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
   .chatbot-robot-particle,
   .chatbot-message,
   .chatbot-typing-dots i {
+    animation: none;
+  }
+
+  .chatbot-visit-greeting,
+  .chatbot-visit-greeting-time i {
     animation: none;
   }
 
@@ -8340,5 +9313,405 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"]) .function-lead-card 
 
   html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"]) .function-lead-card {
     height: 28rem;
+  }
+}
+
+/* Universal glassmorphism icon system */
+.glass-icon-3d {
+  --glass-icon-accent: oklch(0.78 0.16 220);
+  --glass-icon-deep: oklch(0.49 0.19 245);
+  --glass-icon-size: 4.75rem;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  width: var(--glass-icon-size);
+  aspect-ratio: 1;
+  place-items: center;
+  transform-style: preserve-3d;
+}
+
+.glass-icon-3d-xs {
+  --glass-icon-size: 2.75rem;
+}
+
+.glass-icon-3d-sm {
+  --glass-icon-size: 3.7rem;
+}
+
+.glass-icon-3d-md {
+  --glass-icon-size: 4.75rem;
+}
+
+.glass-icon-3d-lg {
+  --glass-icon-size: 5.4rem;
+}
+
+.glass-icon-3d-hero {
+  --glass-icon-size: clamp(11.5rem, 22vw, 19rem);
+}
+
+.glass-icon-3d-blue {
+  --glass-icon-accent: oklch(0.72 0.16 248);
+  --glass-icon-deep: oklch(0.45 0.2 267);
+}
+
+.glass-icon-3d-teal {
+  --glass-icon-accent: oklch(0.76 0.14 190);
+  --glass-icon-deep: oklch(0.47 0.15 205);
+}
+
+.glass-icon-3d-gold {
+  --glass-icon-accent: oklch(0.82 0.15 82);
+  --glass-icon-deep: oklch(0.58 0.14 62);
+}
+
+.glass-icon-3d-aura {
+  position: absolute;
+  inset: 19%;
+  z-index: -2;
+  border-radius: 36%;
+  background: color-mix(in oklab, var(--glass-icon-accent) 36%, transparent);
+  filter: blur(calc(var(--glass-icon-size) * 0.18));
+  opacity: 0.48;
+  transform: translate3d(8%, 11%, -1rem);
+  transition:
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-icon-3d-shell {
+  position: absolute;
+  inset: 11%;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  border: 1px solid color-mix(in oklab, var(--glass-icon-accent) 46%, oklch(1 0 0 / 18%));
+  border-radius: 29%;
+  background:
+    linear-gradient(145deg, oklch(1 0 0 / 19%), transparent 35%),
+    radial-gradient(
+      circle at 30% 22%,
+      color-mix(in oklab, var(--glass-icon-accent) 25%, transparent),
+      transparent 45%
+    ),
+    linear-gradient(
+      150deg,
+      color-mix(in oklab, var(--glass-icon-deep) 30%, oklch(0.12 0.035 254 / 84%)),
+      oklch(0.09 0.025 258 / 72%)
+    );
+  box-shadow:
+    0 calc(var(--glass-icon-size) * 0.15) calc(var(--glass-icon-size) * 0.34)
+      color-mix(in oklab, var(--glass-icon-deep) 28%, transparent),
+    inset 0 1px 0 oklch(1 0 0 / 34%),
+    inset 0 -1px 0 color-mix(in oklab, var(--glass-icon-accent) 20%, transparent),
+    inset calc(var(--glass-icon-size) * -0.08) calc(var(--glass-icon-size) * -0.1)
+      calc(var(--glass-icon-size) * 0.22) oklch(0.01 0.02 260 / 26%);
+  backdrop-filter: blur(18px) saturate(1.25);
+  transform: perspective(700px) rotateX(7deg) rotateY(-9deg) rotateZ(-1deg);
+  transition:
+    border-color 360ms ease,
+    box-shadow 420ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-icon-3d-shell::after {
+  position: absolute;
+  inset: 1px;
+  border: 1px solid oklch(1 0 0 / 7%);
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+}
+
+.glass-icon-3d-reflection {
+  position: absolute;
+  top: -26%;
+  left: -40%;
+  width: 82%;
+  height: 142%;
+  background: linear-gradient(90deg, transparent, oklch(1 0 0 / 23%), transparent);
+  filter: blur(2px);
+  opacity: 0.72;
+  transform: rotate(24deg);
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-icon-3d-glyph {
+  position: relative;
+  z-index: 2;
+  width: 43%;
+  height: 43%;
+  color: color-mix(in oklab, var(--glass-icon-accent) 72%, white);
+  filter: drop-shadow(0 2px 0 oklch(1 0 0 / 18%))
+    drop-shadow(0 8px 10px color-mix(in oklab, var(--glass-icon-deep) 55%, transparent));
+  transform: translateZ(1.2rem);
+  transition:
+    color 320ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-icon-3d-image {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: saturate(0.96) contrast(1.03)
+    drop-shadow(
+      0 calc(var(--glass-icon-size) * 0.09) calc(var(--glass-icon-size) * 0.11)
+        color-mix(in oklab, var(--glass-icon-deep) 43%, transparent)
+    );
+  transform: perspective(800px) rotateX(1deg) rotateY(-2deg) translateZ(0);
+  transition:
+    filter 380ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-icon-3d-shadow {
+  position: absolute;
+  right: 19%;
+  bottom: 2%;
+  left: 19%;
+  z-index: -1;
+  height: 10%;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--glass-icon-deep) 50%, transparent);
+  filter: blur(calc(var(--glass-icon-size) * 0.075));
+  opacity: 0.64;
+  transform: translateY(42%);
+}
+
+:is(
+    .product-family-button:hover,
+    .product-family-button.is-selected,
+    .product-subproduct-grid article:hover,
+    .product-point-card:hover,
+    .about-capability-card.is-active,
+    .about-institution-card:hover,
+    .about-purpose-card:hover
+  )
+  .glass-icon-3d-shell {
+  border-color: color-mix(in oklab, var(--glass-icon-accent) 72%, oklch(1 0 0 / 24%));
+  box-shadow:
+    0 calc(var(--glass-icon-size) * 0.18) calc(var(--glass-icon-size) * 0.38)
+      color-mix(in oklab, var(--glass-icon-deep) 38%, transparent),
+    inset 0 1px 0 oklch(1 0 0 / 42%),
+    inset 0 -1px 0 color-mix(in oklab, var(--glass-icon-accent) 28%, transparent),
+    inset calc(var(--glass-icon-size) * -0.08) calc(var(--glass-icon-size) * -0.1)
+      calc(var(--glass-icon-size) * 0.22) oklch(0.01 0.02 260 / 24%);
+  transform: perspective(700px) translateY(-3px) rotateX(2deg) rotateY(-2deg) rotateZ(0);
+}
+
+:is(
+    .product-family-button:hover,
+    .product-family-button.is-selected,
+    .product-subproduct-grid article:hover,
+    .product-point-card:hover,
+    .about-capability-card.is-active,
+    .about-institution-card:hover,
+    .about-purpose-card:hover
+  )
+  .glass-icon-3d-glyph {
+  color: color-mix(in oklab, var(--glass-icon-accent) 54%, white);
+  transform: translateY(-1px) scale(1.055) translateZ(1.5rem);
+}
+
+:is(
+    .product-family-button:hover,
+    .product-family-button.is-selected,
+    .product-subproduct-grid article:hover,
+    .product-point-card:hover,
+    .about-capability-card.is-active,
+    .about-institution-card:hover,
+    .about-purpose-card:hover
+  )
+  .glass-icon-3d-reflection {
+  transform: translateX(155%) rotate(24deg);
+}
+
+:is(
+    .product-family-button:hover,
+    .product-family-button.is-selected,
+    .product-subproduct-grid article:hover,
+    .product-point-card:hover,
+    .about-capability-card.is-active,
+    .about-institution-card:hover,
+    .about-purpose-card:hover
+  )
+  .glass-icon-3d-aura {
+  opacity: 0.7;
+  transform: translate3d(6%, 7%, -1rem) scale(1.08);
+}
+
+:is(
+    .product-family-button:hover,
+    .product-family-button.is-selected,
+    .product-subproduct-grid article:hover,
+    .product-point-card:hover,
+    .about-capability-card.is-active,
+    .about-institution-card:hover,
+    .about-purpose-card:hover
+  )
+  .glass-icon-3d-image {
+  filter: saturate(1.04) contrast(1.04)
+    drop-shadow(
+      0 calc(var(--glass-icon-size) * 0.12) calc(var(--glass-icon-size) * 0.15)
+        color-mix(in oklab, var(--glass-icon-deep) 53%, transparent)
+    );
+  transform: perspective(800px) translateY(-3px) rotateX(0) rotateY(0) scale(1.045);
+}
+
+:root.light .glass-icon-3d-shell {
+  border-color: color-mix(in oklab, var(--glass-icon-deep) 32%, oklch(1 0 0 / 70%));
+  background:
+    linear-gradient(145deg, oklch(1 0 0 / 82%), transparent 38%),
+    radial-gradient(
+      circle at 30% 22%,
+      color-mix(in oklab, var(--glass-icon-accent) 24%, transparent),
+      transparent 48%
+    ),
+    linear-gradient(
+      150deg,
+      color-mix(in oklab, var(--glass-icon-accent) 13%, oklch(0.98 0.008 230 / 86%)),
+      oklch(0.89 0.025 235 / 72%)
+    );
+  box-shadow:
+    0 calc(var(--glass-icon-size) * 0.13) calc(var(--glass-icon-size) * 0.3)
+      color-mix(in oklab, var(--glass-icon-deep) 17%, transparent),
+    inset 0 1px 0 oklch(1 0 0 / 88%),
+    inset 0 -1px 0 color-mix(in oklab, var(--glass-icon-deep) 15%, transparent);
+}
+
+:root.light .glass-icon-3d-glyph {
+  color: color-mix(in oklab, var(--glass-icon-deep) 78%, oklch(0.24 0.05 250));
+}
+
+:root.light .glass-icon-3d-image {
+  filter: saturate(0.9) contrast(1.06)
+    drop-shadow(
+      0 calc(var(--glass-icon-size) * 0.08) calc(var(--glass-icon-size) * 0.1)
+        color-mix(in oklab, var(--glass-icon-deep) 25%, transparent)
+    );
+}
+
+.product-family-button-icon,
+.product-subproduct-grid article > .product-subproduct-icon,
+.product-point-icon,
+.about-capability-card-visual,
+.about-institution-visual {
+  display: grid;
+  overflow: visible;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-family-button-icon {
+  width: 3.75rem;
+  height: 3.75rem;
+  transform: none;
+}
+
+.product-family-button:hover .product-family-button-icon,
+.product-family-button.is-selected .product-family-button-icon {
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.product-subproduct-grid article > .product-subproduct-icon {
+  width: 3.7rem;
+  height: 3.7rem;
+}
+
+.product-point-icon {
+  width: 5.4rem;
+  height: 5.4rem;
+  transform: none;
+}
+
+.product-point-card:hover .product-point-icon {
+  transform: none;
+}
+
+.about-capability-card-visual {
+  width: 4.75rem;
+  height: 4.75rem;
+}
+
+.about-capability-visual {
+  display: grid;
+  place-items: center;
+}
+
+.about-capability-visual .glass-icon-3d {
+  animation: glass-icon-hero-float 5.8s ease-in-out infinite;
+}
+
+.about-institution-visual {
+  width: 5.2rem;
+  height: 5.2rem;
+}
+
+.about-institution-card:hover .about-institution-visual {
+  transform: translateY(-3px);
+}
+
+.about-purpose-visual {
+  display: grid;
+  place-items: center;
+}
+
+.about-purpose-visual > .glass-icon-3d {
+  z-index: 2;
+  animation: glass-icon-hero-float 6.4s ease-in-out infinite;
+}
+
+@keyframes glass-icon-hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -0.5rem, 0);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .about-capability-card-visual .glass-icon-3d {
+    --glass-icon-size: 12rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .glass-icon-3d-hero {
+    --glass-icon-size: clamp(8.5rem, 42vw, 12rem);
+  }
+
+  .about-capability-card-visual .glass-icon-3d {
+    --glass-icon-size: clamp(9rem, 34vw, 12rem);
+  }
+
+  .product-point-icon {
+    width: 4.9rem;
+    height: 4.9rem;
+  }
+
+  .product-point-icon .glass-icon-3d {
+    --glass-icon-size: 4.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-icon-3d,
+  .glass-icon-3d-shell,
+  .glass-icon-3d-reflection,
+  .glass-icon-3d-glyph,
+  .glass-icon-3d-image,
+  .glass-icon-3d-aura {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
   }
 }

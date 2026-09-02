@@ -3,77 +3,78 @@
 import { CheckCircle2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import missionVisual from "@/assets/about-mission-3d.png";
-import visionVisual from "@/assets/about-vision-3d.png";
-import bankingDomainVisual from "@/assets/capabilities/banking-domain-expertise.png";
-import complianceVisual from "@/assets/capabilities/compliance-ready-architecture.png";
-import implementationVisual from "@/assets/capabilities/enterprise-implementation-support.png";
-import paymentEngineeringVisual from "@/assets/capabilities/real-time-payment-engineering.png";
-import scalablePlatformVisual from "@/assets/capabilities/scalable-financial-platforms.png";
-import securityInfrastructureVisual from "@/assets/capabilities/security-first-infrastructure.png";
 import infrastructureImg from "@/assets/infrastructure.jpg";
 import infrastructureVideo from "@/assets/infrastructure.mp4";
 
 import { CinematicMedia } from "./CinematicMedia";
+import { GlassIcon3D, type GlassIconName } from "./GlassIcon3D";
 import { Reveal } from "./Reveal";
 
-const strengths = [
+const strengths: Array<{
+  title: string;
+  description: string;
+  icon: GlassIconName;
+}> = [
   {
     title: "Banking Domain Expertise",
     description:
       "Deep banking knowledge informs every workflow, integration, control, and operational decision across our financial technology platforms.",
-    visual: bankingDomainVisual,
+    icon: "bank",
   },
   {
     title: "Security-First Infrastructure",
     description:
       "Layered security, access controls, auditability, and resilient infrastructure protect sensitive financial operations and customer data.",
-    visual: securityInfrastructureVisual,
+    icon: "shield",
   },
   {
     title: "Scalable Financial Platforms",
     description:
       "Modular architectures support higher transaction volumes, expanding branch networks, and new digital services without unnecessary disruption.",
-    visual: scalablePlatformVisual,
+    icon: "layers",
   },
   {
     title: "Real-Time Payment Engineering",
     description:
       "Connected payment capabilities support dependable routing, monitoring, reconciliation, and transaction processing across modern banking channels.",
-    visual: paymentEngineeringVisual,
+    icon: "activity",
   },
   {
     title: "Compliance-Ready Architecture",
     description:
       "Traceable processes, configurable controls, and structured reporting strengthen oversight and help institutions operate with regulatory confidence.",
-    visual: complianceVisual,
+    icon: "clipboard",
   },
   {
     title: "Enterprise Implementation Support",
     description:
       "Experienced teams guide discovery, integration, migration, rollout, and long-term platform stability across complex banking environments.",
-    visual: implementationVisual,
+    icon: "handshake",
   },
 ];
 
-const institutions = [
+const institutions: Array<{
+  title: string;
+  description: string;
+  icon: GlassIconName;
+}> = [
   {
     title: "Banks & Co-Operative Institutions",
     description:
       "Modernize core operations, digital channels, payments, customer servicing, and institutional control on a dependable technology foundation.",
-    visual: bankingDomainVisual,
+    icon: "bank",
   },
   {
     title: "Fintech & Payment Providers",
     description:
       "Launch connected financial experiences with scalable transaction infrastructure, integration-ready services, and real-time visibility.",
-    visual: paymentEngineeringVisual,
+    icon: "network",
   },
   {
     title: "Growing Financial Enterprises",
     description:
       "Replace fragmented processes with secure enterprise workflows that improve accuracy, governance, productivity, and readiness for growth.",
-    visual: implementationVisual,
+    icon: "building",
   },
 ];
 
@@ -224,7 +225,7 @@ export function AboutCompany() {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div className="about-capability-card-visual" aria-hidden="true">
-                    <img src={item.visual} alt="" loading="lazy" decoding="async" />
+                    <GlassIcon3D name={item.icon} size="md" tone="cyan" />
                   </div>
                   <div>
                     <small>Core Capability</small>
@@ -245,7 +246,7 @@ export function AboutCompany() {
               >
                 <div className="about-capability-orbit" aria-hidden="true" />
                 <div key={`${strength.title}-visual`} className="about-capability-visual">
-                  <img src={strength.visual} alt="" loading="eager" decoding="async" />
+                  <GlassIcon3D name={strength.icon} size="hero" tone="blue" />
                 </div>
                 <article key={strength.title} className="about-capability-copy">
                   <span>
@@ -298,7 +299,7 @@ export function AboutCompany() {
               <Reveal key={institution.title} delay={100 + index * 80} className="h-full">
                 <article className="about-institution-card group">
                   <span className="about-institution-visual" aria-hidden="true">
-                    <img src={institution.visual} alt="" loading="lazy" decoding="async" />
+                    <GlassIcon3D name={institution.icon} size="md" tone="teal" />
                   </span>
                   <h3>{institution.title}</h3>
                   <p>{institution.description}</p>
@@ -339,7 +340,7 @@ export function AboutCompany() {
                 </span>
                 <div className="about-purpose-visual" aria-hidden="true">
                   <span />
-                  <img src={missionVisual} alt="" loading="lazy" decoding="async" />
+                  <GlassIcon3D name="target" size="hero" tone="cyan" />
                 </div>
                 <div className="about-purpose-copy">
                   <span className="about-purpose-kicker">Our Mission</span>
@@ -360,7 +361,7 @@ export function AboutCompany() {
                 </span>
                 <div className="about-purpose-visual" aria-hidden="true">
                   <span />
-                  <img src={visionVisual} alt="" loading="lazy" decoding="async" />
+                  <GlassIcon3D name="eye" size="hero" tone="blue" />
                 </div>
                 <div className="about-purpose-copy">
                   <span className="about-purpose-kicker">Our Vision</span>

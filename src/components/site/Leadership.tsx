@@ -15,9 +15,9 @@ import type { CSSProperties } from "react";
 
 import arunGawasImg from "@/assets/arun-gawas.png";
 import cgoProfileImg from "@/assets/cgo-profile.png";
+import devendraSawantImg from "@/assets/devendra-sawant-cutout-card-v2.png";
 import krishnaTelgaveImg from "@/assets/krishna-telgave-cutout-card.png";
 import maheshWaingankarImg from "@/assets/mahesh-waingankar-cutout-card.png";
-import omkarBhagwatImg from "@/assets/omkar-bhagwat-cutout-card.png";
 import sujaNairImg from "@/assets/suja-nair-cutout-card-v3.png";
 import vinayakImg from "@/assets/vinayak-more.jpg";
 import vishalImg from "@/assets/vishal-singh.jpg";
@@ -113,15 +113,15 @@ const chiefOfficers = [
     bio: "Leads sustainable business growth, technology direction, strategic partnerships, market expansion, and revenue initiatives that strengthen IDSSPL's long-term impact.",
   },
   {
-    id: "ciso",
-    role: "Chief Information Security Officer",
-    abbreviation: "CISO",
-    functionName: "Cybersecurity, Risk & Governance",
-    name: "Omkar Bhagwat",
-    photo: omkarBhagwatImg,
-    photoAlt: "Omkar Bhagwat, Chief Information Security Officer at IDSSPL",
-    accent: { start: "#075f8f", end: "#30d6f2", glow: "#22d3ee" },
-    bio: "Defines the enterprise security vision, cyber-risk governance, compliance standards, and resilient controls that protect customer data and critical banking systems.",
+    id: "operations-lead",
+    role: "Operations Lead",
+    abbreviation: "OPERATIONS",
+    functionName: "Business Operations & Delivery",
+    name: "Devendra Sawant",
+    photo: devendraSawantImg,
+    photoAlt: "Devendra Sawant, Operations Lead at IDSSPL",
+    accent: { start: "#6536c9", end: "#a96bff", glow: "#a78bfa" },
+    bio: "Oversees operational planning, cross-functional coordination, process discipline, and dependable execution across the organization.",
   },
   {
     id: "hr-admin",
@@ -246,8 +246,8 @@ export function Leadership() {
             </Reveal>
             <Reveal delay={100}>
               <p className="section-heading-copy">
-                Meet the executive officers shaping technology, core banking, growth, compliance,
-                brand, and people strategy.
+                Meet the leaders shaping technology, core banking, growth, operations, brand, and
+                people strategy.
               </p>
             </Reveal>
           </div>
