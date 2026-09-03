@@ -15,7 +15,6 @@ import { cn } from "@/lib/utils";
 import logoMark from "@/assets/idsspl-logo.svg";
 import lightLogo from "@/assets/idsspl-logo-light.png";
 import { LanguageSelector } from "./LanguageSelector";
-import { ThemeToggle } from "./ThemeToggle";
 
 const primaryLinks = [
   { label: "Home", href: "/" },
@@ -190,7 +189,6 @@ export function Nav() {
 
         <div className="flex items-center gap-2 md:gap-4">
           <LanguageSelector />
-          <ThemeToggle />
           <a
             href="#talk-to-expert"
             className="shiny-button hidden rounded-full px-4 py-2 text-[13px] font-semibold lg:block"
