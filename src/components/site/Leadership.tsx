@@ -103,7 +103,7 @@ const chiefOfficers = [
   {
     id: "operations-lead",
     role: "VP Operation",
-    abbreviation: "OPERATIONS",
+    abbreviation: "VP OPERATIONS",
     functionName: "Business Operations & Delivery",
     name: "Devendra Sawant",
     photo: devendraSawantImg,
@@ -115,12 +115,12 @@ const chiefOfficers = [
     id: "hr-admin",
     role: "Manager - HR & Admin",
     abbreviation: "HR & ADMIN",
-    functionName: "People, Culture & Administration",
+    functionName: "People, Culture & Workplace Administration",
     name: "Suja Nair",
     photo: sujaNairImg,
     photoAlt: "Suja Nair, Manager - HR & Admin at IDSSPL",
     accent: { start: "#3157b8", end: "#68a7ff", glow: "#60a5fa" },
-    bio: "Builds a high-performing people culture through thoughtful talent acquisition, employee development, engagement, and dependable human-resource operations.",
+    bio: "Fosters a high-performing, people-centric culture through strategic talent acquisition, employee development, and effective HR operations, while ensuring a safe, comfortable, and well-managed work environment and providing seamless administrative support for business operations.",
   },
 ];
 
