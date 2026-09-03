@@ -1,13 +1,4 @@
-import {
-  BadgeCheck,
-  Handshake,
-  Landmark,
-  Medal,
-  Route,
-  TrendingUp,
-  Users,
-  Workflow,
-} from "lucide-react";
+import { BadgeCheck, Handshake, Landmark, Medal, Route, TrendingUp, Workflow } from "lucide-react";
 import type { CSSProperties } from "react";
 
 import arunGawasImg from "@/assets/arun-gawas.png";
@@ -260,13 +251,6 @@ export function Leadership() {
                       <p className="mt-2 text-[12px] font-medium text-white/62">{chief.role}</p>
                       <p className="chief-card-function mt-4">{chief.functionName}</p>
                       <p className="mt-3 text-[13px] leading-[1.7] text-white/66">{chief.bio}</p>
-
-                      <div className="chief-card-footer mt-auto pt-5">
-                        <span className="chief-profile-status">
-                          <Users aria-hidden="true" size={14} />
-                          Profile Details Coming Soon
-                        </span>
-                      </div>
                     </div>
                   </article>
                 </Reveal>
