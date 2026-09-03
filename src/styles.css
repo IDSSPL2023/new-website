@@ -2979,107 +2979,59 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
     min-height: 100%;
     flex-direction: column;
     overflow: hidden;
-    border: 1px solid color-mix(in oklab, var(--leader-glow) 38%, oklch(1 0 0 / 12%));
+    border: 1px solid var(--hairline);
     border-radius: 1.45rem;
     background:
       linear-gradient(145deg, oklch(1 0 0 / 8%), transparent 24%),
-      radial-gradient(
-        circle at 82% 18%,
-        color-mix(in oklab, var(--leader-glow) 15%, transparent),
-        transparent 17rem
-      ),
       linear-gradient(
-        155deg,
-        color-mix(in oklab, var(--leader-start) 10%, oklch(0.105 0.036 271)),
-        oklch(0.038 0.016 266) 62%,
-        oklch(0.025 0.01 265)
+        165deg,
+        color-mix(in oklab, var(--surface-2) 91%, transparent),
+        color-mix(in oklab, var(--background) 96%, transparent)
       );
     box-shadow:
       inset 0 1px 0 oklch(1 0 0 / 14%),
-      0 34px 90px -58px color-mix(in oklab, var(--leader-glow) 68%, transparent);
+      0 34px 90px -58px oklch(0.66 0.2 246 / 75%);
     transition:
+      transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
       border-color 500ms ease,
       box-shadow 500ms ease;
   }
   .leadership-card:hover {
-    border-color: color-mix(in oklab, var(--leader-glow) 68%, oklch(1 0 0 / 16%));
+    transform: translateY(-7px);
+    border-color: oklch(0.8 0.16 232 / 42%);
     box-shadow:
       inset 0 1px 0 oklch(1 0 0 / 17%),
-      0 45px 100px -54px color-mix(in oklab, var(--leader-glow) 78%, transparent);
+      0 45px 100px -54px oklch(0.68 0.21 242 / 78%);
   }
   .leadership-portrait {
     position: relative;
-    isolation: isolate;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1.2 / 1;
     overflow: hidden;
-    border-bottom: 1px solid color-mix(in oklab, var(--leader-glow) 24%, oklch(1 0 0 / 10%));
-    background:
-      linear-gradient(145deg, oklch(1 0 0 / 8%), transparent 28%),
-      radial-gradient(
-        circle at 50% 36%,
-        color-mix(in oklab, var(--leader-glow) 24%, transparent),
-        transparent 46%
-      ),
-      linear-gradient(
-        150deg,
-        color-mix(in oklab, var(--leader-start) 25%, oklch(0.1 0.035 270)),
-        oklch(0.045 0.018 266) 66%,
-        oklch(0.025 0.01 265)
-      );
-  }
-  .leadership-portrait::before {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    content: "";
-    opacity: 0.28;
-    background-image:
-      linear-gradient(
-        color-mix(in oklab, var(--leader-glow) 20%, transparent) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        90deg,
-        color-mix(in oklab, var(--leader-glow) 20%, transparent) 1px,
-        transparent 1px
-      );
-    background-size: 3.2rem 3.2rem;
-    mask-image: linear-gradient(125deg, black, transparent 74%);
+    border-bottom: 1px solid var(--hairline);
+    background: var(--surface);
   }
   .leadership-portrait::after {
     position: absolute;
     inset: 0;
-    z-index: 2;
     pointer-events: none;
     content: "";
     background:
-      linear-gradient(to top, oklch(0.04 0.016 266 / 92%), transparent 26%),
-      linear-gradient(125deg, oklch(1 0 0 / 7%), transparent 34%);
+      linear-gradient(to top, oklch(0.075 0.022 266 / 78%), transparent 32%),
+      linear-gradient(125deg, oklch(0.71 0.17 230 / 8%), transparent 35%);
   }
-  .leadership-portrait-photo {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: none;
-    transform: none;
+  .leadership-portrait img {
+    transform: scale(1.002);
+    filter: saturate(0.9) contrast(1.03);
+    transition:
+      transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 700ms ease;
   }
-  .leadership-card .leader-role-badge {
-    border-color: color-mix(in oklab, var(--leader-glow) 42%, transparent);
-    background: color-mix(in oklab, var(--leader-start) 14%, transparent);
-    color: color-mix(in oklab, var(--leader-glow) 82%, white);
+  .leadership-card:hover .leadership-portrait img {
+    transform: scale(1.045);
+    filter: saturate(1.04) contrast(1.02);
   }
-  .leadership-card .leader-credential-icon {
-    border-color: color-mix(in oklab, var(--leader-glow) 34%, transparent);
-    background: linear-gradient(
-      145deg,
-      color-mix(in oklab, var(--leader-start) 22%, transparent),
-      color-mix(in oklab, var(--leader-end) 8%, transparent)
-    );
-    color: color-mix(in oklab, var(--leader-glow) 82%, white);
+  .leadership-card[data-leader-id="suraj-pathak"] .leadership-portrait img {
+    object-position: center top;
   }
   .leader-role-badge {
     display: inline-flex;
@@ -3221,7 +3173,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
     --chief-photo-scale: 1;
   }
   .chief-card[data-chief-id="operations-lead"] {
-    --chief-photo-scale: 0.94;
+    --chief-photo-scale: 0.91;
   }
   .chief-card[data-chief-id="ciso"] {
     --chief-photo-scale: 0.977;
@@ -3463,48 +3415,6 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
   .brochure-preview:hover .brochure-preview-action {
     background: oklch(0.55 0.18 238 / 90%);
     transform: translate(2px, -2px);
-  }
-  .leadership-values {
-    display: grid;
-    overflow: hidden;
-    border: 1px solid var(--hairline);
-    border-radius: 1.45rem;
-    background:
-      linear-gradient(145deg, oklch(1 0 0 / 6%), transparent 23%),
-      linear-gradient(
-        165deg,
-        color-mix(in oklab, var(--surface-2) 78%, transparent),
-        color-mix(in oklab, var(--background) 88%, transparent)
-      );
-    box-shadow: inset 0 1px 0 oklch(1 0 0 / 11%);
-    backdrop-filter: blur(18px);
-  }
-  .leadership-value {
-    position: relative;
-    padding: 1.75rem 1.5rem;
-    text-align: center;
-  }
-  .leadership-value + .leadership-value {
-    border-top: 1px solid var(--hairline);
-  }
-  .leadership-value-icon {
-    display: inline-grid;
-    place-items: center;
-    color: var(--cyan);
-    filter: drop-shadow(0 7px 12px oklch(0.72 0.18 235 / 25%));
-  }
-  .leadership-value h3 {
-    margin-top: 0.85rem;
-    color: color-mix(in oklab, var(--foreground) 90%, transparent);
-    font-size: 0.76rem;
-    font-weight: 650;
-  }
-  .leadership-value p {
-    max-width: 15rem;
-    margin: 0.55rem auto 0;
-    color: var(--muted-foreground);
-    font-size: 0.64rem;
-    line-height: 1.65;
   }
   .function-lead-grid {
     display: grid;
@@ -3921,7 +3831,6 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
       inset 0 1px 0 oklch(1 0 0),
       0 36px 82px -54px oklch(0.36 0.15 248 / 42%);
   }
-  :root.light .leadership-values,
   :root.light .full-team-cta {
     border-color: oklch(0.3 0.06 255 / 17%);
     box-shadow:
@@ -4686,7 +4595,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
   align-items: center;
   gap: 0.32rem;
   color: var(--muted-foreground);
-  font-size: 13.5px;
+  font-size: 15.5px;
   cursor: pointer;
   transition: color 250ms ease;
 }
@@ -9574,13 +9483,6 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
     border-right: 1px solid oklch(1 0 0 / 10%);
     border-bottom: 0;
   }
-  .leadership-values {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-  .leadership-value + .leadership-value {
-    border-top: 0;
-    border-left: 1px solid var(--hairline);
-  }
   .full-team-cta {
     grid-template-columns: minmax(0, 8fr) minmax(13rem, 4fr);
   }
@@ -9607,7 +9509,7 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .leadership-portrait {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1.08;
   }
 }
 

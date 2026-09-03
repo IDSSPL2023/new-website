@@ -94,7 +94,7 @@ export function Nav() {
             src={logoMark}
             alt=""
             aria-hidden="true"
-            className="site-logo-dark h-11 w-auto md:h-12"
+            className="site-logo-dark h-12 w-auto md:h-[3.25rem]"
           />
           <span className="site-logo-light" aria-hidden="true">
             <img src={lightLogo} alt="" />
@@ -106,7 +106,7 @@ export function Nav() {
             <a
               key={link.label}
               href={link.href}
-              className="text-[13.5px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+              className="text-[15.5px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
             >
               {link.label}
             </a>
@@ -133,7 +133,7 @@ export function Nav() {
               onClick={() => setProductsOpen(true)}
             >
               Our Products
-              <ChevronDown size={14} aria-hidden="true" />
+              <ChevronDown size={16} aria-hidden="true" />
             </button>
 
             <div
@@ -181,7 +181,7 @@ export function Nav() {
             <a
               key={link.label}
               href={link.href}
-              className="text-[13.5px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+              className="text-[15.5px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
             >
               {link.label}
             </a>

@@ -14,11 +14,8 @@ import { useEffect, useRef, useState } from "react";
 import infrastructureImg from "@/assets/infrastructure.jpg";
 import infrastructureVideo from "@/assets/infrastructure.mp4";
 import bankingDomainArtwork from "@/assets/about-icons-generated/banking-domain-expertise.png";
-import banksCooperativeArtwork from "@/assets/about-icons-generated/banks-cooperative-institutions.png";
 import complianceReadyArtwork from "@/assets/about-icons-generated/compliance-ready-architecture.png";
 import implementationSupportArtwork from "@/assets/about-icons-generated/enterprise-implementation-support.png";
-import fintechPaymentsArtwork from "@/assets/about-icons-generated/fintech-payment-providers.png";
-import growingEnterprisesArtwork from "@/assets/about-icons-generated/growing-financial-enterprises.png";
 import missionDependableArtwork from "@/assets/about-icons-generated/mission-dependable-banking.png";
 import paymentEngineeringArtwork from "@/assets/about-icons-generated/real-time-payment-engineering.png";
 import scalablePlatformsArtwork from "@/assets/about-icons-generated/scalable-financial-platforms.png";
@@ -83,28 +80,24 @@ const institutions: Array<{
   title: string;
   description: string;
   icon: GlassIconName;
-  artwork: string;
 }> = [
   {
-    title: "Banks & Co-Operative Institutions",
+    title: "Co-operative Banks",
     description:
-      "Modernize core operations, digital channels, payments, customer servicing, and institutional control on a dependable technology foundation.",
-    icon: "coreBanking",
-    artwork: banksCooperativeArtwork,
+      "Practical, scalable banking technology designed around customer service and operational continuity.",
+    icon: "omnichannelBanking",
   },
   {
-    title: "Fintech & Payment Providers",
+    title: "NBFCs",
     description:
-      "Launch connected financial experiences with scalable transaction infrastructure, integration-ready services, and real-time visibility.",
-    icon: "npciPayments",
-    artwork: fintechPaymentsArtwork,
+      "Digital workflows, integrations, reporting, and customer journeys for modern lending operations.",
+    icon: "dataAnalytics",
   },
   {
-    title: "Growing Financial Enterprises",
+    title: "Credit Societies",
     description:
-      "Replace fragmented processes with secure enterprise workflows that improve accuracy, governance, productivity, and readiness for growth.",
-    icon: "enterpriseAutomation",
-    artwork: growingEnterprisesArtwork,
+      "Dependable systems that simplify member servicing, financial operations, and controlled expansion.",
+    icon: "securityCompliance",
   },
 ];
 
@@ -315,7 +308,7 @@ export function AboutCompany() {
         </div>
       </section>
 
-      <section className="about-institutions border-b border-hairline py-14 md:py-20">
+      <section className="about-institutions industry-solutions border-b border-hairline py-14 md:py-20">
         <div className="shell">
           <div className="section-heading-split">
             <div>
@@ -324,33 +317,33 @@ export function AboutCompany() {
               </Reveal>
               <Reveal delay={80}>
                 <h2 className="display section-heading-title text-foreground">
-                  Built For Financial Institutions.
+                  Designed For Financial Institutions.
                 </h2>
               </Reveal>
             </div>
             <Reveal delay={140}>
               <p className="section-heading-copy">
-                Purpose-built platforms for banks, fintech companies, payment providers, and
-                institutions managing complex financial operations.
+                A modular banking ecosystem that adapts to different institution types without
+                losing security, control, or integration discipline.
               </p>
             </Reveal>
           </div>
 
-          <div className="mt-9 grid gap-4 md:mt-11 md:grid-cols-3">
+          <div className="industry-grid mt-9 md:mt-12">
             {institutions.map((institution, index) => (
-              <Reveal key={institution.title} delay={100 + index * 80} className="h-full">
-                <article className="about-institution-card group">
-                  <span className="about-institution-visual" aria-hidden="true">
-                    <GlassIcon3D
-                      name={institution.icon}
-                      artwork={institution.artwork}
-                      size="md"
-                      tone="teal"
-                      className="about-generated-icon"
-                    />
-                  </span>
-                  <h3>{institution.title}</h3>
-                  <p>{institution.description}</p>
+              <Reveal key={institution.title} delay={70 + index * 70}>
+                <article className="industry-card">
+                  <div className="industry-card-visual">
+                    <GlassIcon3D name={institution.icon} tone="teal" size="md" />
+                    <span className="industry-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div>
+                    <h3>{institution.title}</h3>
+                    <p>{institution.description}</p>
+                  </div>
+                  <span className="industry-card-line" aria-hidden="true" />
                 </article>
               </Reveal>
             ))}

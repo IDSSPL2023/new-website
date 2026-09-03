@@ -4,12 +4,9 @@ import {
   Landmark,
   Medal,
   Route,
-  Sparkles,
-  Target,
   TrendingUp,
   Users,
   Workflow,
-  Zap,
 } from "lucide-react";
 import type { CSSProperties } from "react";
 
@@ -19,9 +16,9 @@ import devendraSawantImg from "@/assets/devendra-sawant-cutout-card-v2.png";
 import krishnaTelgaveImg from "@/assets/krishna-telgave-cutout-card.png";
 import maheshWaingankarImg from "@/assets/mahesh-waingankar-cutout-card.png";
 import sujaNairImg from "@/assets/suja-nair-cutout-card-v3.png";
-import vinayakImg from "@/assets/vinayak-more-card-v6.png";
-import vishalImg from "@/assets/vishal-singh-card-v6.png";
-import surajImg from "@/assets/suraj-pathak-card-v6.png";
+import vinayakImg from "@/assets/vinayak-more.jpg";
+import vishalImg from "@/assets/vishal-singh.jpg";
+import surajImg from "@/assets/suraj-pathak.jpg";
 
 import { Reveal } from "./Reveal";
 
@@ -32,7 +29,6 @@ const leaders = [
     role: "Associate Director & CEO",
     focus: "Banking & Strategy Leader",
     photo: vinayakImg,
-    accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     credentials: [
       { title: "25+", label: "Years Experience", icon: Medal },
       { title: "Banking Technology", label: "Domain Expertise", icon: Landmark },
@@ -46,7 +42,6 @@ const leaders = [
     role: "Director — Sales & Growth",
     focus: "Sales & Growth Strategist",
     photo: vishalImg,
-    accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     credentials: [
       { title: "10+", label: "Years Experience", icon: Medal },
       { title: "Strategic Partnerships", label: "Business Expertise", icon: Handshake },
@@ -60,7 +55,6 @@ const leaders = [
     role: "Director — Operations",
     focus: "Operations Excellence Leader",
     photo: surajImg,
-    accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     credentials: [
       { title: "12+", label: "Years Experience", icon: Medal },
       { title: "Process Excellence", label: "Operational Expertise", icon: Workflow },
@@ -139,29 +133,6 @@ const chiefOfficers = [
   },
 ];
 
-const leadershipValues = [
-  {
-    title: "Proven Leadership",
-    description: "Decades of combined experience in banking technology leadership.",
-    icon: BadgeCheck,
-  },
-  {
-    title: "Customer-Centric",
-    description: "Focused on delivering solutions that create lasting impact.",
-    icon: Users,
-  },
-  {
-    title: "Innovation Driven",
-    description: "Continuously evolving to meet future banking challenges.",
-    icon: Zap,
-  },
-  {
-    title: "Results Oriented",
-    description: "Committed to measurable impact and sustainable business growth.",
-    icon: Target,
-  },
-];
-
 export function Leadership() {
   return (
     <section
@@ -189,23 +160,13 @@ export function Leadership() {
         <div className="leadership-card-grid mt-10 md:mt-14">
           {leaders.map((leader, index) => (
             <Reveal key={leader.name} delay={120 + index * 90} className="h-full">
-              <article
-                className="leadership-card group"
-                data-leader-id={leader.id}
-                style={
-                  {
-                    "--leader-start": leader.accent.start,
-                    "--leader-end": leader.accent.end,
-                    "--leader-glow": leader.accent.glow,
-                  } as CSSProperties
-                }
-              >
+              <article className="leadership-card group" data-leader-id={leader.id}>
                 <div className="leadership-portrait">
                   <img
                     src={leader.photo}
                     alt={`${leader.name}, ${leader.role} at IDSSPL`}
                     loading={index === 0 ? "eager" : "lazy"}
-                    className="leadership-portrait-photo"
+                    className="h-full w-full object-cover"
                   />
                 </div>
 
@@ -215,7 +176,7 @@ export function Leadership() {
                     <h2 className="mt-3 text-2xl font-semibold tracking-[-0.035em] text-foreground md:text-[1.65rem]">
                       {leader.name}
                     </h2>
-                    <p className="mt-2 text-[13px] font-medium text-white/66">{leader.focus}</p>
+                    <p className="mt-2 text-[13px] font-medium text-cyan">{leader.focus}</p>
                   </div>
 
                   <div className="mt-5 space-y-3 border-t border-hairline pt-4">
@@ -234,6 +195,10 @@ export function Leadership() {
                       );
                     })}
                   </div>
+
+                  <p className="mt-5 text-[13px] leading-[1.75] text-muted-foreground">
+                    {leader.bio}
+                  </p>
                 </div>
               </article>
             </Reveal>
@@ -309,30 +274,6 @@ export function Leadership() {
             })}
           </div>
         </section>
-
-        <Reveal delay={220}>
-          <div className="leadership-values mt-10 md:mt-12">
-            {leadershipValues.map((value) => {
-              const Icon = value.icon;
-              return (
-                <div key={value.title} className="leadership-value">
-                  <span className="leadership-value-icon">
-                    <Icon aria-hidden="true" size={25} />
-                  </span>
-                  <h3>{value.title}</h3>
-                  <p>{value.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </Reveal>
-
-        <Reveal delay={260}>
-          <div className="mt-6 flex items-center justify-center gap-2 text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-            <Sparkles aria-hidden="true" size={13} className="text-cyan" />
-            Guided By Experience · Built For What Comes Next
-          </div>
-        </Reveal>
       </div>
     </section>
   );
