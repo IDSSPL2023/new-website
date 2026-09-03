@@ -1,10 +1,29 @@
 "use client";
 
-import { CheckCircle2 } from "lucide-react";
+import {
+  BrainCircuit,
+  CheckCircle2,
+  Cloud,
+  Globe2,
+  ShieldCheck,
+  TrendingUp,
+  UsersRound,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import infrastructureImg from "@/assets/infrastructure.jpg";
 import infrastructureVideo from "@/assets/infrastructure.mp4";
+import bankingDomainArtwork from "@/assets/about-icons-generated/banking-domain-expertise.png";
+import banksCooperativeArtwork from "@/assets/about-icons-generated/banks-cooperative-institutions.png";
+import complianceReadyArtwork from "@/assets/about-icons-generated/compliance-ready-architecture.png";
+import implementationSupportArtwork from "@/assets/about-icons-generated/enterprise-implementation-support.png";
+import fintechPaymentsArtwork from "@/assets/about-icons-generated/fintech-payment-providers.png";
+import growingEnterprisesArtwork from "@/assets/about-icons-generated/growing-financial-enterprises.png";
+import missionDependableArtwork from "@/assets/about-icons-generated/mission-dependable-banking.png";
+import paymentEngineeringArtwork from "@/assets/about-icons-generated/real-time-payment-engineering.png";
+import scalablePlatformsArtwork from "@/assets/about-icons-generated/scalable-financial-platforms.png";
+import securityFirstArtwork from "@/assets/about-icons-generated/security-first-infrastructure.png";
+import visionFutureArtwork from "@/assets/about-icons-generated/vision-future-finance.png";
 
 import { CinematicMedia } from "./CinematicMedia";
 import { GlassIcon3D, type GlassIconName } from "./GlassIcon3D";
@@ -14,42 +33,49 @@ const strengths: Array<{
   title: string;
   description: string;
   icon: GlassIconName;
+  artwork: string;
 }> = [
   {
     title: "Banking Domain Expertise",
     description:
       "Deep banking knowledge informs every workflow, integration, control, and operational decision across our financial technology platforms.",
-    icon: "bank",
+    icon: "coreBanking",
+    artwork: bankingDomainArtwork,
   },
   {
     title: "Security-First Infrastructure",
     description:
       "Layered security, access controls, auditability, and resilient infrastructure protect sensitive financial operations and customer data.",
-    icon: "shield",
+    icon: "securityCompliance",
+    artwork: securityFirstArtwork,
   },
   {
     title: "Scalable Financial Platforms",
     description:
       "Modular architectures support higher transaction volumes, expanding branch networks, and new digital services without unnecessary disruption.",
-    icon: "layers",
+    icon: "dataAnalytics",
+    artwork: scalablePlatformsArtwork,
   },
   {
     title: "Real-Time Payment Engineering",
     description:
       "Connected payment capabilities support dependable routing, monitoring, reconciliation, and transaction processing across modern banking channels.",
-    icon: "activity",
+    icon: "npciPayments",
+    artwork: paymentEngineeringArtwork,
   },
   {
     title: "Compliance-Ready Architecture",
     description:
       "Traceable processes, configurable controls, and structured reporting strengthen oversight and help institutions operate with regulatory confidence.",
-    icon: "clipboard",
+    icon: "regulatoryReady",
+    artwork: complianceReadyArtwork,
   },
   {
     title: "Enterprise Implementation Support",
     description:
       "Experienced teams guide discovery, integration, migration, rollout, and long-term platform stability across complex banking environments.",
-    icon: "handshake",
+    icon: "enterpriseAutomation",
+    artwork: implementationSupportArtwork,
   },
 ];
 
@@ -57,24 +83,28 @@ const institutions: Array<{
   title: string;
   description: string;
   icon: GlassIconName;
+  artwork: string;
 }> = [
   {
     title: "Banks & Co-Operative Institutions",
     description:
       "Modernize core operations, digital channels, payments, customer servicing, and institutional control on a dependable technology foundation.",
-    icon: "bank",
+    icon: "coreBanking",
+    artwork: banksCooperativeArtwork,
   },
   {
     title: "Fintech & Payment Providers",
     description:
       "Launch connected financial experiences with scalable transaction infrastructure, integration-ready services, and real-time visibility.",
-    icon: "network",
+    icon: "npciPayments",
+    artwork: fintechPaymentsArtwork,
   },
   {
     title: "Growing Financial Enterprises",
     description:
       "Replace fragmented processes with secure enterprise workflows that improve accuracy, governance, productivity, and readiness for growth.",
-    icon: "building",
+    icon: "enterpriseAutomation",
+    artwork: growingEnterprisesArtwork,
   },
 ];
 
@@ -88,7 +118,7 @@ const principles = [
 export function AboutCompany() {
   const [activeStrength, setActiveStrength] = useState(0);
   const capabilityCardsRef = useRef<Array<HTMLElement | null>>([]);
-  const strength = strengths[activeStrength];
+  const strength = strengths[activeStrength] ?? strengths[0]!;
 
   useEffect(() => {
     let animationFrame = 0;
@@ -225,7 +255,13 @@ export function AboutCompany() {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div className="about-capability-card-visual" aria-hidden="true">
-                    <GlassIcon3D name={item.icon} size="md" tone="cyan" />
+                    <GlassIcon3D
+                      name={item.icon}
+                      artwork={item.artwork}
+                      size="md"
+                      tone="cyan"
+                      className="about-generated-icon"
+                    />
                   </div>
                   <div>
                     <small>Core Capability</small>
@@ -246,7 +282,13 @@ export function AboutCompany() {
               >
                 <div className="about-capability-orbit" aria-hidden="true" />
                 <div key={`${strength.title}-visual`} className="about-capability-visual">
-                  <GlassIcon3D name={strength.icon} size="hero" tone="blue" />
+                  <GlassIcon3D
+                    name={strength.icon}
+                    artwork={strength.artwork}
+                    size="hero"
+                    tone="blue"
+                    className="about-generated-icon"
+                  />
                 </div>
                 <article key={strength.title} className="about-capability-copy">
                   <span>
@@ -299,11 +341,16 @@ export function AboutCompany() {
               <Reveal key={institution.title} delay={100 + index * 80} className="h-full">
                 <article className="about-institution-card group">
                   <span className="about-institution-visual" aria-hidden="true">
-                    <GlassIcon3D name={institution.icon} size="md" tone="teal" />
+                    <GlassIcon3D
+                      name={institution.icon}
+                      artwork={institution.artwork}
+                      size="md"
+                      tone="teal"
+                      className="about-generated-icon"
+                    />
                   </span>
                   <h3>{institution.title}</h3>
                   <p>{institution.description}</p>
-                  <span className="about-card-line" aria-hidden="true" />
                 </article>
               </Reveal>
             ))}
@@ -335,41 +382,69 @@ export function AboutCompany() {
           <div className="about-purpose-grid">
             <Reveal className="h-full">
               <article className="about-purpose-card about-purpose-card-mission h-full">
-                <span className="about-purpose-number" aria-hidden="true">
-                  01
-                </span>
-                <div className="about-purpose-visual" aria-hidden="true">
-                  <span />
-                  <GlassIcon3D name="target" size="hero" tone="cyan" />
-                </div>
                 <div className="about-purpose-copy">
                   <span className="about-purpose-kicker">Our Mission</span>
-                  <h3>Make Banking Technology Dependable.</h3>
+                  <h3>
+                    Make Banking <span>Technology</span> Dependable.
+                  </h3>
                   <p>
                     Equip financial institutions with secure, scalable, and practical technology
                     that strengthens operations, improves customer experiences, and simplifies
                     digital banking.
                   </p>
                 </div>
+                <div className="about-purpose-visual" aria-hidden="true">
+                  <span className="about-purpose-orbit" />
+                  <span className="about-purpose-satellite is-top">
+                    <TrendingUp size={14} />
+                  </span>
+                  <span className="about-purpose-satellite is-left">
+                    <ShieldCheck size={14} />
+                  </span>
+                  <span className="about-purpose-satellite is-right">
+                    <UsersRound size={14} />
+                  </span>
+                  <GlassIcon3D
+                    name="coreBanking"
+                    artwork={missionDependableArtwork}
+                    size="hero"
+                    tone="cyan"
+                    className="about-generated-icon"
+                  />
+                </div>
               </article>
             </Reveal>
 
             <Reveal delay={100} className="h-full">
               <article className="about-purpose-card is-vision h-full">
-                <span className="about-purpose-number" aria-hidden="true">
-                  02
-                </span>
-                <div className="about-purpose-visual" aria-hidden="true">
-                  <span />
-                  <GlassIcon3D name="eye" size="hero" tone="blue" />
-                </div>
                 <div className="about-purpose-copy">
                   <span className="about-purpose-kicker">Our Vision</span>
-                  <h3>Advance The Future Of Finance.</h3>
+                  <h3>
+                    Advance The <span>Future</span> Of Finance.
+                  </h3>
                   <p>
                     Become a trusted technology partner for institutions building intelligent,
                     connected, and resilient financial services aligned with real industry needs.
                   </p>
+                </div>
+                <div className="about-purpose-visual" aria-hidden="true">
+                  <span className="about-purpose-orbit" />
+                  <span className="about-purpose-satellite is-top">
+                    <BrainCircuit size={14} />
+                  </span>
+                  <span className="about-purpose-satellite is-left">
+                    <Globe2 size={14} />
+                  </span>
+                  <span className="about-purpose-satellite is-right">
+                    <Cloud size={14} />
+                  </span>
+                  <GlassIcon3D
+                    name="aiIntelligence"
+                    artwork={visionFutureArtwork}
+                    size="hero"
+                    tone="blue"
+                    className="about-generated-icon"
+                  />
                 </div>
               </article>
             </Reveal>
