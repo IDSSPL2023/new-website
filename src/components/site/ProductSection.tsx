@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 
 import { CinematicMedia } from "./CinematicMedia";
 import { GlassIcon3D, type GlassIconName } from "./GlassIcon3D";
+import type { ProductVisualIcon } from "./ProductIconSets";
 import { Reveal } from "./Reveal";
 
 export type ProductPoint = {
@@ -16,10 +17,11 @@ export type Product = {
   heading: string[];
   overview: string[];
   subProducts: string[];
+  subProductIcons: GlassIconName[];
   keyFeatures: ProductPoint[];
-  featureIcons: GlassIconName[];
+  featureIcons: ProductVisualIcon[];
   benefits: ProductPoint[];
-  benefitIcons: GlassIconName[];
+  benefitIcons: ProductVisualIcon[];
   faqs: ProductPoint[];
   image: string;
   video: string;
@@ -38,7 +40,7 @@ function ProductPointGrid({
   title: string;
   introduction: string;
   points: ProductPoint[];
-  icons: GlassIconName[];
+  icons: ProductVisualIcon[];
   variant: "feature" | "benefit";
 }) {
   return (
@@ -56,12 +58,15 @@ function ProductPointGrid({
       <div className="product-point-grid">
         {points.map((point, index) => {
           const icon = icons[index % icons.length];
+          if (!icon) return null;
+
           return (
             <Reveal key={point.title} delay={50 + index * 55}>
               <article className="product-point-card">
                 <span className="product-point-icon" aria-hidden="true">
                   <GlassIcon3D
-                    name={icon}
+                    name={icon.name}
+                    artwork={icon.artwork}
                     size="lg"
                     tone={variant === "benefit" ? "teal" : "cyan"}
                   />
@@ -148,10 +153,16 @@ export function ProductSection({ product }: { product: Product }) {
               </p>
             </div>
             <div className="product-subproduct-grid">
-              {product.subProducts.map((item) => (
+              {product.subProducts.map((item, index) => (
                 <article key={item}>
                   <span className="product-subproduct-icon" aria-hidden="true">
-                    <GlassIcon3D name="boxes" size="sm" tone="blue" />
+                    <GlassIcon3D
+                      name={
+                        product.subProductIcons[index % product.subProductIcons.length] ?? "box"
+                      }
+                      size="sm"
+                      tone="blue"
+                    />
                   </span>
                   <strong>{item}</strong>
                 </article>

@@ -19,9 +19,9 @@ import devendraSawantImg from "@/assets/devendra-sawant-cutout-card-v2.png";
 import krishnaTelgaveImg from "@/assets/krishna-telgave-cutout-card.png";
 import maheshWaingankarImg from "@/assets/mahesh-waingankar-cutout-card.png";
 import sujaNairImg from "@/assets/suja-nair-cutout-card-v3.png";
-import vinayakImg from "@/assets/vinayak-more.jpg";
-import vishalImg from "@/assets/vishal-singh.jpg";
-import surajImg from "@/assets/suraj-pathak.jpg";
+import vinayakImg from "@/assets/vinayak-more-card-v6.png";
+import vishalImg from "@/assets/vishal-singh-card-v6.png";
+import surajImg from "@/assets/suraj-pathak-card-v6.png";
 
 import { Reveal } from "./Reveal";
 
@@ -32,6 +32,7 @@ const leaders = [
     role: "Associate Director & CEO",
     focus: "Banking & Strategy Leader",
     photo: vinayakImg,
+    accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     credentials: [
       { title: "25+", label: "Years Experience", icon: Medal },
       { title: "Banking Technology", label: "Domain Expertise", icon: Landmark },
@@ -45,6 +46,7 @@ const leaders = [
     role: "Director — Sales & Growth",
     focus: "Sales & Growth Strategist",
     photo: vishalImg,
+    accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     credentials: [
       { title: "10+", label: "Years Experience", icon: Medal },
       { title: "Strategic Partnerships", label: "Business Expertise", icon: Handshake },
@@ -58,6 +60,7 @@ const leaders = [
     role: "Director — Operations",
     focus: "Operations Excellence Leader",
     photo: surajImg,
+    accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     credentials: [
       { title: "12+", label: "Years Experience", icon: Medal },
       { title: "Process Excellence", label: "Operational Expertise", icon: Workflow },
@@ -186,13 +189,23 @@ export function Leadership() {
         <div className="leadership-card-grid mt-10 md:mt-14">
           {leaders.map((leader, index) => (
             <Reveal key={leader.name} delay={120 + index * 90} className="h-full">
-              <article className="leadership-card group" data-leader-id={leader.id}>
+              <article
+                className="leadership-card group"
+                data-leader-id={leader.id}
+                style={
+                  {
+                    "--leader-start": leader.accent.start,
+                    "--leader-end": leader.accent.end,
+                    "--leader-glow": leader.accent.glow,
+                  } as CSSProperties
+                }
+              >
                 <div className="leadership-portrait">
                   <img
                     src={leader.photo}
                     alt={`${leader.name}, ${leader.role} at IDSSPL`}
                     loading={index === 0 ? "eager" : "lazy"}
-                    className="h-full w-full object-cover"
+                    className="leadership-portrait-photo"
                   />
                 </div>
 
@@ -202,7 +215,7 @@ export function Leadership() {
                     <h2 className="mt-3 text-2xl font-semibold tracking-[-0.035em] text-foreground md:text-[1.65rem]">
                       {leader.name}
                     </h2>
-                    <p className="mt-2 text-[13px] font-medium text-cyan">{leader.focus}</p>
+                    <p className="mt-2 text-[13px] font-medium text-white/66">{leader.focus}</p>
                   </div>
 
                   <div className="mt-5 space-y-3 border-t border-hairline pt-4">
@@ -221,10 +234,6 @@ export function Leadership() {
                       );
                     })}
                   </div>
-
-                  <p className="mt-5 text-[13px] leading-[1.75] text-muted-foreground">
-                    {leader.bio}
-                  </p>
                 </div>
               </article>
             </Reveal>

@@ -1,19 +1,12 @@
 import { ArrowRight } from "lucide-react";
 
-import coreBanking from "@/assets/core-banking-ui.jpg";
-import coreBankingVideo from "@/assets/core-banking-ui.mp4";
-import paymentSwitching from "@/assets/payment-switching.jpg";
-import paymentSwitchingVideo from "@/assets/payment-switching.mp4";
-import reconciliation from "@/assets/reconciliation.jpg";
-import reconciliationVideo from "@/assets/reconciliation.mp4";
-import vault from "@/assets/vault.jpg";
-import vaultVideo from "@/assets/vault.mp4";
-import infrastructure from "@/assets/infrastructure.jpg";
-import infrastructureVideo from "@/assets/infrastructure.mp4";
-import cards from "@/assets/cards.jpg";
-import cardsVideo from "@/assets/cards.mp4";
+import cardManagement from "@/assets/product-showcase-generated/card-management.jpg";
+import coreBanking from "@/assets/product-showcase-generated/core-banking.jpg";
+import digitalBanking from "@/assets/product-showcase-generated/digital-banking.jpg";
+import enterpriseSolution from "@/assets/product-showcase-generated/enterprise-solution.jpg";
+import merchantManagement from "@/assets/product-showcase-generated/merchant-management.jpg";
+import npciProducts from "@/assets/product-showcase-generated/npci-products.jpg";
 
-import { CinematicMedia } from "./CinematicMedia";
 import { Reveal } from "./Reveal";
 
 const featuredProducts = [
@@ -22,48 +15,42 @@ const featuredProducts = [
     description: "An intelligent foundation for secure, scalable, customer-centric banking.",
     href: "/products#next-gen-ai-core-banking",
     image: coreBanking,
-    video: coreBankingVideo,
-    alt: "IDSSPL core and digital banking platform",
+    alt: "AI-powered core banking infrastructure with connected data and intelligence systems",
   },
   {
     label: "NPCI Products",
     description: "Integrated rails for secure, seamless, real-time digital transactions.",
     href: "/products#npci-products",
-    image: paymentSwitching,
-    video: paymentSwitchingVideo,
-    alt: "IDSSPL payment switching network",
+    image: npciProducts,
+    alt: "Connected NPCI payment channels with banking, ATM, mobile, and merchant terminals",
   },
   {
     label: "Digital Banking Products",
     description: "Connected customer journeys across web, mobile, messaging, and self-service.",
     href: "/products#digital-banking-products",
-    image: vault,
-    video: vaultVideo,
-    alt: "IDSSPL digital banking products",
+    image: digitalBanking,
+    alt: "Secure mobile and web digital banking experience",
   },
   {
     label: "Enterprise Solution",
     description: "Connected automation and control across critical banking operations.",
     href: "/products#enterprise-solution",
-    image: reconciliation,
-    video: reconciliationVideo,
-    alt: "IDSSPL enterprise banking solution",
+    image: enterpriseSolution,
+    alt: "Enterprise banking workflow automation and connected operations",
   },
   {
     label: "Merchant Management Solution",
     description: "Connected onboarding, QR operations, servicing, settlement, and intelligence.",
     href: "/products#merchant-management-solution",
-    image: infrastructure,
-    video: infrastructureVideo,
-    alt: "IDSSPL merchant management technology infrastructure",
+    image: merchantManagement,
+    alt: "Merchant management network with point-of-sale, QR, analytics, and settlement systems",
   },
   {
     label: "Card Management",
     description: "Secure issuance, controls, monitoring, and complete card lifecycle operations.",
     href: "/products#card-management",
-    image: cards,
-    video: cardsVideo,
-    alt: "IDSSPL card management platform",
+    image: cardManagement,
+    alt: "Secure card management ecosystem with issuance, controls, and analytics",
   },
 ];
 
@@ -100,13 +87,18 @@ export function HomeProductOverview() {
           {featuredProducts.map((product, productIndex) => (
             <Reveal key={product.label} delay={80 + productIndex * 70}>
               <a href={product.href} className="home-product-card group">
-                <CinematicMedia
-                  video={product.video}
-                  poster={product.image}
-                  alt={product.alt}
-                  pauseWhenHidden={false}
-                  className="home-product-media"
-                />
+                <span className="home-product-visual">
+                  <img
+                    src={product.image}
+                    alt={product.alt}
+                    className="home-product-media"
+                    loading="lazy"
+                    decoding="async"
+                    width={1672}
+                    height={941}
+                  />
+                </span>
+                <span className="home-product-motion" aria-hidden="true" />
                 <span className="home-product-overlay" aria-hidden="true" />
                 <span className="home-product-copy">
                   <strong>{product.label}</strong>

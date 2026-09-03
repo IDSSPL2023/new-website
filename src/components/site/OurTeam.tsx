@@ -8,21 +8,21 @@ import {
   Code2,
   Database,
   Gauge,
+  Headphones,
   Palette,
   RotateCcw,
   Smartphone,
   Sparkles,
   UserRound,
-  Workflow,
 } from "lucide-react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import abhishekPhoto from "@/assets/abhishek-chowghale-cutout-card.png";
 import chetanPhoto from "@/assets/chetan-patil-cutout-card.png";
+import ganeshPhoto from "@/assets/ganesh-shinde-card-v3.png";
 import jitendraPhoto from "@/assets/jitendra-shirguppe-cutout-card.png";
 import manojPhoto from "@/assets/manoj-shinde-cutout-card.png";
 import nehaPhoto from "@/assets/neha-singh-cutout-card-v2.png";
-import omkarPhoto from "@/assets/omkar-bhagwat-cutout-card.png";
 import prathameshPhoto from "@/assets/prathamesh-phadatare-cutout.png";
 import sanjayPhoto from "@/assets/sanjay-cutout-card.png";
 
@@ -57,42 +57,6 @@ type TeamMember = {
 
 const functionLeads: FunctionLead[] = [
   {
-    id: "react-engineering-lead",
-    functionName: "Frontend Engineering",
-    role: "React Engineering Lead",
-    name: "Neha Singh",
-    summary:
-      "Leads React architecture, frontend engineering standards, and the delivery of fast, accessible, and maintainable digital banking experiences.",
-    monogram: "NS",
-    icon: Code2,
-    accent: { start: "#2578ff", end: "#55d6ff", glow: "#38bdf8" },
-    photo: nehaPhoto,
-  },
-  {
-    id: "information-security-lead",
-    functionName: "Cybersecurity, Risk & Governance",
-    role: "Chief Information Security Officer",
-    name: "Omkar Bhagwat",
-    summary:
-      "Defines the enterprise security vision, cyber-risk governance, compliance standards, and resilient controls that protect customer data and critical banking systems.",
-    monogram: "OB",
-    icon: Workflow,
-    accent: { start: "#075f8f", end: "#30d6f2", glow: "#22d3ee" },
-    photo: omkarPhoto,
-  },
-  {
-    id: "backend-engineering-lead",
-    functionName: "Backend Engineering",
-    role: "Backend Engineering Lead",
-    name: "Abhishek Chougule",
-    summary:
-      "Leads secure backend architecture, service development, system integration, and performance engineering for scalable banking platforms.",
-    monogram: "AC",
-    icon: Boxes,
-    accent: { start: "#007f89", end: "#35d7c5", glow: "#2dd4bf" },
-    photo: abhishekPhoto,
-  },
-  {
     id: "ai-automation-lead",
     functionName: "Artificial Intelligence",
     role: "AI & Automation Lead",
@@ -103,6 +67,18 @@ const functionLeads: FunctionLead[] = [
     icon: Sparkles,
     accent: { start: "#ff6531", end: "#ffb347", glow: "#fb923c" },
     photo: chetanPhoto,
+  },
+  {
+    id: "react-engineering-lead",
+    functionName: "Frontend Engineering",
+    role: "React Engineering Lead",
+    name: "Neha Singh",
+    summary:
+      "Leads React architecture, frontend engineering standards, and the delivery of fast, accessible, and maintainable digital banking experiences.",
+    monogram: "NS",
+    icon: Code2,
+    accent: { start: "#2578ff", end: "#55d6ff", glow: "#38bdf8" },
+    photo: nehaPhoto,
   },
   {
     id: "ui-ux-design-lead",
@@ -117,18 +93,6 @@ const functionLeads: FunctionLead[] = [
     photo: prathameshPhoto,
   },
   {
-    id: "database-engineering-lead",
-    functionName: "Data Architecture",
-    role: "Database Engineering Lead",
-    name: "Manoj Shinde",
-    summary:
-      "Leads database architecture, performance optimization, data integrity, and resilient storage practices across critical platforms.",
-    monogram: "MS",
-    icon: Database,
-    accent: { start: "#2668d8", end: "#54b8ff", glow: "#60a5fa" },
-    photo: manojPhoto,
-  },
-  {
     id: "flutter-application-developer",
     functionName: "Mobile Engineering",
     role: "Flutter Application Developer",
@@ -139,6 +103,42 @@ const functionLeads: FunctionLead[] = [
     icon: Smartphone,
     accent: { start: "#0f9275", end: "#54df9d", glow: "#34d399" },
     photo: sanjayPhoto,
+  },
+  {
+    id: "support-head",
+    functionName: "Customer Support & Service",
+    role: "Support Head",
+    name: "Ganesh Shinde",
+    summary:
+      "Leads customer support operations, service coordination, issue resolution, and dependable assistance across IDSSPL's banking technology ecosystem.",
+    monogram: "GS",
+    icon: Headphones,
+    accent: { start: "#075f8f", end: "#30d6f2", glow: "#22d3ee" },
+    photo: ganeshPhoto,
+  },
+  {
+    id: "backend-engineering-lead",
+    functionName: "Backend Engineering",
+    role: "Backend Engineering Lead",
+    name: "Abhishek Chougule",
+    summary:
+      "Leads secure backend architecture, service development, system integration, and performance engineering for scalable banking platforms.",
+    monogram: "AC",
+    icon: Boxes,
+    accent: { start: "#007f89", end: "#35d7c5", glow: "#2dd4bf" },
+    photo: abhishekPhoto,
+  },
+  {
+    id: "database-engineering-lead",
+    functionName: "Data Architecture",
+    role: "Database Engineering Lead",
+    name: "Manoj Shinde",
+    summary:
+      "Leads database architecture, performance optimization, data integrity, and resilient storage practices across critical platforms.",
+    monogram: "MS",
+    icon: Database,
+    accent: { start: "#2668d8", end: "#54b8ff", glow: "#60a5fa" },
+    photo: manojPhoto,
   },
   {
     id: "software-development-lead",

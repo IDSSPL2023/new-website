@@ -25,7 +25,7 @@ const trustMetrics: Array<
     suffix: "+",
     label: "Banking Specialists",
     detail: "One multidisciplinary team across technology, product, design, and delivery.",
-    icon: "users",
+    icon: "bankingSpecialists",
     tone: "blue",
   },
   {
@@ -34,7 +34,7 @@ const trustMetrics: Array<
     label: "Product Families",
     detail:
       "Connected capabilities spanning core banking, payments, digital, enterprise, merchants, and cards.",
-    icon: "layers",
+    icon: "productEcosystem",
     tone: "cyan",
   },
   {
@@ -42,7 +42,7 @@ const trustMetrics: Array<
     suffix: "",
     label: "Published Outcomes",
     detail: "Customer implementation stories supported by direct institutional feedback.",
-    icon: "handshake",
+    icon: "publishedOutcomes",
     tone: "teal",
   },
   {
@@ -50,8 +50,8 @@ const trustMetrics: Array<
     suffix: "",
     label: "Security Certifications",
     detail: "Independent ISO/IEC 27001 and PCI DSS certification coverage.",
-    icon: "shield",
-    tone: "gold",
+    icon: "securityCompliance",
+    tone: "blue",
   },
 ];
 
@@ -127,73 +127,52 @@ const architectureFlow: Array<JourneyIcon & { step: string; title: string; detai
     step: "01",
     title: "Channels",
     detail: "Mobile · Web · Branch · ATM · UPI",
-    icon: "smartphone",
+    icon: "omnichannelBanking",
     tone: "blue",
   },
   {
     step: "02",
     title: "IDSSPL Platform",
     detail: "Products · Workflows · Integration",
-    icon: "workflow",
+    icon: "enterpriseAutomation",
     tone: "cyan",
   },
   {
     step: "03",
     title: "AI Intelligence",
     detail: "Signals · Automation · Decision Support",
-    icon: "database",
+    icon: "aiIntelligence",
     tone: "teal",
   },
   {
     step: "04",
     title: "Banking Systems",
     detail: "Core · Payments · Cards · Enterprise",
-    icon: "bank",
-    tone: "gold",
+    icon: "coreBanking",
+    tone: "blue",
   },
 ];
 
 const industries: Array<JourneyIcon & { title: string; description: string }> = [
   {
-    title: "Banks",
-    description:
-      "Connected platforms for core operations, digital channels, payments, cards, and enterprise control.",
-    icon: "bank",
-    tone: "blue",
-  },
-  {
     title: "Co-operative Banks",
     description:
       "Practical, scalable banking technology designed around customer service and operational continuity.",
-    icon: "handshake",
+    icon: "omnichannelBanking",
     tone: "teal",
   },
   {
     title: "NBFCs",
     description:
       "Digital workflows, integrations, reporting, and customer journeys for modern lending operations.",
-    icon: "wallet",
-    tone: "gold",
-  },
-  {
-    title: "Fintech Companies",
-    description:
-      "Integration-ready infrastructure for embedded journeys, payments, automation, and growth.",
-    icon: "globe",
-    tone: "cyan",
-  },
-  {
-    title: "Payment Providers",
-    description:
-      "Resilient transaction processing, switching, monitoring, reconciliation, and settlement support.",
-    icon: "arrows",
-    tone: "blue",
+    icon: "dataAnalytics",
+    tone: "teal",
   },
   {
     title: "Credit Societies",
     description:
       "Dependable systems that simplify member servicing, financial operations, and controlled expansion.",
-    icon: "users",
+    icon: "securityCompliance",
     tone: "teal",
   },
 ];
@@ -259,8 +238,7 @@ export function HomeTrustMetrics() {
             <Reveal key={metric.label} delay={70 + index * 70}>
               <article className="home-metric-card">
                 <div className="home-metric-card-top">
-                  <GlassIcon3D name={metric.icon} tone={metric.tone} size="sm" />
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <GlassIcon3D name={metric.icon} tone={metric.tone} size="lg" />
                 </div>
                 <div className="home-metric-card-copy">
                   <AnimatedMetricValue value={metric.value} suffix={metric.suffix} />

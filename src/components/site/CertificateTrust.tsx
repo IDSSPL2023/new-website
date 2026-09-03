@@ -1,5 +1,5 @@
-import isoCertificate from "@/assets/certificate-iso-27001.png";
-import pciCertificate from "@/assets/certificate-pci-dss.png";
+import isoCertificate from "@/assets/certificate-iso-27001-clear.webp";
+import pciCertificate from "@/assets/certificate-pci-dss-clear.webp";
 import { Reveal } from "./Reveal";
 
 const certificates = [
@@ -96,7 +96,9 @@ export function CertificateTrust() {
                     </div>
                   </div>
 
-                  <figcaption>{certificate.description}</figcaption>
+                  <figcaption>
+                    <span>{certificate.description}</span>
+                  </figcaption>
                 </figure>
               </Reveal>
             ))}

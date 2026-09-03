@@ -27,6 +27,7 @@ const products: CatalogProduct[] = [
     label: "Next Gen AI Core Banking Solution",
     shortDescription: "An intelligent foundation for secure, scalable, customer-centric banking.",
     heading: ["AI-Powered", "Core Banking."],
+    subProductIcons: productIconSets["next-gen-ai-core-banking"].subProducts,
     featureIcons: productIconSets["next-gen-ai-core-banking"].features,
     benefitIcons: productIconSets["next-gen-ai-core-banking"].benefits,
     overview: [
@@ -128,13 +129,14 @@ const products: CatalogProduct[] = [
     image: coreBankingUi,
     video: coreBankingVideo,
     alt: "AI-powered IDSSPL next-generation core banking platform",
-    icon: "bank",
+    icon: "coreBanking",
   },
   {
     id: "npci-products",
     label: "NPCI Products",
     shortDescription: "Integrated rails for secure, seamless, real-time digital transactions.",
     heading: ["India's Digital", "Payment Ecosystem."],
+    subProductIcons: productIconSets["npci-products"].subProducts,
     featureIcons: productIconSets["npci-products"].features,
     benefitIcons: productIconSets["npci-products"].benefits,
     overview: [
@@ -241,7 +243,7 @@ const products: CatalogProduct[] = [
     image: paymentSwitching,
     video: paymentSwitchingVideo,
     alt: "IDSSPL NPCI payment product transaction network",
-    icon: "network",
+    icon: "npciPayments",
   },
   {
     id: "digital-banking-products",
@@ -249,6 +251,7 @@ const products: CatalogProduct[] = [
     shortDescription:
       "Connected customer journeys across web, mobile, messaging, and self-service.",
     heading: ["One Connected", "Banking Experience."],
+    subProductIcons: productIconSets["digital-banking-products"].subProducts,
     featureIcons: productIconSets["digital-banking-products"].features,
     benefitIcons: productIconSets["digital-banking-products"].benefits,
     overview: [
@@ -355,13 +358,14 @@ const products: CatalogProduct[] = [
     image: vault,
     video: vaultVideo,
     alt: "Secure digital banking channels connected through IDSSPL technology",
-    icon: "smartphone",
+    icon: "digitalBanking",
   },
   {
     id: "enterprise-solution",
     label: "Enterprise Solution",
     shortDescription: "Connected automation and control across critical banking operations.",
     heading: ["Connected Enterprise", "Operations."],
+    subProductIcons: productIconSets["enterprise-solution"].subProducts,
     featureIcons: productIconSets["enterprise-solution"].features,
     benefitIcons: productIconSets["enterprise-solution"].benefits,
     overview: [
@@ -468,13 +472,14 @@ const products: CatalogProduct[] = [
     image: reconciliation,
     video: reconciliationVideo,
     alt: "IDSSPL enterprise workflow and reconciliation solution",
-    icon: "workflow",
+    icon: "enterpriseAutomation",
   },
   {
     id: "merchant-management-solution",
     label: "Merchant Management Solution",
     shortDescription: "End-to-end onboarding, QR, transaction, and merchant intelligence control.",
     heading: ["Intelligent Merchant", "Management."],
+    subProductIcons: productIconSets["merchant-management-solution"].subProducts,
     featureIcons: productIconSets["merchant-management-solution"].features,
     benefitIcons: productIconSets["merchant-management-solution"].benefits,
     overview: [
@@ -581,7 +586,7 @@ const products: CatalogProduct[] = [
     image: riskUi,
     video: riskVideo,
     alt: "IDSSPL merchant management dashboard and analytics",
-    icon: "store",
+    icon: "merchantManagement",
   },
   {
     id: "card-management",
@@ -589,6 +594,7 @@ const products: CatalogProduct[] = [
     shortDescription:
       "Secure issuance, PIN control, monitoring, and complete card lifecycle management.",
     heading: ["Secure Card", "Lifecycle Management."],
+    subProductIcons: productIconSets["card-management"].subProducts,
     featureIcons: productIconSets["card-management"].features,
     benefitIcons: productIconSets["card-management"].benefits,
     overview: [
@@ -695,7 +701,7 @@ const products: CatalogProduct[] = [
     image: cardsImg,
     video: cardsVideo,
     alt: "IDSSPL secure card management and lifecycle platform",
-    icon: "creditCard",
+    icon: "cardManagement",
   },
 ];
 
@@ -778,7 +784,7 @@ export function ProductCatalog() {
                     onClick={(event) => selectProduct(event, product.id)}
                   >
                     <span className="product-family-button-icon" aria-hidden="true">
-                      <GlassIcon3D name={product.icon} size="sm" tone="cyan" />
+                      <GlassIcon3D name={product.icon} size="md" tone="cyan" />
                     </span>
                     <span>
                       <strong>{product.label}</strong>
