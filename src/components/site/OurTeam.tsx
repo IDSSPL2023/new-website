@@ -59,7 +59,7 @@ const functionLeads: FunctionLead[] = [
   {
     id: "ai-automation-lead",
     functionName: "Artificial Intelligence",
-    role: "AI & Automation Lead",
+    role: "AI & Automation Head",
     name: "Chetan Patil",
     summary:
       "Drives applied AI, intelligent automation, and data-led capabilities that improve efficiency, decision-making, and customer outcomes.",
@@ -96,7 +96,7 @@ const functionLeads: FunctionLead[] = [
     id: "flutter-application-developer",
     functionName: "Mobile Engineering",
     role: "Flutter Application Developer",
-    name: "Sanjay Janghid",
+    name: "Sanjay Jangid",
     summary:
       "Builds reliable cross-platform mobile applications with Flutter, translating product requirements into responsive and consistent user experiences.",
     monogram: "SJ",
