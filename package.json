@@ -4,6 +4,7 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
+    "test:ai-layer": "node --test scripts/ai-layer-particles.test.mjs",
     "knowledge:sync": "node scripts/sync-idsspl-knowledge.mjs",
     "knowledge:check": "node scripts/sync-idsspl-knowledge.mjs --check",
     "test:chatbot": "node --test scripts/idsspl-knowledge.test.mjs scripts/idsspl-gemini.test.mjs scripts/chat-ai-globe.test.mjs",

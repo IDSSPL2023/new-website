@@ -1,5 +1,27 @@
 export type GlobePoint = { x: number; y: number; z: number };
 
+// Reuse the output points and calculate the rotation matrix once per frame.
+export function rotateGlobePointsInto(
+  points: readonly GlobePoint[],
+  target: GlobePoint[],
+  yaw: number,
+  tilt: number,
+) {
+  const cosYaw = Math.cos(yaw);
+  const sinYaw = Math.sin(yaw);
+  const cosTilt = Math.cos(tilt);
+  const sinTilt = Math.sin(tilt);
+  for (let index = 0; index < points.length; index++) {
+    const point = points[index];
+    const output = target[index];
+    const x = point.x * cosYaw + point.z * sinYaw;
+    const z = -point.x * sinYaw + point.z * cosYaw;
+    output.x = x;
+    output.y = point.y * cosTilt - z * sinTilt;
+    output.z = point.y * sinTilt + z * cosTilt;
+  }
+}
+
 export function rotateGlobePoint(point: GlobePoint, yaw: number, tilt: number): GlobePoint {
   const x = point.x * Math.cos(yaw) + point.z * Math.sin(yaw);
   const z = -point.x * Math.sin(yaw) + point.z * Math.cos(yaw);

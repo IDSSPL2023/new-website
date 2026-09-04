@@ -9,8 +9,8 @@ export function useAILayerMotion() {
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     let visible = false;
     let frame = 0;
-    let pointerX = 0;
-    let pointerY = 0;
+    let pointerClientX = 0;
+    let pointerClientY = 0;
     let hasPointer = false;
 
     const update = () => {
@@ -26,10 +26,15 @@ export function useAILayerMotion() {
               (window.innerHeight / 2 - bounds.top - bounds.height / 2) / window.innerHeight,
             ),
           );
-      const x = !reduced && finePointer.matches && hasPointer ? pointerX : 0;
-      const y = !reduced && finePointer.matches && hasPointer ? pointerY : 0;
-      stage.style.setProperty("--ai-pointer-x", 50 + x * 42 + "%");
-      stage.style.setProperty("--ai-pointer-y", 50 + y * 42 + "%");
+      const active = !reduced && finePointer.matches && hasPointer;
+      const x = active
+        ? Math.max(-1, Math.min(1, ((pointerClientX - bounds.left) / bounds.width) * 2 - 1))
+        : 0;
+      const y = active
+        ? Math.max(-1, Math.min(1, ((pointerClientY - bounds.top) / bounds.height) * 2 - 1))
+        : 0;
+      stage.style.setProperty("--ai-glow-x", x * 28 + "%");
+      stage.style.setProperty("--ai-glow-y", y * 28 + "%");
       stage.style.setProperty("--ai-scroll-shift", progress * 12 + "px");
       stage.dataset["motion"] = visible && !document.hidden && !reduced ? "running" : "paused";
       stage.dataset["pointer"] = hasPointer && finePointer.matches && !reduced ? "active" : "idle";
@@ -39,9 +44,9 @@ export function useAILayerMotion() {
     };
     const move = (event: PointerEvent) => {
       if (!finePointer.matches || reducedMotion.matches || event.pointerType === "touch") return;
-      const bounds = stage.getBoundingClientRect();
-      pointerX = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1));
-      pointerY = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1));
+      // Coalesce high-frequency pointer events into one layout read per display frame.
+      pointerClientX = event.clientX;
+      pointerClientY = event.clientY;
       hasPointer = true;
       schedule();
     };

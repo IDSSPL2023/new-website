@@ -1,19 +1,32 @@
-/* Motion-only enhancement: original pills, content, sizing and layout stay intact. */
+/* Motion-only enhancement: content, sizing and layout stay intact. */
 .ai-motion-stage {
-  --ai-pointer-x: 50%;
-  --ai-pointer-y: 50%;
+  --ai-glow-x: 0%;
+  --ai-glow-y: 0%;
   --ai-scroll-shift: 0px;
   position: relative;
   isolation: isolate;
 }
 
+.ai-motion-field {
+  position: relative;
+  width: 100vw;
+  height: 6rem;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .ai-motion-field {
+    height: 7.5rem;
+  }
+}
+
 .ai-motion-particles {
   position: absolute;
-  inset: -12% -7%;
-  z-index: -1;
+  inset: 0;
   display: block;
-  width: 114%;
-  height: 124%;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
@@ -22,15 +35,24 @@
   inset: -2rem;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse at var(--ai-pointer-x) var(--ai-pointer-y),
-    color-mix(in oklab, var(--electric) 9%, transparent),
-    transparent 53%
-  );
   /* Keep the cursor glow transparent at every outer edge, even on hover. */
   mask-image: radial-gradient(ellipse at center, black 18%, transparent 70%);
   transform: translateY(var(--ai-scroll-shift));
   transition: transform 400ms ease-out;
+}
+
+.ai-motion-atmosphere::before {
+  position: absolute;
+  inset: -20%;
+  content: "";
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklab, var(--electric) 9%, transparent),
+    transparent 53%
+  );
+  transform: translate3d(var(--ai-glow-x), var(--ai-glow-y), 0);
+  transition: transform 180ms ease-out;
+  will-change: transform;
 }
 
 .ai-motion-panel {
@@ -52,15 +74,18 @@
 }
 
 .ai-motion-panel::before {
+  inset: -20%;
   background: radial-gradient(
-    ellipse at var(--ai-pointer-x) var(--ai-pointer-y),
+    ellipse at center,
     color-mix(in oklab, var(--cyan) 7%, transparent),
     transparent 60%
   );
+  transform: translate3d(var(--ai-glow-x), var(--ai-glow-y), 0);
+  transition: transform 180ms ease-out;
 }
 
 .ai-motion-panel::after {
-  left: -45%;
+  left: 0;
   right: auto;
   width: 30%;
   background: linear-gradient(
@@ -69,7 +94,7 @@
     color-mix(in oklab, var(--cyan) 6%, transparent),
     transparent
   );
-  transform: skewX(-22deg);
+  transform: translate3d(-150%, 0, 0) skewX(-22deg);
   animation: ai-layer-light-sweep 9s ease-in-out infinite;
 }
 
@@ -80,13 +105,15 @@
 @keyframes ai-layer-light-sweep {
   60%,
   100% {
-    left: 125%;
+    transform: translate3d(420%, 0, 0) skewX(-22deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ai-motion-panel,
-  .ai-motion-atmosphere {
+  .ai-motion-atmosphere,
+  .ai-motion-atmosphere::before,
+  .ai-motion-panel::before {
     transform: none;
     transition: none;
   }
