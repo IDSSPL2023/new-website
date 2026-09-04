@@ -140,6 +140,24 @@ export function ProductSection({ product }: { product: Product }) {
           </Reveal>
         </div>
 
+        <ProductPointGrid
+          eyebrow="Platform Capability"
+          title="Key Features"
+          introduction="Purpose-built technology that brings intelligence, control, security, and operational depth into every banking workflow."
+          points={product.keyFeatures}
+          icons={product.featureIcons}
+          variant="feature"
+        />
+
+        <ProductPointGrid
+          eyebrow="Measurable Business Value"
+          title="Benefits"
+          introduction="Clear operational and customer outcomes designed to improve efficiency today while creating room for sustainable growth."
+          points={product.benefits}
+          icons={product.benefitIcons}
+          variant="benefit"
+        />
+
         <Reveal>
           <section className="product-subproducts-section">
             <div className="product-point-heading">
@@ -170,24 +188,6 @@ export function ProductSection({ product }: { product: Product }) {
             </div>
           </section>
         </Reveal>
-
-        <ProductPointGrid
-          eyebrow="Platform Capability"
-          title="Key Features"
-          introduction="Purpose-built technology that brings intelligence, control, security, and operational depth into every banking workflow."
-          points={product.keyFeatures}
-          icons={product.featureIcons}
-          variant="feature"
-        />
-
-        <ProductPointGrid
-          eyebrow="Measurable Business Value"
-          title="Benefits"
-          introduction="Clear operational and customer outcomes designed to improve efficiency today while creating room for sustainable growth."
-          points={product.benefits}
-          icons={product.benefitIcons}
-          variant="benefit"
-        />
 
         <section className="product-faq-section" aria-labelledby={`${product.id}-faq-title`}>
           <Reveal>
