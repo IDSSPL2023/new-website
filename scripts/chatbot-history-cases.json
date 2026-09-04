@@ -1,0 +1,59 @@
+[
+  {
+    "name": "numbered option refers to the assistant reply",
+    "messages": [
+      { "role": "user", "content": "List two digital banking channels." },
+      { "role": "assistant", "content": "1. Internet Banking\n2. Mobile Banking" },
+      { "role": "user", "content": "Explain the second one." }
+    ],
+    "expected": [
+      { "role": "user", "parts": [{ "text": "List two digital banking channels." }] },
+      { "role": "model", "parts": [{ "text": "1. Internet Banking\n2. Mobile Banking" }] },
+      { "role": "user", "parts": [{ "text": "Explain the second one." }] }
+    ]
+  },
+  {
+    "name": "orphaned starting reply is not treated as a system instruction",
+    "messages": [
+      { "role": "assistant", "content": "Old greeting." },
+      { "role": "user", "content": "Hello" }
+    ],
+    "expected": [{ "role": "user", "parts": [{ "text": "Hello" }] }]
+  },
+  {
+    "name": "consecutive user messages retain both questions",
+    "messages": [
+      { "role": "user", "content": "What is IDSSPL?" },
+      { "role": "user", "content": "And CBS?" }
+    ],
+    "expected": [
+      { "role": "user", "parts": [{ "text": "What is IDSSPL?" }, { "text": "And CBS?" }] }
+    ]
+  },
+  {
+    "name": "obvious credentials are redacted in both sides without skipping Gemini",
+    "messages": [
+      { "role": "user", "content": "My OTP is 123456 and password: demo-secret" },
+      { "role": "assistant", "content": "OTP is 123456. Please do not share it." },
+      { "role": "user", "content": "What should I do?" }
+    ],
+    "expected": [
+      { "role": "user", "parts": [{ "text": "My OTP is [REDACTED] and password: [REDACTED]" }] },
+      { "role": "model", "parts": [{ "text": "OTP is [REDACTED] Please do not share it." }] },
+      { "role": "user", "parts": [{ "text": "What should I do?" }] }
+    ]
+  },
+  {
+    "name": "multilingual context stays intact",
+    "messages": [
+      { "role": "user", "content": "मोबाइल बैंकिंग क्या है?" },
+      { "role": "assistant", "content": "मोबाइल ऐप के माध्यम से बैंकिंग सेवाएँ।" },
+      { "role": "user", "content": "इसके फायदे?" }
+    ],
+    "expected": [
+      { "role": "user", "parts": [{ "text": "मोबाइल बैंकिंग क्या है?" }] },
+      { "role": "model", "parts": [{ "text": "मोबाइल ऐप के माध्यम से बैंकिंग सेवाएँ।" }] },
+      { "role": "user", "parts": [{ "text": "इसके फायदे?" }] }
+    ]
+  }
+]

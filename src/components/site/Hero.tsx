@@ -3,17 +3,6 @@ import heroVideo from "@/assets/idsspl-hero.mp4";
 import heroPoster from "@/assets/idsspl-hero-poster.jpg";
 import { CinematicMedia } from "./CinematicMedia";
 
-const nodes = [
-  { label: "Core Banking", pos: "left-[4%] top-[26%]" },
-  { label: "Digital Banking", pos: "left-[2%] top-[52%]" },
-  { label: "Payments", pos: "left-[8%] top-[78%]" },
-  { label: "UPI", pos: "right-[6%] top-[22%]" },
-  { label: "Cards", pos: "right-[3%] top-[44%]" },
-  { label: "Risk", pos: "right-[5%] top-[64%]" },
-  { label: "Compliance", pos: "right-[10%] top-[84%]" },
-  { label: "Data", pos: "left-[16%] top-[10%]" },
-];
-
 export function Hero() {
   const [y, setY] = useState(0);
 
@@ -40,19 +29,6 @@ export function Hero() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-background/35" />
           <div className="hero-vignette pointer-events-none absolute inset-0" />
 
-          {nodes.map((n, i) => (
-            <span
-              key={n.label}
-              className={`pointer-events-none absolute hidden items-center gap-2 lg:flex ${n.pos}`}
-              style={{ animation: `float-slow ${9 + i}s ease-in-out infinite` }}
-            >
-              <span className="h-1 w-1 rounded-full bg-cyan" />
-              <span className="h-px w-8 bg-gradient-to-r from-cyan/70 to-transparent" />
-              <span className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                {n.label}
-              </span>
-            </span>
-          ))}
         </div>
       </div>
 

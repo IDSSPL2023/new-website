@@ -4,6 +4,9 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
+    "knowledge:sync": "node scripts/sync-idsspl-knowledge.mjs",
+    "knowledge:check": "node scripts/sync-idsspl-knowledge.mjs --check",
+    "test:chatbot": "node --test scripts/idsspl-knowledge.test.mjs scripts/idsspl-gemini.test.mjs scripts/chat-ai-globe.test.mjs",
     "dev": "vite dev",
     "build": "vite build",
     "build:dev": "vite build --mode development",

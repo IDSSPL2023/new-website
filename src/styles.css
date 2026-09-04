@@ -8894,6 +8894,50 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
   scrollbar-width: thin;
 }
 
+.chatbot-welcome {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem 0.5rem;
+  text-align: center;
+}
+
+.chatbot-welcome h3 {
+  margin: 0.5rem 0 0;
+  color: var(--foreground);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+
+.chatbot-welcome > p {
+  max-width: 16rem;
+  margin-top: 0.4rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+  line-height: 1.65;
+}
+
+.chatbot-ai-art {
+  position: relative;
+  width: clamp(9rem, 29dvh, 14rem);
+  max-width: 100%;
+  aspect-ratio: 1.15;
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+
+.chatbot-ai-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .chatbot-message {
   display: flex;
   max-width: 88%;

@@ -1,11 +1,18 @@
 import { Reveal } from "./Reveal";
+import { AILayerParticles } from "./AILayerParticles";
+import { useAILayerMotion } from "./useAILayerMotion";
+import "./ai-layer.css";
 
 const inputs = ["Transactions", "Customers", "Branches", "Payments", "Operations"];
 const outputs = ["Insights", "Automation", "Decision Support", "Reporting"];
 
 export function AILayer() {
+  const stageRef = useAILayerMotion();
   return (
-    <section className="relative overflow-hidden border-t border-hairline py-16 md:py-24">
+    <section
+      id="ai-intelligence"
+      className="relative overflow-hidden border-t border-hairline py-16 md:py-24"
+    >
       <div className="glow-blue pointer-events-none absolute top-1/2 left-1/2 h-[440px] w-[820px] -translate-x-1/2 -translate-y-1/2 opacity-30" />
       <div className="shell relative">
         <div className="section-heading-split">
@@ -27,7 +34,13 @@ export function AILayer() {
           </Reveal>
         </div>
 
-        <div className="mx-auto mt-10 max-w-4xl md:mt-12">
+        <div
+          ref={stageRef}
+          className="ai-motion-stage mx-auto mt-10 max-w-4xl md:mt-12"
+          data-motion="paused"
+        >
+          <div className="ai-motion-atmosphere" aria-hidden="true" />
+          <AILayerParticles stageRef={stageRef} />
           <Reveal delay={140}>
             <div className="flex flex-wrap justify-center gap-2.5">
               {inputs.map((i) => (
@@ -41,22 +54,12 @@ export function AILayer() {
             </div>
           </Reveal>
 
-          <div className="relative my-6 h-16">
-            {Array.from({ length: 9 }).map((_, i) => (
-              <span
-                key={i}
-                className="absolute bottom-0 h-1 w-1 rounded-full bg-cyan"
-                style={{
-                  left: `${8 + i * 10.5}%`,
-                  animation: `drift ${3.4 + (i % 4) * 0.7}s linear ${i * 0.35}s infinite`,
-                }}
-              />
-            ))}
+          <div className="ai-motion-stream relative my-6 h-16" aria-hidden="true">
             <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-electric/50 to-transparent" />
           </div>
 
           <Reveal delay={180}>
-            <div className="frame rounded-2xl px-6 py-7 text-center md:px-8">
+            <div className="ai-motion-panel frame rounded-2xl px-6 py-7 text-center md:px-8">
               <p className="text-[11px] tracking-[0.22em] text-electric uppercase">
                 AI Intelligence Layer
               </p>
@@ -68,18 +71,7 @@ export function AILayer() {
             </div>
           </Reveal>
 
-          <div className="relative my-6 h-16">
-            {Array.from({ length: 9 }).map((_, i) => (
-              <span
-                key={i}
-                className="absolute bottom-0 h-1 w-1 rounded-full bg-electric"
-                style={{
-                  left: `${12 + i * 9.5}%`,
-                  animation: `drift ${3 + (i % 3) * 0.9}s linear ${i * 0.42}s infinite`,
-                }}
-              />
-            ))}
-          </div>
+          <div className="ai-motion-stream relative my-6 h-16" aria-hidden="true" />
 
           <Reveal delay={220}>
             <div className="flex flex-wrap justify-center gap-2.5">

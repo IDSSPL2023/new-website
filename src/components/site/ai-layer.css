@@ -1,0 +1,96 @@
+/* Motion-only enhancement: original pills, content, sizing and layout stay intact. */
+.ai-motion-stage {
+  --ai-pointer-x: 50%;
+  --ai-pointer-y: 50%;
+  --ai-scroll-shift: 0px;
+  position: relative;
+  isolation: isolate;
+}
+
+.ai-motion-particles {
+  position: absolute;
+  inset: -12% -7%;
+  z-index: -1;
+  display: block;
+  width: 114%;
+  height: 124%;
+  pointer-events: none;
+}
+
+.ai-motion-atmosphere {
+  position: absolute;
+  inset: -2rem;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at var(--ai-pointer-x) var(--ai-pointer-y),
+    color-mix(in oklab, var(--electric) 9%, transparent),
+    transparent 53%
+  );
+  /* Keep the cursor glow transparent at every outer edge, even on hover. */
+  mask-image: radial-gradient(ellipse at center, black 18%, transparent 70%);
+  transform: translateY(var(--ai-scroll-shift));
+  transition: transform 400ms ease-out;
+}
+
+.ai-motion-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-motion-panel > p {
+  position: relative;
+  z-index: 1;
+}
+
+.ai-motion-panel::before,
+.ai-motion-panel::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.ai-motion-panel::before {
+  background: radial-gradient(
+    ellipse at var(--ai-pointer-x) var(--ai-pointer-y),
+    color-mix(in oklab, var(--cyan) 7%, transparent),
+    transparent 60%
+  );
+}
+
+.ai-motion-panel::after {
+  left: -45%;
+  right: auto;
+  width: 30%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--cyan) 6%, transparent),
+    transparent
+  );
+  transform: skewX(-22deg);
+  animation: ai-layer-light-sweep 9s ease-in-out infinite;
+}
+
+.ai-motion-stage[data-motion="paused"] .ai-motion-panel::after {
+  animation-play-state: paused !important;
+}
+
+@keyframes ai-layer-light-sweep {
+  60%,
+  100% {
+    left: 125%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-motion-panel,
+  .ai-motion-atmosphere {
+    transform: none;
+    transition: none;
+  }
+  .ai-motion-panel::after {
+    display: none;
+  }
+}

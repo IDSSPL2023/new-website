@@ -13,10 +13,11 @@ import {
   UserRound,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 
 import aiBotMascot from "@/assets/idsspl-ai-bot.png";
-import { getLocalAdvisorReply } from "@/lib/idsspl-ai-advisor";
+import { ChatAIOrb } from "@/components/site/ChatAIOrb";
+import { prepareChatHistory } from "@/lib/idsspl-chat-history";
 import {
   getSavedSiteLanguage,
   isSiteLanguageCode,
@@ -25,6 +26,7 @@ import {
 } from "@/lib/site-i18n";
 
 const chatbotEndpoint = import.meta.env["VITE_CHATBOT_ENDPOINT"]?.trim();
+const chatMessageEndpoint = chatbotEndpoint || (import.meta.env.DEV ? "/api/chat" : undefined);
 
 const CHAT_STORAGE_KEY = "idsspl-chat-session-v2";
 const MAX_STORED_MESSAGES = 18;
@@ -49,16 +51,17 @@ type ChatCopy = {
   launcher: string;
   close: string;
   reset: string;
-  greeting: string;
   placeholder: string;
   send: string;
   typing: string;
   suggestions: string[];
-  exploreProducts: string;
+  emptyTitle: string;
+  emptyDescription: string;
   talkToExpert: string;
   downloadBrochure: string;
   powered: string;
   connectionError: string;
+  rateLimitError: string;
   leadTitle: string;
   leadDescription: string;
   name: string;
@@ -79,8 +82,6 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     launcher: "Ask IDSSPL AI",
     close: "Close assistant",
     reset: "Start a new conversation",
-    greeting:
-      "Hi, I'm the IDSSPL AI Advisor. How can I help you explore IDSSPL's banking technology solutions today?",
     placeholder: "Ask about products, payments or banking technology…",
     send: "Send message",
     typing: "IDSSPL AI Advisor is thinking",
@@ -89,10 +90,12 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
       "Tell me about AI Core Banking.",
       "How do you support NPCI payments?",
     ],
-    exploreProducts: "Explore products",
+    emptyTitle: "Explore banking with AI",
+    emptyDescription: "Ask a question or choose a suggestion below.",
     talkToExpert: "Talk to an expert",
     downloadBrochure: "Get brochure",
     powered: "AI answers may need expert confirmation.",
+    rateLimitError: "Too many AI requests right now. Please wait a moment and try again.",
     connectionError:
       "I’m unable to reach the AI service right now. You can still connect with an IDSSPL expert below.",
     leadTitle: "Connect with an IDSSPL expert",
@@ -113,20 +116,20 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     launcher: "IDSSPL AI से पूछें",
     close: "सहायक बंद करें",
     reset: "नई बातचीत शुरू करें",
-    greeting:
-      "नमस्ते। मैं IDSSPL AI Advisor हूँ। IDSSPL के बैंकिंग टेक्नोलॉजी समाधानों को समझने और सही विशेषज्ञ से जुड़ने में मैं आपकी मदद कर सकता हूँ।",
     placeholder: "उत्पाद, भुगतान या बैंकिंग तकनीक के बारे में पूछें…",
     send: "संदेश भेजें",
     typing: "IDSSPL AI Advisor उत्तर तैयार कर रहा है",
     suggestions: [
-      "मेरे बैंक के लिए कौन सा उत्पाद सही है?",
+      "मेरे बैंक के लिए कौन सा IDSSPL उत्पाद सही है?",
       "AI कोर बैंकिंग के बारे में बताएं।",
-      "NPCI भुगतान समाधान कैसे काम करते हैं?",
+      "आप NPCI भुगतान को कैसे सपोर्ट करते हैं?",
     ],
-    exploreProducts: "उत्पाद देखें",
+    emptyTitle: "AI के साथ बैंकिंग को समझें",
+    emptyDescription: "सवाल पूछें या नीचे दिए गए सुझावों में से चुनें।",
     talkToExpert: "विशेषज्ञ से बात करें",
     downloadBrochure: "ब्रोशर लें",
     powered: "AI उत्तरों की विशेषज्ञ पुष्टि आवश्यक हो सकती है।",
+    rateLimitError: "अभी AI अनुरोधों की सीमा पूरी हो गई है। कृपया थोड़ा रुककर दोबारा कोशिश करें।",
     connectionError:
       "अभी AI सेवा से संपर्क नहीं हो पा रहा है। आप नीचे IDSSPL विशेषज्ञ से जुड़ सकते हैं।",
     leadTitle: "IDSSPL विशेषज्ञ से जुड़ें",
@@ -147,20 +150,21 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     launcher: "IDSSPL AI ला विचारा",
     close: "सहाय्यक बंद करा",
     reset: "नवीन संभाषण सुरू करा",
-    greeting:
-      "नमस्कार. मी IDSSPL AI Advisor आहे. IDSSPL ची बँकिंग तंत्रज्ञान समाधाने समजून घेण्यासाठी आणि योग्य तज्ज्ञाशी जोडण्यासाठी मी मदत करू शकतो.",
     placeholder: "उत्पादने, पेमेंट्स किंवा बँकिंग तंत्रज्ञानाबद्दल विचारा…",
     send: "संदेश पाठवा",
     typing: "IDSSPL AI Advisor उत्तर तयार करत आहे",
     suggestions: [
-      "माझ्या बँकेसाठी कोणते उत्पादन योग्य आहे?",
+      "माझ्या बँकेसाठी कोणते IDSSPL उत्पादन योग्य आहे?",
       "AI कोअर बँकिंगबद्दल सांगा.",
-      "NPCI पेमेंट्सना तुम्ही कसे समर्थन देता?",
+      "तुम्ही NPCI पेमेंट्सला कसा सपोर्ट करता?",
     ],
-    exploreProducts: "उत्पादने पाहा",
+    emptyTitle: "AI सोबत बँकिंग समजून घ्या",
+    emptyDescription: "प्रश्न विचारा किंवा खालील सुचवलेला प्रश्न निवडा.",
     talkToExpert: "तज्ज्ञाशी बोला",
     downloadBrochure: "ब्रोशर मिळवा",
     powered: "AI उत्तरांसाठी तज्ज्ञ पुष्टी आवश्यक असू शकते.",
+    rateLimitError:
+      "सध्या AI विनंत्यांची मर्यादा पूर्ण झाली आहे. कृपया थोडे थांबून पुन्हा प्रयत्न करा.",
     connectionError: "सध्या AI सेवेशी संपर्क होत नाही. तुम्ही खाली IDSSPL तज्ज्ञाशी जोडू शकता.",
     leadTitle: "IDSSPL तज्ज्ञाशी जोडा",
     leadDescription: "तुमची गरज सांगा; आमची बँकिंग तंत्रज्ञान टीम संपर्क करेल.",
@@ -180,20 +184,21 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     launcher: "IDSSPL AI-யிடம் கேளுங்கள்",
     close: "உதவியாளரை மூடு",
     reset: "புதிய உரையாடலைத் தொடங்கு",
-    greeting:
-      "வணக்கம். நான் IDSSPL AI Advisor. IDSSPL வங்கி தொழில்நுட்பத் தீர்வுகளைப் புரிந்துகொள்ளவும் சரியான நிபுணருடன் இணையவும் உதவுகிறேன்.",
     placeholder: "தயாரிப்புகள், பணப்பரிவர்த்தனை அல்லது வங்கி தொழில்நுட்பம் பற்றி கேளுங்கள்…",
     send: "செய்தி அனுப்பு",
     typing: "IDSSPL AI Advisor பதிலைத் தயாரிக்கிறது",
     suggestions: [
-      "என் வங்கிக்கு எந்த தயாரிப்பு பொருந்தும்?",
+      "என் வங்கிக்கு எந்த IDSSPL தயாரிப்பு பொருத்தமானது?",
       "AI கோர் பேங்கிங் பற்றி சொல்லுங்கள்.",
       "NPCI பணப்பரிவர்த்தனைகளை எவ்வாறு ஆதரிக்கிறீர்கள்?",
     ],
-    exploreProducts: "தயாரிப்புகளைப் பார்க்க",
+    emptyTitle: "AI உடன் வங்கித் தொழில்நுட்பத்தை அறியுங்கள்",
+    emptyDescription: "கேள்வி கேளுங்கள் அல்லது கீழே உள்ள பரிந்துரையைத் தேர்ந்தெடுங்கள்.",
     talkToExpert: "நிபுணருடன் பேச",
     downloadBrochure: "பிரசுரத்தைப் பெற",
     powered: "AI பதில்களுக்கு நிபுணர் உறுதிப்படுத்தல் தேவைப்படலாம்.",
+    rateLimitError:
+      "தற்போது AI கோரிக்கைகளின் வரம்பை அடைந்துவிட்டோம். சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
     connectionError: "AI சேவையை இப்போது அணுக முடியவில்லை. கீழே IDSSPL நிபுணருடன் இணையலாம்.",
     leadTitle: "IDSSPL நிபுணருடன் இணையுங்கள்",
     leadDescription: "உங்கள் தேவையைப் பகிருங்கள்; எங்கள் குழு உங்களைத் தொடர்புகொள்ளும்.",
@@ -213,20 +218,20 @@ const chatCopy: Record<SiteLanguageCode, ChatCopy> = {
     launcher: "IDSSPL AI ને પૂછો",
     close: "સહાયક બંધ કરો",
     reset: "નવી વાતચીત શરૂ કરો",
-    greeting:
-      "નમસ્તે. હું IDSSPL AI Advisor છું. IDSSPL ના બેન્કિંગ ટેક્નોલોજી સોલ્યુશન્સ સમજવા અને યોગ્ય નિષ્ણાત સાથે જોડાવામાં હું મદદ કરી શકું છું.",
     placeholder: "ઉત્પાદનો, પેમેન્ટ્સ અથવા બેન્કિંગ ટેક્નોલોજી વિશે પૂછો…",
     send: "સંદેશ મોકલો",
     typing: "IDSSPL AI Advisor જવાબ તૈયાર કરી રહ્યું છે",
     suggestions: [
-      "મારી બેન્ક માટે કયું ઉત્પાદન યોગ્ય છે?",
+      "મારી બેન્ક માટે કયું IDSSPL ઉત્પાદન યોગ્ય છે?",
       "AI કોર બેન્કિંગ વિશે જણાવો.",
-      "NPCI પેમેન્ટ્સને તમે કેવી રીતે સપોર્ટ કરો છો?",
+      "તમે NPCI પેમેન્ટ્સને કેવી રીતે સપોર્ટ કરો છો?",
     ],
-    exploreProducts: "ઉત્પાદનો જુઓ",
+    emptyTitle: "AI સાથે બેન્કિંગને સમજો",
+    emptyDescription: "પ્રશ્ન પૂછો અથવા નીચે આપેલા સૂચનોમાંથી પસંદ કરો.",
     talkToExpert: "નિષ્ણાત સાથે વાત કરો",
     downloadBrochure: "બ્રોશર મેળવો",
     powered: "AI જવાબોને નિષ્ણાત પુષ્ટિની જરૂર પડી શકે છે.",
+    rateLimitError: "હાલ AI વિનંતીઓની મર્યાદા પહોંચી ગઈ છે. થોડી વાર રાહ જોઈને ફરી પ્રયાસ કરો.",
     connectionError:
       "હાલ AI સેવાનો સંપર્ક થઈ રહ્યો નથી. તમે નીચે IDSSPL નિષ્ણાત સાથે જોડાઈ શકો છો.",
     leadTitle: "IDSSPL નિષ્ણાત સાથે જોડાઓ",
@@ -359,6 +364,18 @@ function ChatbotRobot({ className = "" }: { className?: string }) {
   );
 }
 
+function ChatWelcomeAnimation({ copy }: { copy: ChatCopy }) {
+  return (
+    <div className="chatbot-welcome">
+      <div className="chatbot-ai-art" aria-hidden="true">
+        <ChatAIOrb />
+      </div>
+      <h3>{copy.emptyTitle}</h3>
+      <p>{copy.emptyDescription}</p>
+    </div>
+  );
+}
+
 export function AIChatbot() {
   const [open, setOpen] = useState(false);
   const [showVisitGreeting, setShowVisitGreeting] = useState(false);
@@ -376,7 +393,13 @@ export function AIChatbot() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const sessionIdRef = useRef("");
+  const [historyReady, setHistoryReady] = useState(false);
+  const chatRequestRef = useRef<AbortController | null>(null);
+  const conversationVersionRef = useRef(0);
   const copy = chatCopy[language];
+  const visibleSuggestions = messages.some((message) => message.role === "user")
+    ? []
+    : copy.suggestions;
   const visitGreeting = currentTime ? getVisitGreeting(language, currentTime) : null;
 
   useEffect(() => {
@@ -386,35 +409,36 @@ export function AIChatbot() {
 
     try {
       const saved = window.sessionStorage.getItem(CHAT_STORAGE_KEY);
-      const parsed = saved ? (JSON.parse(saved) as ChatMessage[]) : [];
-      if (Array.isArray(parsed) && parsed.length) setMessages(parsed.slice(-MAX_STORED_MESSAGES));
-      else
-        setMessages([
-          {
-            id: createId("assistant"),
-            role: "assistant",
-            content: chatCopy[savedLanguage].greeting,
-          },
-        ]);
+      const parsed: unknown = saved ? JSON.parse(saved) : [];
+      if (Array.isArray(parsed)) {
+        const restored = parsed
+          .filter(
+            (item): item is ChatMessage =>
+              item &&
+              typeof item.id === "string" &&
+              (item.role === "user" || item.role === "assistant") &&
+              typeof item.content === "string" &&
+              !!item.content.trim(),
+          )
+          .slice(-MAX_STORED_MESSAGES);
+        const firstUser = restored.findIndex((item) => item.role === "user");
+        setMessages(firstUser < 0 ? [] : restored.slice(firstUser));
+      }
     } catch {
-      setMessages([
-        { id: createId("assistant"), role: "assistant", content: chatCopy[savedLanguage].greeting },
-      ]);
+      setMessages([]);
+    } finally {
+      setHistoryReady(true);
     }
 
     const onLanguageChange = (nextCode: string) => {
-      if (!isSiteLanguageCode(nextCode)) return;
-      setLanguage(nextCode);
-      setMessages((current) => {
-        if (current.length > 1) return current;
-        return [
-          { id: createId("assistant"), role: "assistant", content: chatCopy[nextCode].greeting },
-        ];
-      });
+      if (isSiteLanguageCode(nextCode)) setLanguage(nextCode);
     };
 
     siteI18n.on("languageChanged", onLanguageChange);
-    return () => siteI18n.off("languageChanged", onLanguageChange);
+    return () => {
+      siteI18n.off("languageChanged", onLanguageChange);
+      chatRequestRef.current?.abort();
+    };
   }, []);
 
   useEffect(() => {
@@ -462,13 +486,21 @@ export function AIChatbot() {
   }, []);
 
   useEffect(() => {
-    if (!messages.length) return;
-    window.sessionStorage.setItem(
-      CHAT_STORAGE_KEY,
-      JSON.stringify(messages.slice(-MAX_STORED_MESSAGES)),
-    );
+    if (!historyReady) return;
+    try {
+      if (messages.length) {
+        window.sessionStorage.setItem(
+          CHAT_STORAGE_KEY,
+          JSON.stringify(messages.slice(-MAX_STORED_MESSAGES)),
+        );
+      } else {
+        window.sessionStorage.removeItem(CHAT_STORAGE_KEY);
+      }
+    } catch {
+      /* Chat still works when browser storage is unavailable. */
+    }
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, historyReady]);
 
   useEffect(() => {
     if (!open) return;
@@ -484,21 +516,23 @@ export function AIChatbot() {
     };
   }, [open, showLeadForm]);
 
-  const visibleSuggestions = useMemo(
-    () =>
-      messages.filter((message) => message.role === "user").length === 0 ? copy.suggestions : [],
-    [copy.suggestions, messages],
-  );
-
   const resetConversation = () => {
     sessionIdRef.current = createId("chat");
-    setMessages([{ id: createId("assistant"), role: "assistant", content: copy.greeting }]);
+    conversationVersionRef.current++;
+    chatRequestRef.current?.abort();
+    chatRequestRef.current = null;
+    setIsTyping(false);
+    setMessages([]);
     setDraft("");
     setShowLeadForm(false);
     setLead(initialLead);
     setLeadConsent(false);
     setLeadStatus("idle");
-    window.sessionStorage.removeItem(CHAT_STORAGE_KEY);
+    try {
+      window.sessionStorage.removeItem(CHAT_STORAGE_KEY);
+    } catch {
+      /* Optional storage. */
+    }
   };
 
   const sendMessage = async (content: string) => {
@@ -506,51 +540,57 @@ export function AIChatbot() {
     if (!trimmed || isTyping) return;
 
     const userMessage: ChatMessage = { id: createId("user"), role: "user", content: trimmed };
-    const history = [...messages, userMessage].slice(-12);
+    const history = prepareChatHistory([...messages, userMessage]);
+    const version = conversationVersionRef.current;
+    const requestController = new AbortController();
+    chatRequestRef.current = requestController;
     setMessages((current) => [...current, userMessage]);
     setDraft("");
     setIsTyping(true);
 
+    let failureReply = copy.connectionError;
     try {
-      let reply = "";
-      if (chatbotEndpoint) {
-        const response = await fetch(chatbotEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            eventType: "chatbot_message",
-            sessionId: sessionIdRef.current,
-            language,
-            sourcePath: `${window.location.pathname}${window.location.hash}`,
-            pageTitle: document.title,
-            messages: history.map(({ role, content: messageContent }) => ({
-              role,
-              content: messageContent,
-            })),
-            website: "",
-          }),
-        });
-        const payload = (await response.json().catch(() => null)) as { reply?: string } | null;
-        if (!response.ok || !payload?.reply)
-          throw new Error(`Chat request failed: ${response.status}`);
-        reply = payload.reply;
-      } else {
-        await new Promise((resolve) => window.setTimeout(resolve, 650));
-        reply = getLocalAdvisorReply({ message: trimmed, language, history });
-      }
+      if (!chatMessageEndpoint) throw new Error("The Gemini chat endpoint is not configured.");
+      const response = await fetch(chatMessageEndpoint, {
+        method: "POST",
+        signal: AbortSignal.any([requestController.signal, AbortSignal.timeout(42_000)]),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          eventType: "chatbot_message",
+          sessionId: sessionIdRef.current,
+          language,
+          sourcePath: `${window.location.pathname}${window.location.hash}`,
+          pageTitle: document.title,
+          messages: history.map(({ role, content: messageContent }) => ({
+            role,
+            content: messageContent.slice(0, 1500),
+          })),
+          website: "",
+        }),
+      });
+      if (response.status === 429) failureReply = copy.rateLimitError;
+      const payload = (await response.json().catch(() => null)) as { reply?: string } | null;
+      if (!response.ok || typeof payload?.reply !== "string" || !payload.reply.trim())
+        throw new Error(`Chat request failed: ${response.status}`);
+      const reply = payload.reply;
 
+      if (requestController.signal.aborted || version !== conversationVersionRef.current) return;
       setMessages((current) => [
         ...current,
         { id: createId("assistant"), role: "assistant", content: reply },
       ]);
     } catch (error) {
+      if (requestController.signal.aborted || version !== conversationVersionRef.current) return;
       console.error("Unable to reach IDSSPL AI", error);
       setMessages((current) => [
         ...current,
-        { id: createId("assistant"), role: "assistant", content: copy.connectionError },
+        { id: createId("assistant"), role: "assistant", content: failureReply },
       ]);
     } finally {
-      setIsTyping(false);
+      if (version === conversationVersionRef.current) {
+        chatRequestRef.current = null;
+        setIsTyping(false);
+      }
     }
   };
 
@@ -586,7 +626,7 @@ export function AIChatbot() {
         });
         if (!response.ok) throw new Error(`Lead request failed: ${response.status}`);
       } else {
-        await new Promise((resolve) => window.setTimeout(resolve, 550));
+        throw new Error("No expert enquiry endpoint is configured; nothing was submitted.");
       }
 
       setLeadStatus("success");
@@ -812,6 +852,9 @@ export function AIChatbot() {
               aria-live="polite"
               aria-relevant="additions"
             >
+              {open && historyReady && messages.length === 0 && (
+                <ChatWelcomeAnimation copy={copy} />
+              )}
               {messages.map((message) => (
                 <div key={message.id} className={`chatbot-message is-${message.role}`}>
                   {message.role === "assistant" && (
@@ -837,12 +880,13 @@ export function AIChatbot() {
               <div ref={messagesEndRef} />
             </div>
 
-            {visibleSuggestions.length > 0 && (
+            {historyReady && visibleSuggestions.length > 0 && (
               <div className="chatbot-suggestions" aria-label="Suggested questions">
                 {visibleSuggestions.map((suggestion) => (
                   <button
                     key={suggestion}
                     type="button"
+                    disabled={isTyping}
                     onClick={() => void sendMessage(suggestion)}
                   >
                     {suggestion}
@@ -853,13 +897,6 @@ export function AIChatbot() {
             )}
 
             <div className="chatbot-quick-actions">
-              <button
-                type="button"
-                onClick={() => void sendMessage(copy.suggestions[0] ?? "Products")}
-              >
-                <Sparkles size={14} aria-hidden="true" />
-                {copy.exploreProducts}
-              </button>
               <button type="button" onClick={() => setShowLeadForm(true)}>
                 <UserRound size={14} aria-hidden="true" />
                 {copy.talkToExpert}
