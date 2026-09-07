@@ -6,13 +6,13 @@ contains company/contact information, all six product families and 49 sub-produc
 entries, features, benefits, FAQs, nine leadership profiles, 23 team profiles,
 capabilities, published outcomes/metrics, certifications and navigation.
 
-## Gemini-only conversations
+## Claude-only conversations
 
-Every valid submitted chat message goes to Gemini, including greetings, thanks,
+Every valid submitted chat message goes to Claude, including greetings, thanks,
 short follow-ups and unrelated questions. There is no keyword classifier,
 predefined answer catalog or offline answer fallback. Optional preset question
 buttons appear for new conversations in all five supported languages. Clicking
-one uses the same Gemini request and conversation history as typing a question;
+one uses the same Claude request and conversation history as typing a question;
 the buttons do not supply canned answers. There is no initial canned chat greeting.
 
 The empty chat panel displays a decorative 3D neural globe with connected points,
@@ -21,10 +21,10 @@ without an external animation service. It rotates slowly and moves
 automatically without play/pause controls, appears only while an empty chat is
 open, and disappears on the first message. Rendering stops in hidden tabs and
 uses a still frame for reduced-motion preferences. Its introductory text is UI
-guidance, not an assistant reply, and is never included in Gemini conversation history.
+guidance, not an assistant reply, and is never included in Claude conversation history.
 
 The server sends the approved JSON facts separately in system instructions and
-recent conversation as ordered Gemini `user` / `model` turns. Both sides of the
+recent conversation as ordered Claude `user` / `assistant` turns. Both sides of the
 conversation are preserved, so a follow-up such as “explain the second one” can
 refer to a numbered option in the previous assistant reply. Adjacent same-role
 messages are grouped without changing their order. Leading orphaned assistant
@@ -44,7 +44,7 @@ The model's instructions retain these rules:
 - Keep replies short, plain-language and grounded in the JSON.
 - Do not request credentials or confidential banking records.
 
-Scope decisions are now made by Gemini, not guaranteed by a deterministic keyword
+Scope decisions are now made by Claude, not guaranteed by a deterministic keyword
 filter. Offline tests verify transport/policy/context behavior; real-model smoke
 tests are needed to evaluate response quality. No model can guarantee perfect
 grounding or injection resistance. Only public information belongs in this file.
@@ -58,7 +58,7 @@ grounding or injection resistance. Only public information belongs in this file.
 - New conversation clears context and aborts any pending request; late replies
   cannot repopulate the new conversation.
 - Obvious password/OTP/PIN/CVV/API-key patterns and long card-like numbers are
-  redacted before being sent to Gemini. This is not comprehensive sensitive-data
+  redacted before being sent to Claude. This is not comprehensive sensitive-data
   detection: visitors must not submit confidential information.
 - Invalid requests, missing configuration and rate limits are rejected before
   model calls. Provider failures display an error rather than a canned answer.

@@ -10,12 +10,15 @@ import { loadEnv } from "vite";
 export default defineConfig({
   plugins: [
     {
-      name: "idsspl-server-only-gemini-env",
+      name: "idsspl-server-only-claude-env",
       configResolved(config) {
         // Only the local server reads these values. Never add them to `define`
         // or envPrefix: either would risk including credentials in browser code.
         if (config.command === "serve") {
-          Object.assign(process.env, loadEnv(config.mode, config.envDir, "GEMINI_"));
+          Object.assign(
+            process.env,
+            loadEnv(config.mode, config.envDir, ["ANTHROPIC_", "CLAUDE_"]),
+          );
         }
       },
     },
