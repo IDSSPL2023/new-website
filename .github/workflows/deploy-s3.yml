@@ -44,8 +44,6 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static website
-        env:
-          VITE_CHATBOT_ENDPOINT: ${{ vars.VITE_CHATBOT_ENDPOINT }}
         run: pnpm build
 
       - name: Configure AWS credentials

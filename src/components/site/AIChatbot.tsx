@@ -17,6 +17,7 @@ import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 
 
 import aiBotMascot from "@/assets/idsspl-ai-bot.webp";
 import { ChatAIOrb } from "@/components/site/ChatAIOrb";
+import { answerFromWebsiteKnowledge } from "@/lib/idsspl-browser-advisor";
 import { createChatRequest } from "@/lib/chatbot-request";
 import { prepareChatHistory } from "@/lib/idsspl-chat-history";
 import {
@@ -27,7 +28,9 @@ import {
 } from "@/lib/site-i18n";
 
 const chatbotEndpoint = import.meta.env["VITE_CHATBOT_ENDPOINT"]?.trim();
-const chatMessageEndpoint = chatbotEndpoint || (import.meta.env.DEV ? "/api/chat" : undefined);
+// Public replies are generated from the approved snapshot bundled with the website.
+// Developers can still exercise the private Ollama route while running locally.
+const chatMessageEndpoint = import.meta.env.DEV ? "/api/chat" : undefined;
 
 const CHAT_STORAGE_KEY = "idsspl-chat-session-v2";
 const MAX_STORED_MESSAGES = 18;
@@ -552,7 +555,15 @@ export function AIChatbot() {
 
     let failureReply = copy.connectionError;
     try {
-      if (!chatMessageEndpoint) throw new Error("The local chat endpoint is not configured.");
+      if (!chatMessageEndpoint) {
+        const reply = answerFromWebsiteKnowledge(history, language);
+        if (requestController.signal.aborted || version !== conversationVersionRef.current) return;
+        setMessages((current) => [
+          ...current,
+          { id: createId("assistant"), role: "assistant", content: reply },
+        ]);
+        return;
+      }
       const response = await fetch(chatMessageEndpoint, {
         method: "POST",
         signal: requestController.signal,

@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import vm from "node:vm";
 import ts from "typescript";
+import { answerFromWebsiteKnowledge } from "../src/lib/idsspl-browser-advisor.ts";
 import { createChatRequest } from "../src/lib/chatbot-request.ts";
 import { prepareChatHistory } from "../src/lib/idsspl-chat-history.ts";
 
@@ -51,7 +52,7 @@ function loadFunctions(path, names, globals) {
   return vm.runInNewContext(code, globals, { filename: path });
 }
 
-function mountChat(fetcher) {
+function mountChat(fetcher, endpoint = "https://chat.example.test/") {
   const requests = [];
   const errors = [];
   const copy = {
@@ -73,7 +74,8 @@ function mountChat(fetcher) {
     language: "en",
     initialLead: {},
     CHAT_STORAGE_KEY: "test-chat-session",
-    chatMessageEndpoint: "https://chat.example.test/",
+    chatMessageEndpoint: endpoint,
+    answerFromWebsiteKnowledge,
     sessionIdRef: { current: "chat-test" },
     conversationVersionRef: { current: 0 },
     chatRequestRef: { current: null },
@@ -178,6 +180,18 @@ test("actual chatbot sends and displays a reply without newer AbortSignal static
   assert.equal(app.errors.length, 0);
   t.mock.timers.tick(60_000);
   assert.equal(calls[0].init.signal.aborted, false, "successful fetch releases its timeout");
+});
+
+test("public chatbot answers in the browser without a network request", async () => {
+  let calls = 0;
+  const app = mountChat(async () => {
+    calls++;
+    throw new Error("Network should not be called");
+  }, null);
+  await app.sendMessage("Tell me about UPI");
+  assert.equal(calls, 0);
+  assert.match(app.state.messages.at(-1).content, /UPI.*NPCI Products/i);
+  assert.equal(app.state.isTyping, false);
 });
 
 test("actual chatbot shows a retry message instead of silently dropping a timeout", async (t) => {

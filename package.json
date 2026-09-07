@@ -8,7 +8,7 @@
     "test:seo": "node --test scripts/seo.test.mjs",
     "knowledge:sync": "node scripts/sync-idsspl-knowledge.mjs",
     "knowledge:check": "node scripts/sync-idsspl-knowledge.mjs --check",
-    "test:chatbot": "node --test scripts/idsspl-knowledge.test.mjs scripts/idsspl-local-ai.test.mjs scripts/chat-ai-globe.test.mjs scripts/chatbot-browser.test.mjs",
+    "test:chatbot": "node --test scripts/idsspl-knowledge.test.mjs scripts/idsspl-local-ai.test.mjs scripts/idsspl-browser-advisor.test.mjs scripts/chat-ai-globe.test.mjs scripts/chatbot-browser.test.mjs",
     "ai:check": "node scripts/check-local-ai.mjs",
     "ai:pull": "ollama pull qwen3:1.7b",
     "dev": "vite dev",
