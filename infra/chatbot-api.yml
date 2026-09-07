@@ -12,15 +12,12 @@ Parameters:
     Default: http://127.0.0.1:8080
     Description: Optional second origin used for local website testing.
 
-  AnthropicSecretArn:
+  BedrockModel:
     Type: String
-    Description: ARN of an AWS Secrets Manager secret containing ANTHROPIC_API_KEY.
-
-  ClaudeModel:
-    Type: String
-    Default: claude-sonnet-4-6
-    AllowedPattern: "claude-[a-z0-9.-]+"
-    Description: Claude model used by the IDSSPL assistant.
+    Default: apac.amazon.nova-micro-v1:0
+    AllowedValues:
+      - apac.amazon.nova-micro-v1:0
+    Description: Low-cost Amazon Bedrock inference profile used by the IDSSPL assistant.
 
   LeadTableName:
     Type: String
@@ -104,8 +101,10 @@ Resources:
                 Action: dynamodb:UpdateItem
                 Resource: !GetAtt ChatbotRateLimitTable.Arn
               - Effect: Allow
-                Action: secretsmanager:GetSecretValue
-                Resource: !Ref AnthropicSecretArn
+                Action: bedrock:InvokeModel
+                Resource:
+                  - !Sub arn:${AWS::Partition}:bedrock:${AWS::Region}:${AWS::AccountId}:inference-profile/${BedrockModel}
+                  - !Sub arn:${AWS::Partition}:bedrock:*::foundation-model/amazon.nova-micro-v1:0
 
   ChatbotFunction:
     Type: AWS::Lambda::Function
@@ -124,8 +123,7 @@ Resources:
           ALLOWED_ORIGIN_SECONDARY: !Ref AllowedOriginSecondary
           LEAD_TABLE: !Ref ChatbotLeadTable
           RATE_LIMIT_TABLE: !Ref ChatbotRateLimitTable
-          ANTHROPIC_SECRET_ARN: !Ref AnthropicSecretArn
-          CLAUDE_MODEL: !Ref ClaudeModel
+          BEDROCK_MODEL: !Ref BedrockModel
       Code:
         ZipFile: |
           import base64
@@ -134,8 +132,6 @@ Resources:
           import os
           import re
           import time
-          import urllib.error
-          import urllib.request
           import uuid
           import zlib
           from datetime import datetime, timezone
@@ -145,7 +141,7 @@ Resources:
 
           lead_table = boto3.resource("dynamodb").Table(os.environ["LEAD_TABLE"])
           rate_table = boto3.resource("dynamodb").Table(os.environ["RATE_LIMIT_TABLE"])
-          secret_client = boto3.client("secretsmanager")
+          bedrock_runtime = boto3.client("bedrock-runtime")
           allowed_origins = {
               value.rstrip("/")
               for value in (
@@ -155,8 +151,6 @@ Resources:
               if value
           }
           email_pattern = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
-          claude_key = None
-
           LANGUAGE_NAMES = {
               "en": "English",
               "hi": "Hindi",
@@ -362,18 +356,72 @@ Resources:
           def knowledge_context():
               return {key: value for key, value in KNOWLEDGE_DATA.items() if key not in ("provenance", "responsePolicy")}
 
+          def normalize_scope(value):
+              return re.sub(r"[^\w]+", " ", value.casefold(), flags=re.UNICODE).strip()
+
+          KNOWLEDGE_TERMS = set(normalize_scope(json.dumps(knowledge_context(), ensure_ascii=False)).split())
+          SCOPE_STOP_WORDS = {
+              "a", "about", "an", "and", "are", "can", "do", "does", "for", "from",
+              "give", "how", "i", "in", "is", "it", "me", "of", "on", "please", "tell",
+              "that", "the", "this", "to", "what", "which", "who", "with", "you", "your",
+          }
+          UNRELATED_PATTERN = re.compile(
+              r"\b(weather|cricket|recipe|recipes|poem|joke|photosynthesis|gravity|capital of|"
+              r"python calculator|news schedule|google|apple|microsoft|facebook|instagram|netflix)\b|"
+              r"(मौसम|हवामान|வானிலை|હવામાન)",
+              re.IGNORECASE,
+          )
+          SOCIAL_PATTERN = re.compile(
+              r"^(hi|hello|hey|good morning|good afternoon|good evening|thanks|thank you|bye)[ !.]*$",
+              re.IGNORECASE,
+          )
+          FOLLOW_UP_PATTERN = re.compile(
+              r"^(tell me more|more|and\b|what about\b|explain (it|that|this|the (first|second|third) one)\b)",
+              re.IGNORECASE,
+          )
+
+          def request_scope(messages):
+              raw_latest = messages[-1]["content"].casefold()
+              latest = normalize_scope(raw_latest)
+              if SOCIAL_PATTERN.fullmatch(raw_latest.strip()):
+                  return "social"
+              if UNRELATED_PATTERN.search(raw_latest) or re.search(
+                  r"\b(ignore|reveal|show|print)\b.*\b(instructions|system prompt|rules)\b",
+                  latest,
+              ):
+                  return "out_of_scope"
+              if FOLLOW_UP_PATTERN.match(latest):
+                  previous_user_index = next(
+                      (index for index in range(len(messages) - 2, -1, -1) if messages[index]["role"] == "user"),
+                      None,
+                  )
+                  return request_scope(messages[:previous_user_index + 1]) if previous_user_index is not None else "out_of_scope"
+              if re.search(
+                  r"^(who are you|what do you do|tell me about (yourself|your company)|"
+                  r"what (services|products) do you (have|offer))",
+                  latest,
+              ):
+                  return "in_scope"
+              if any(term in raw_latest for term in ("कंपनी", "बैंकिंग", "बँकिंग", "நிறுவனம்", "வங்கி", "કંપની", "બેન્કિંગ")):
+                  return "in_scope"
+              terms = {
+                  term for term in latest.split()
+                  if len(term) > 1 and term not in SCOPE_STOP_WORDS
+              }
+              return "in_scope" if "idsspl" in terms or terms.intersection(KNOWLEDGE_TERMS) else "out_of_scope"
+
           def redact_chat_secrets(text):
               text = re.sub(r"\b((?:password|otp|pin|cvv|api[ -]?key)\s*(?::|=|is)\s*)\S+", r"\1[REDACTED]", text, flags=re.IGNORECASE)
               text = re.sub(r"\b((?:otp|pin|cvv)\s+)\d{3,8}\b", r"\1[REDACTED]", text, flags=re.IGNORECASE)
               return re.sub(r"\b(?:\d[ -]?){13,19}\b", "[REDACTED NUMBER]", text)
 
-          def claude_messages(messages):
+          def bedrock_messages(messages):
               recent = messages[-12:]
               first_user = next((index for index, item in enumerate(recent) if item["role"] == "user"), len(recent))
               formatted = []
               for message in recent[first_user:]:
                   role = message["role"]
-                  block = {"type": "text", "text": redact_chat_secrets(message["content"])}
+                  block = {"text": redact_chat_secrets(message["content"])}
                   if formatted and formatted[-1]["role"] == role:
                       formatted[-1]["content"].append(block)
                   else:
@@ -395,44 +443,20 @@ Resources:
                   return ""
               return " ".join(value.strip().split())[:maximum]
 
-          def get_api_key():
-              global claude_key
-              if claude_key:
-                  return claude_key
-              secret = secret_client.get_secret_value(SecretId=os.environ["ANTHROPIC_SECRET_ARN"])
-              raw = secret.get("SecretString", "")
-              try:
-                  parsed = json.loads(raw)
-                  claude_key = parsed.get("ANTHROPIC_API_KEY", "")
-              except json.JSONDecodeError:
-                  claude_key = raw
-              if not claude_key:
-                  raise RuntimeError("Claude API key is not configured")
-              return claude_key
-
-          def call_claude(payload, timeout=18):
-              model = os.environ.get("CLAUDE_MODEL", "claude-sonnet-4-6")
-              if not re.fullmatch(r"claude-[a-z0-9.-]+", model):
-                  raise RuntimeError("Invalid Claude model")
-              payload = {**payload, "model": model}
-              request = urllib.request.Request(
-                  "https://api.anthropic.com/v1/messages",
-                  data=json.dumps(payload).encode("utf-8"),
-                  headers={
-                      "x-api-key": get_api_key(),
-                      "anthropic-version": "2023-06-01",
-                      "Content-Type": "application/json",
+          def call_bedrock(instructions, messages):
+              model = os.environ.get("BEDROCK_MODEL", "apac.amazon.nova-micro-v1:0")
+              if model != "apac.amazon.nova-micro-v1:0":
+                  raise RuntimeError("Invalid Bedrock model")
+              return bedrock_runtime.converse(
+                  modelId=model,
+                  system=[{"text": instructions}],
+                  messages=messages,
+                  inferenceConfig={
+                      "maxTokens": 320,
+                      "temperature": 0.2,
+                      "topP": 0.9,
                   },
-                  method="POST",
               )
-              for attempt in range(2):
-                  try:
-                      with urllib.request.urlopen(request, timeout=timeout) as result:
-                          return json.loads(result.read().decode("utf-8"))
-                  except urllib.error.HTTPError as error:
-                      if attempt == 0 and error.code in (500, 502, 503, 504):
-                          continue
-                      raise
 
           def check_rate_limit(source_ip):
               minute = int(time.time()) // 60
@@ -456,11 +480,12 @@ Resources:
                   raise
 
           def extract_output_text(result):
-              if result.get("stop_reason") != "end_turn":
+              if result.get("stopReason") != "end_turn":
                   return ""
               return "".join(
-                  block.get("text", "") for block in result.get("content", [])
-                  if block.get("type") == "text"
+                  block.get("text", "")
+                  for block in result.get("output", {}).get("message", {}).get("content", [])
+                  if isinstance(block.get("text"), str)
               ).strip()
 
           def handle_chat(body, source_ip):
@@ -493,15 +518,17 @@ Resources:
                   + f"\nReply in {language_name}, except the exact English out-of-scope fallback."
                   + "\nAPPROVED JSON KNOWLEDGE:\n" + json.dumps(knowledge_context(), ensure_ascii=False)
               )
-              result = call_claude({
-                  "system": instructions,
-                  "messages": claude_messages(messages),
-                  "max_tokens": 512,
-              })
-              reply = extract_output_text(result)
+              scope = request_scope(messages)
+              result = call_bedrock(instructions, bedrock_messages(messages))
+              model_reply = extract_output_text(result)
+              reply = (
+                  KNOWLEDGE_DATA["responsePolicy"]["outOfScopeReply"]
+                  if scope == "out_of_scope"
+                  else model_reply
+              )
               if not reply:
                   raise RuntimeError("The AI service returned an empty response")
-              return response(200, {"reply": reply, "provider": "claude"})
+              return response(200, {"reply": reply, "provider": "bedrock"})
 
           def handle_lead(body):
               if clean(body.get("website"), 200):
@@ -572,9 +599,11 @@ Resources:
                   if event_type == "chatbot_lead":
                       return handle_lead(body)
                   return response(400, {"message": "Unsupported request."})
-              except urllib.error.HTTPError as error:
-                  print(f"Claude request failed with status {error.code}")
-                  return response(429 if error.code == 429 else 502, {"message": "The AI service is temporarily unavailable."})
+              except ClientError as error:
+                  error_code = error.response.get("Error", {}).get("Code", "Unknown")
+                  print(f"AWS service request failed: {error_code}")
+                  status = 429 if error_code in {"ThrottlingException", "ServiceQuotaExceededException"} else 502
+                  return response(status, {"message": "The AI service is temporarily unavailable."})
               except Exception as error:
                   print(f"Chatbot request failed: {type(error).__name__}")
                   return response(500, {"message": "The assistant is temporarily unavailable."})
@@ -620,4 +649,4 @@ Outputs:
     Value: !Ref ChatbotLeadTable
 
   ChatbotModel:
-    Value: !Ref ClaudeModel
+    Value: !Ref BedrockModel

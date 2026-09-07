@@ -1,4 +1,4 @@
-"""Offline Lambda tests. No AWS, model requests or leads are submitted."""
+"""Offline Lambda tests. No AWS, Bedrock requests or leads are submitted."""
 import json
 import os
 from pathlib import Path
@@ -16,8 +16,7 @@ sys.modules["botocore.exceptions"] = types.SimpleNamespace(ClientError=type("Cli
 os.environ.update(
     LEAD_TABLE="test",
     RATE_LIMIT_TABLE="test",
-    ANTHROPIC_SECRET_ARN="test",
-    CLAUDE_MODEL="claude-sonnet-4-6",
+    BEDROCK_MODEL="apac.amazon.nova-micro-v1:0",
 )
 runtime = {}
 exec(compile(code, "chatbot-lambda.py", "exec"), runtime)
@@ -28,15 +27,18 @@ class ChatbotTests(unittest.TestCase):
     def setUp(self):
         self.payloads = []
         runtime["check_rate_limit"] = lambda *_: True
-        def fake_ai(payload, **kwargs):
-            self.payloads.append(payload)
+        def fake_ai(instructions, messages):
+            self.payloads.append({"system": instructions, "messages": messages})
             return {
-                "type": "message",
-                "role": "assistant",
-                "stop_reason": "end_turn",
-                "content": [{"type": "text", "text": "Fresh provider response."}],
+                "stopReason": "end_turn",
+                "output": {
+                    "message": {
+                        "role": "assistant",
+                        "content": [{"text": "Fresh provider response."}],
+                    }
+                },
             }
-        runtime["call_claude"] = fake_ai
+        runtime["call_bedrock"] = fake_ai
 
     def test_embedded_knowledge_is_exact(self):
         expected = json.loads((ROOT / "src/data/idsspl-knowledge.json").read_text(encoding="utf-8"))
@@ -44,21 +46,36 @@ class ChatbotTests(unittest.TestCase):
         self.assertNotIn("localizedResponses", expected)
         self.assertNotIn("matching", expected)
 
-    def test_every_valid_message_reaches_claude(self):
+    def test_every_valid_message_reaches_bedrock(self):
         for case in cases:
             with self.subTest(message=case["message"]):
                 count = len(self.payloads)
                 result = runtime["handle_chat"]({"messages": case.get("history", []) + [{"role": "user", "content": case["message"]}]}, "test")
                 self.assertEqual(result["statusCode"], 200)
                 self.assertEqual(len(self.payloads), count + 1)
-                self.assertEqual(json.loads(result["body"]), {"reply": "Fresh provider response.", "provider": "claude"})
+                expected_reply = (
+                    "Fresh provider response."
+                    if case["related"]
+                    else runtime["KNOWLEDGE_DATA"]["responsePolicy"]["outOfScopeReply"]
+                )
+                self.assertEqual(
+                    json.loads(result["body"]),
+                    {"reply": expected_reply, "provider": "bedrock"},
+                )
 
     def test_shared_history_fixtures(self):
         for case in history_cases:
             with self.subTest(name=case["name"]):
-                self.assertEqual(runtime["claude_messages"](case["messages"]), case["expected"])
+                expected = [
+                    {
+                        "role": message["role"],
+                        "content": [{"text": block["text"]} for block in message["content"]],
+                    }
+                    for message in case["expected"]
+                ]
+                self.assertEqual(runtime["bedrock_messages"](case["messages"]), expected)
                 runtime["handle_chat"]({"messages": case["messages"]}, "test")
-                self.assertEqual(self.payloads[-1]["messages"], case["expected"])
+                self.assertEqual(self.payloads[-1]["messages"], expected)
 
     def test_policy_and_all_facts_are_separate_from_history(self):
         runtime["handle_chat"]({"messages": [
@@ -92,12 +109,12 @@ class ChatbotTests(unittest.TestCase):
     def test_blocked_and_truncated_output_not_returned(self):
         extract = runtime["extract_output_text"]
         self.assertEqual(
-            extract({"stop_reason": "end_turn", "content": [{"type": "text", "text": "answer"}]}),
+            extract({"stopReason": "end_turn", "output": {"message": {"content": [{"text": "answer"}]}}}),
             "answer",
         )
         for reason in ("max_tokens", "refusal", "pause_turn"):
             self.assertEqual(
-                extract({"stop_reason": reason, "content": [{"type": "text", "text": "partial"}]}),
+                extract({"stopReason": reason, "output": {"message": {"content": [{"text": "partial"}]}}}),
                 "",
             )
 
