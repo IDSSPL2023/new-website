@@ -44,6 +44,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static website
+        env:
+          VITE_CHATBOT_ENDPOINT: ${{ vars.VITE_CHATBOT_ENDPOINT }}
         run: pnpm build
 
       - name: Configure AWS credentials
@@ -73,10 +75,3 @@ jobs:
           aws cloudfront create-invalidation
           --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}"
           --paths "/*"
-
-      - name: Stage chatbot infrastructure template
-        run: >-
-          aws s3 cp infra/chatbot-api.yml
-          "s3://${S3_BUCKET}/.deployment/chatbot-api.yml"
-          --cache-control "no-store"
-          --content-type "application/yaml"
