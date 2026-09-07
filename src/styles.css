@@ -1880,8 +1880,8 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
     outline-offset: 2px;
   }
   .language-trigger-label {
-    display: none;
-    max-width: 6rem;
+    display: inline;
+    max-width: 8.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -9534,12 +9534,6 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"])
   }
 }
 
-@media (min-width: 1280px) {
-  .language-trigger-label {
-    display: inline;
-  }
-}
-
 @media (min-width: 768px) and (max-width: 1023px) {
   .leadership-portrait {
     aspect-ratio: 1 / 1.08;
@@ -10409,6 +10403,145 @@ html:is([lang="hi"], [lang="mr"], [lang="ta"], [lang="gu"]) .function-lead-card 
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 96%),
     0 32px 72px -50px oklch(0.32 0.13 250 / 34%);
+}
+
+/* Mobile-safe media playback and responsive artwork containment. */
+:where(img, video, canvas) {
+  max-width: 100%;
+}
+
+.cinematic-media-video {
+  display: block;
+  background: color-mix(in oklab, var(--surface-2) 88%, var(--background));
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cinematic-media-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 12;
+  display: inline-flex;
+  min-width: 3rem;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid color-mix(in oklab, var(--cyan) 54%, var(--hairline));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--background) 82%, transparent);
+  padding: 0.72rem 0.95rem;
+  color: var(--foreground);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 14%),
+    0 1rem 2.5rem -1.1rem color-mix(in oklab, var(--electric) 60%, transparent);
+  font-size: 0.72rem;
+  font-weight: 720;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  touch-action: manipulation;
+  transform: translate(-50%, -50%);
+}
+
+.cinematic-media-play:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.glass-icon-3d {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.glass-icon-3d-artwork-fallback {
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.glass-icon-3d.has-artwork-error .glass-icon-3d-artwork-fallback {
+  opacity: 1;
+}
+
+@media (max-width: 899px) {
+  .about-capability-card-visual {
+    width: min(21rem, 80%);
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .about-capability-card-visual .glass-icon-3d {
+    --glass-icon-size: min(100%, 17rem);
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .about-media {
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+  .product-cinematic-media {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .cinematic-media-play {
+    width: 3.25rem;
+    min-width: 3.25rem;
+    height: 3.25rem;
+    min-height: 3.25rem;
+    padding: 0;
+  }
+
+  .cinematic-media-play span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 620px) {
+  .about-capability-card-visual {
+    right: -0.8rem;
+    width: 88%;
+  }
+
+  .about-purpose-visual > .glass-icon-3d {
+    --glass-icon-size: min(100%, 13rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .chatbot-visit-greeting {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .chatbot-launcher {
+    right: max(0.35rem, env(safe-area-inset-right));
+    width: 4rem;
+    height: 5.5rem;
+  }
+
+  .chatbot-panel {
+    bottom: calc(5.9rem + env(safe-area-inset-bottom));
+    height: min(42rem, calc(100dvh - 6.55rem));
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .about-media-frame:hover,
+  .product-cinematic-frame:hover .product-cinematic-media {
+    transform: none;
+  }
 }
 
 :root.light .about-capability-stage::before {

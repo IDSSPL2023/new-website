@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test:ai-layer": "node --test scripts/ai-layer-particles.test.mjs",
+    "test:mobile-ui": "node --test scripts/mobile-ui.test.mjs",
     "test:seo": "node --test scripts/seo.test.mjs",
     "knowledge:sync": "node scripts/sync-idsspl-knowledge.mjs",
     "knowledge:check": "node scripts/sync-idsspl-knowledge.mjs --check",

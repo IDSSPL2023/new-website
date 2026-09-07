@@ -156,9 +156,13 @@ export type GlassIconSize = "xs" | "sm" | "md" | "lg" | "hero";
 
 const iconMap: Partial<Record<GlassIconName, LucideIcon>> = {
   activity: Activity,
+  aiHelpdesk: BrainCircuit,
+  aiIntelligence: BrainCircuit,
   arrows: ArrowLeftRight,
   badge: BadgeCheck,
   bank: Landmark,
+  bankingFunctionalities: ListChecks,
+  bankingSpecialists: UsersRound,
   bell: Bell,
   box: Box,
   boxes: Boxes,
@@ -169,9 +173,15 @@ const iconMap: Partial<Record<GlassIconName, LucideIcon>> = {
   clipboard: ClipboardCheck,
   clock: Clock3,
   cloud: Cloud,
+  cloudMicroservices: Cloud,
   code: Code2,
   creditCard: CreditCard,
+  cardManagement: CreditCard,
+  coreBanking: Landmark,
   database: Database,
+  dataAnalytics: TrendingUp,
+  digitalBanking: Smartphone,
+  enterpriseAutomation: Workflow,
   eye: Eye,
   file: FileText,
   fileCheck: FileCheck2,
@@ -179,15 +189,23 @@ const iconMap: Partial<Record<GlassIconName, LucideIcon>> = {
   gauge: Gauge,
   globe: Globe2,
   handshake: Handshake,
+  hybridDeployment: Network,
+  integratedModules: Layers3,
   layers: Layers3,
   link: Link2,
   list: ListChecks,
   lock: LockKeyhole,
   money: CircleDollarSign,
+  merchantManagement: Store,
   network: Network,
+  npciPayments: Zap,
+  omnichannelBanking: Network,
   panel: PanelsTopLeft,
+  productEcosystem: Boxes,
+  publishedOutcomes: TrendingUp,
   qr: QrCode,
   receipt: Receipt,
+  regulatoryReady: BadgeCheck,
   refresh: RefreshCw,
   route: Route,
   scale: Scale,
@@ -195,6 +213,7 @@ const iconMap: Partial<Record<GlassIconName, LucideIcon>> = {
   search: Search,
   server: Server,
   settings: Settings2,
+  securityCompliance: ShieldCheck,
   shield: ShieldCheck,
   smartphone: Smartphone,
   sparkles: Sparkles,
@@ -257,15 +276,30 @@ export function GlassIcon3D({
     >
       <span className="glass-icon-3d-aura" />
       {artwork ? (
-        <img
-          className="glass-icon-3d-artwork-image"
-          src={artwork}
-          alt="Decorative IDSSPL banking technology illustration"
-          width={512}
-          height={512}
-          loading={size === "hero" ? "eager" : "lazy"}
-          decoding="async"
-        />
+        <>
+          <span className="glass-icon-3d-shell glass-icon-3d-artwork-fallback">
+            <span className="glass-icon-3d-reflection" />
+            {Icon ? <Icon className="glass-icon-3d-glyph" strokeWidth={1.7} /> : null}
+            <span className="glass-icon-3d-depth" />
+          </span>
+          <img
+            className="glass-icon-3d-artwork-image"
+            src={artwork}
+            alt="Decorative IDSSPL banking technology illustration"
+            width={512}
+            height={512}
+            loading={size === "hero" ? "eager" : "lazy"}
+            decoding="async"
+            onLoad={(event) => {
+              event.currentTarget.hidden = false;
+              event.currentTarget.closest(".glass-icon-3d")?.classList.remove("has-artwork-error");
+            }}
+            onError={(event) => {
+              event.currentTarget.hidden = true;
+              event.currentTarget.closest(".glass-icon-3d")?.classList.add("has-artwork-error");
+            }}
+          />
+        </>
       ) : (
         <span className="glass-icon-3d-shell">
           <span className="glass-icon-3d-reflection" />

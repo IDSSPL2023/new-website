@@ -1,14 +1,23 @@
 import { Reveal } from "./Reveal";
+import { CinematicMedia } from "./CinematicMedia";
 
 type InteriorHeroProps = {
   eyebrow: string;
   title: string;
   body: string;
   video?: string;
+  videoPoster?: string;
   videoLabel?: string;
 };
 
-export function InteriorHero({ eyebrow, title, body, video, videoLabel }: InteriorHeroProps) {
+export function InteriorHero({
+  eyebrow,
+  title,
+  body,
+  video,
+  videoPoster,
+  videoLabel,
+}: InteriorHeroProps) {
   return (
     <section className="interior-hero relative overflow-hidden border-b border-hairline px-0 pt-24 pb-12 md:pt-28 md:pb-16">
       <div className="pointer-events-none absolute -top-40 right-[-10%] h-[520px] w-[520px] rounded-full bg-electric/15 blur-[110px]" />
@@ -32,15 +41,11 @@ export function InteriorHero({ eyebrow, title, body, video, videoLabel }: Interi
         {video ? (
           <Reveal delay={120} className="interior-hero-media-shell">
             <div className="interior-hero-media" aria-label={videoLabel}>
-              <video
+              <CinematicMedia
                 className="interior-hero-video"
-                src={video}
-                aria-label={videoLabel}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
+                video={video}
+                poster={videoPoster ?? ""}
+                alt={videoLabel ?? "Animated IDSSPL banking technology visual"}
               />
             </div>
           </Reveal>

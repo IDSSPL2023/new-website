@@ -5,6 +5,9 @@ import { guTranslations } from "@/i18n/gu";
 import { hiTranslations } from "@/i18n/hi";
 import { mrTranslations } from "@/i18n/mr";
 import { taTranslations } from "@/i18n/ta";
+import { isProtectedSiteText } from "@/i18n/protected-terms";
+
+export { isProtectedSiteText } from "@/i18n/protected-terms";
 
 export type SiteLanguageCode = "en" | "hi" | "mr" | "ta" | "gu";
 
@@ -33,6 +36,27 @@ const translationMaps = {
   ta: taTranslations,
   gu: guTranslations,
 } satisfies Record<SiteLanguageCode, Record<string, string>>;
+
+const normalizeTranslationKey = (value: string) =>
+  value
+    .normalize("NFKC")
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLocaleLowerCase("en");
+
+const normalizedTranslationMaps = Object.fromEntries(
+  Object.entries(translationMaps).map(([code, translations]) => [
+    code,
+    new Map(
+      Object.entries(translations).map(([source, translation]) => [
+        normalizeTranslationKey(source),
+        translation,
+      ]),
+    ),
+  ]),
+) as Record<SiteLanguageCode, Map<string, string>>;
 
 export const siteI18n = createInstance();
 
@@ -81,5 +105,10 @@ export function setSiteLanguage(code: SiteLanguageCode) {
 }
 
 export function translateSiteText(source: string, code: SiteLanguageCode) {
-  return siteI18n.getFixedT(code)(source, { defaultValue: source });
+  if (code === "en" || isProtectedSiteText(source)) return source;
+
+  const exactTranslation = translationMaps[code][source];
+  if (exactTranslation) return exactTranslation;
+
+  return normalizedTranslationMaps[code].get(normalizeTranslationKey(source)) ?? source;
 }

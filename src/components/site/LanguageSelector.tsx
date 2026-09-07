@@ -74,7 +74,9 @@ export function LanguageSelector() {
         onClick={() => setOpen((current) => !current)}
       >
         <Languages aria-hidden="true" size={15} />
-        <span className="language-trigger-label">{selectedLanguage.name}</span>
+        <span className="language-trigger-label" lang={selectedLanguage.code}>
+          {selectedLanguage.name}
+        </span>
         <ChevronDown
           aria-hidden="true"
           size={13}
@@ -99,8 +101,7 @@ export function LanguageSelector() {
                 onClick={() => selectLanguage(language.code)}
               >
                 <span>
-                  <strong>{language.name}</strong>
-                  <small>{language.englishName}</small>
+                  <strong lang={language.code}>{language.name}</strong>
                 </span>
                 {language.code === selectedCode && <Check aria-hidden="true" size={14} />}
               </button>
