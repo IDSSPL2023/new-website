@@ -72,19 +72,6 @@ const functionLeads: FunctionLead[] = [
     photoSize: { width: 1000, height: 1500 },
   },
   {
-    id: "react-engineering-lead",
-    functionName: "Frontend Engineering",
-    role: "React Engineering Lead",
-    name: "Neha Singh",
-    summary:
-      "Leads React architecture, frontend engineering standards, and the delivery of fast, accessible, and maintainable digital banking experiences.",
-    monogram: "NS",
-    icon: Code2,
-    accent: { start: "#2578ff", end: "#55d6ff", glow: "#38bdf8" },
-    photo: nehaPhoto,
-    photoSize: { width: 1145, height: 1374 },
-  },
-  {
     id: "ui-ux-design-lead",
     functionName: "Experience Design",
     role: "UI/UX Design Lead",
@@ -95,6 +82,19 @@ const functionLeads: FunctionLead[] = [
     icon: Palette,
     accent: { start: "#8338b5", end: "#d266ff", glow: "#c084fc" },
     photo: prathameshPhoto,
+    photoSize: { width: 1145, height: 1374 },
+  },
+  {
+    id: "react-engineering-lead",
+    functionName: "Frontend Engineering",
+    role: "React Engineering Lead",
+    name: "Neha Singh",
+    summary:
+      "Leads React architecture, frontend engineering standards, and the delivery of fast, accessible, and maintainable digital banking experiences.",
+    monogram: "NS",
+    icon: Code2,
+    accent: { start: "#2578ff", end: "#55d6ff", glow: "#38bdf8" },
+    photo: nehaPhoto,
     photoSize: { width: 1145, height: 1374 },
   },
   {

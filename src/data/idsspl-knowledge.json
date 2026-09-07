@@ -7,7 +7,7 @@
     "sourceHashes": {
       "src/components/site/ProductCatalog.tsx": "9c025013a52c8b707ac3248b1db64bd22b6c40bfc396b1dbeac9bd6afbe117ca",
       "src/components/site/Leadership.tsx": "867d05653cf09264c9b7e77b3614f069177d8f2f192ea96bc5a81e9668d9adce",
-      "src/components/site/OurTeam.tsx": "f63ad8dae824c46cd7a9dfedad4842c1f89849b1f3c156b7c8119ed7b56e737a",
+      "src/components/site/OurTeam.tsx": "7ead6b5c1f48739bdae1230ada398b3ef628b961b83133b49166954d5d89dfbd",
       "src/components/site/AboutCompany.tsx": "1c11243685c5dd646204524931ae1e8ed86eaf0270c6ff10f465f13a402cd9f0",
       "src/components/site/HomeJourney.tsx": "858ba7112067f7915557942b0f470606b587b51e215dbf3d84636f97b5d7bb2b",
       "src/components/site/Faq.tsx": "63b94a8bb432355fa51d2a2adce97bab3ceb0a434bf7ec3beace55d71cebc1e2",
@@ -729,19 +729,19 @@
       "route": "/team"
     },
     {
-      "id": "react-engineering-lead",
-      "name": "Neha Singh",
-      "role": "React Engineering Lead",
-      "functionName": "Frontend Engineering",
-      "summary": "Leads React architecture, frontend engineering standards, and the delivery of fast, accessible, and maintainable digital banking experiences.",
-      "route": "/team"
-    },
-    {
       "id": "ui-ux-design-lead",
       "name": "Prathamesh Phadatare",
       "role": "UI/UX Design Lead",
       "functionName": "Experience Design",
       "summary": "Leads user experience strategy and interface design, turning complex banking workflows into clear, intuitive, and accessible products.",
+      "route": "/team"
+    },
+    {
+      "id": "react-engineering-lead",
+      "name": "Neha Singh",
+      "role": "React Engineering Lead",
+      "functionName": "Frontend Engineering",
+      "summary": "Leads React architecture, frontend engineering standards, and the delivery of fast, accessible, and maintainable digital banking experiences.",
       "route": "/team"
     },
     {
