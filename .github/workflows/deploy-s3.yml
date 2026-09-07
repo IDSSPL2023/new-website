@@ -73,3 +73,10 @@ jobs:
           aws cloudfront create-invalidation
           --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}"
           --paths "/*"
+
+      - name: Stage chatbot infrastructure template
+        run: >-
+          aws s3 cp infra/chatbot-api.yml
+          "s3://${S3_BUCKET}/.deployment/chatbot-api.yml"
+          --cache-control "no-store"
+          --content-type "application/yaml"
