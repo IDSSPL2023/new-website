@@ -17,14 +17,14 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-import abhishekPhoto from "@/assets/abhishek-chowghale-cutout-card.png";
-import chetanPhoto from "@/assets/chetan-patil-cutout-card.png";
-import ganeshPhoto from "@/assets/ganesh-shinde-card-v3.png";
-import jitendraPhoto from "@/assets/jitendra-shirguppe-cutout-card.png";
-import manojPhoto from "@/assets/manoj-shinde-cutout-card.png";
-import nehaPhoto from "@/assets/neha-singh-cutout-card-v2.png";
-import prathameshPhoto from "@/assets/prathamesh-phadatare-cutout.png";
-import sanjayPhoto from "@/assets/sanjay-cutout-card.png";
+import abhishekPhoto from "@/assets/abhishek-chowghale-cutout-card.webp";
+import chetanPhoto from "@/assets/chetan-patil-cutout-card.webp";
+import ganeshPhoto from "@/assets/ganesh-shinde-card-v3.webp";
+import jitendraPhoto from "@/assets/jitendra-shirguppe-cutout-card.webp";
+import manojPhoto from "@/assets/manoj-shinde-cutout-card.webp";
+import nehaPhoto from "@/assets/neha-singh-cutout-card-v2.webp";
+import prathameshPhoto from "@/assets/prathamesh-phadatare-cutout.webp";
+import sanjayPhoto from "@/assets/sanjay-cutout-card.webp";
 
 import { Reveal } from "./Reveal";
 
@@ -399,7 +399,7 @@ function FunctionLeadCard({
         >
           {lead.photo ? (
             <span className="function-lead-photo" aria-hidden="true">
-              <img src={lead.photo} alt="" loading="lazy" />
+              <img src={lead.photo} alt="" loading="lazy" decoding="async" />
             </span>
           ) : null}
           {!lead.photo ? (
@@ -486,7 +486,7 @@ function TeamMemberCard({
         >
           <span className={`team-card-photo${member.photo ? " has-photo" : ""}`} aria-hidden="true">
             {member.photo ? (
-              <img src={member.photo} alt="" loading="lazy" />
+              <img src={member.photo} alt="" loading="lazy" decoding="async" />
             ) : (
               <span className="team-card-monogram">{getMonogram(member.name)}</span>
             )}

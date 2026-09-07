@@ -11,41 +11,63 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { BRAND_LOGO_URL, SITE_URL, SOCIAL_PREVIEW_URL } from "../lib/seo";
 
 const themeBootstrap = `(function(){try{var saved=window.localStorage.getItem("idsspl-theme");var theme=saved==="light"||saved==="dark"?saved:window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";var root=document.documentElement;root.dataset.theme=theme;root.classList.toggle("light",theme==="light");root.classList.toggle("dark",theme==="dark");root.style.colorScheme=theme;}catch(error){document.documentElement.dataset.theme="dark";document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark";}})();`;
 
-const organizationSchema = JSON.stringify({
+const siteSchema = JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "IDSSPL Technologies Private Limited",
-  alternateName: "IDSSPL",
-  url: "https://www.idsspl.com/",
-  email: "info@idsspl.com",
-  telephone: "+91-231-2530950",
-  sameAs: [
-    "https://x.com/Idsspl_pvt",
-    "https://www.facebook.com/IDSSPLTechnology/",
-    "https://www.instagram.com/idsspl_technology/",
-    "https://www.linkedin.com/company/112565186/",
-  ],
-  description:
-    "Banking technology company delivering AI-powered core banking, digital payments, card management, merchant management, and enterprise financial infrastructure.",
-  address: [
+  "@graph": [
     {
-      "@type": "PostalAddress",
-      streetAddress: "11, Gurukrupa, Friends Colony",
-      addressLocality: "Kolhapur",
-      addressRegion: "Maharashtra",
-      postalCode: "416005",
-      addressCountry: "IN",
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "IDSSPL Technologies Private Limited",
+      alternateName: "IDSSPL",
+      url: `${SITE_URL}/`,
+      logo: {
+        "@type": "ImageObject",
+        url: BRAND_LOGO_URL,
+        width: 694,
+        height: 250,
+      },
+      image: SOCIAL_PREVIEW_URL,
+      email: "info@idsspl.com",
+      telephone: "+91-231-2530950",
+      sameAs: [
+        "https://x.com/Idsspl_pvt",
+        "https://www.facebook.com/IDSSPLTechnology/",
+        "https://www.instagram.com/idsspl_technology/",
+        "https://www.linkedin.com/company/112565186/",
+      ],
+      description:
+        "Banking technology company delivering AI-powered core banking, digital payments, card management, merchant management, and enterprise financial infrastructure.",
+      address: [
+        {
+          "@type": "PostalAddress",
+          streetAddress: "11, Gurukrupa, Friends Colony",
+          addressLocality: "Kolhapur",
+          addressRegion: "Maharashtra",
+          postalCode: "416005",
+          addressCountry: "IN",
+        },
+        {
+          "@type": "PostalAddress",
+          streetAddress: "Office No. 406, De Elmas, Sonawala Lane, Goregaon East",
+          addressLocality: "Mumbai",
+          addressRegion: "Maharashtra",
+          postalCode: "400063",
+          addressCountry: "IN",
+        },
+      ],
     },
     {
-      "@type": "PostalAddress",
-      streetAddress: "Office No. 406, De Elmas, Sonawala Lane, Goregaon East",
-      addressLocality: "Mumbai",
-      addressRegion: "Maharashtra",
-      postalCode: "400063",
-      addressCountry: "IN",
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: "IDSSPL",
+      alternateName: "IDSSPL Technologies",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "en-IN",
     },
   ],
 });
@@ -156,10 +178,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en" className="dark" data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: organizationSchema }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: siteSchema }} />
         <HeadContent />
       </head>
       <body>

@@ -1,4 +1,3 @@
-import { useEffect, useState, type MouseEvent } from "react";
 import { ArrowRight } from "lucide-react";
 
 import cardsImg from "@/assets/cards.jpg";
@@ -19,7 +18,7 @@ import { ProductSection, type Product } from "./ProductSection";
 import { productIconSets } from "./ProductIconSets";
 import { Reveal } from "./Reveal";
 
-type CatalogProduct = Product & { icon: GlassIconName };
+export type CatalogProduct = Product & { icon: GlassIconName };
 
 const products: CatalogProduct[] = [
   {
@@ -705,55 +704,24 @@ const products: CatalogProduct[] = [
   },
 ];
 
-function getProductIdFromHash() {
-  if (typeof window === "undefined") return products[0].id;
-  const requestedId = decodeURIComponent(window.location.hash.slice(1));
-  return products.some((product) => product.id === requestedId) ? requestedId : products[0].id;
-}
+// Shared with the product route so metadata and rendered content use one source of truth.
+// eslint-disable-next-line react-refresh/only-export-components
+export const getCatalogProduct = (productId: string) =>
+  products.find((product) => product.id === productId);
 
-export function ProductCatalog() {
-  const [selectedProductId, setSelectedProductId] = useState(products[0].id);
-  const selectedProduct =
-    products.find((product) => product.id === selectedProductId) ?? products[0];
-
-  useEffect(() => {
-    const syncProductFromLocation = () => setSelectedProductId(getProductIdFromHash());
-    syncProductFromLocation();
-    window.addEventListener("hashchange", syncProductFromLocation);
-    window.addEventListener("popstate", syncProductFromLocation);
-    return () => {
-      window.removeEventListener("hashchange", syncProductFromLocation);
-      window.removeEventListener("popstate", syncProductFromLocation);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (window.location.hash !== `#${selectedProductId}`) return;
-    const timer = window.setTimeout(() => {
-      document.getElementById(selectedProductId)?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 260);
-    return () => window.clearTimeout(timer);
-  }, [selectedProductId]);
-
-  const selectProduct = (event: MouseEvent<HTMLAnchorElement>, productId: string) => {
-    event.preventDefault();
-    const nextHash = `#${productId}`;
-    if (window.location.hash !== nextHash) window.history.pushState(null, "", nextHash);
-    setSelectedProductId(productId);
-
-    if (selectedProductId === productId) {
-      document.getElementById(productId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+export function ProductCatalog({ productId }: { productId?: string }) {
+  const selectedProduct = (productId ? getCatalogProduct(productId) : undefined) ?? products[0];
+  const isProductDetail = Boolean(productId);
 
   return (
     <div id="products">
-      <ProductSection key={selectedProduct.id} product={selectedProduct} />
+      {isProductDetail ? (
+        <ProductSection key={selectedProduct.id} product={selectedProduct} />
+      ) : null}
 
-      <section className="product-family-selector">
+      <section
+        className={`product-family-selector${isProductDetail ? "" : " product-family-selector-overview"}`}
+      >
         <div className="shell">
           <div className="product-family-heading section-heading-split">
             <div>
@@ -761,7 +729,11 @@ export function ProductCatalog() {
                 <p className="eyebrow">Product Portfolio</p>
               </Reveal>
               <Reveal delay={70}>
-                <h2 className="display section-heading-title">Explore Our Product Portfolio.</h2>
+                {isProductDetail ? (
+                  <h2 className="display section-heading-title">Explore Our Product Portfolio.</h2>
+                ) : (
+                  <h1 className="display section-heading-title">Banking Technology Products.</h1>
+                )}
               </Reveal>
             </div>
             <Reveal delay={120}>
@@ -772,16 +744,15 @@ export function ProductCatalog() {
             </Reveal>
           </div>
 
-          <div className="product-family-grid" role="tablist" aria-label="Product families">
+          <nav className="product-family-grid" aria-label="Product families">
             {products.map((product, index) => {
-              const isSelected = product.id === selectedProduct.id;
+              const isSelected = isProductDetail && product.id === selectedProduct.id;
               return (
                 <Reveal key={product.id} delay={70 + index * 45}>
                   <a
-                    href={`#${product.id}`}
+                    href={`/products/${product.id}`}
                     className={`product-family-button${isSelected ? " is-selected" : ""}`}
-                    aria-current={isSelected ? "true" : undefined}
-                    onClick={(event) => selectProduct(event, product.id)}
+                    aria-current={isSelected ? "page" : undefined}
                   >
                     <span className="product-family-button-icon" aria-hidden="true">
                       <GlassIcon3D name={product.icon} size="md" tone="cyan" />
@@ -795,7 +766,7 @@ export function ProductCatalog() {
                 </Reveal>
               );
             })}
-          </div>
+          </nav>
         </div>
       </section>
     </div>

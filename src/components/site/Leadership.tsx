@@ -1,12 +1,12 @@
 import { BadgeCheck, Handshake, Landmark, Medal, Route, TrendingUp, Workflow } from "lucide-react";
 import type { CSSProperties } from "react";
 
-import arunGawasImg from "@/assets/arun-gawas.png";
-import cgoProfileImg from "@/assets/cgo-profile.png";
-import devendraSawantImg from "@/assets/devendra-sawant-cutout-card-v2.png";
-import krishnaTelgaveImg from "@/assets/krishna-telgave-cutout-card.png";
-import maheshWaingankarImg from "@/assets/mahesh-waingankar-cutout-card.png";
-import sujaNairImg from "@/assets/suja-nair-cutout-card-v3.png";
+import arunGawasImg from "@/assets/arun-gawas.webp";
+import cgoProfileImg from "@/assets/cgo-profile.webp";
+import devendraSawantImg from "@/assets/devendra-sawant-cutout-card-v2.webp";
+import krishnaTelgaveImg from "@/assets/krishna-telgave-cutout-card.webp";
+import maheshWaingankarImg from "@/assets/mahesh-waingankar-cutout-card.webp";
+import sujaNairImg from "@/assets/suja-nair-cutout-card-v3.webp";
 import vinayakImg from "@/assets/vinayak-more.jpg";
 import vishalImg from "@/assets/vishal-singh.jpg";
 import surajImg from "@/assets/suraj-pathak.jpg";
@@ -157,6 +157,7 @@ export function Leadership() {
                     src={leader.photo}
                     alt={`${leader.name}, ${leader.role} at IDSSPL`}
                     loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -234,6 +235,7 @@ export function Leadership() {
                           src={chief.photo}
                           alt={chief.photoAlt ?? `${chief.name}, ${chief.role} at IDSSPL`}
                           loading="lazy"
+                          decoding="async"
                           className="chief-card-photo"
                         />
                       ) : (

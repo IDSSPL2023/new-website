@@ -13,14 +13,14 @@ import { useEffect, useRef, useState } from "react";
 
 import infrastructureImg from "@/assets/infrastructure.jpg";
 import infrastructureVideo from "@/assets/infrastructure.mp4";
-import bankingDomainArtwork from "@/assets/about-icons-generated/banking-domain-expertise.png";
-import complianceReadyArtwork from "@/assets/about-icons-generated/compliance-ready-architecture.png";
-import implementationSupportArtwork from "@/assets/about-icons-generated/enterprise-implementation-support.png";
-import missionDependableArtwork from "@/assets/about-icons-generated/mission-dependable-banking.png";
-import paymentEngineeringArtwork from "@/assets/about-icons-generated/real-time-payment-engineering.png";
-import scalablePlatformsArtwork from "@/assets/about-icons-generated/scalable-financial-platforms.png";
-import securityFirstArtwork from "@/assets/about-icons-generated/security-first-infrastructure.png";
-import visionFutureArtwork from "@/assets/about-icons-generated/vision-future-finance.png";
+import bankingDomainArtwork from "@/assets/about-icons-generated/banking-domain-expertise.webp";
+import complianceReadyArtwork from "@/assets/about-icons-generated/compliance-ready-architecture.webp";
+import implementationSupportArtwork from "@/assets/about-icons-generated/enterprise-implementation-support.webp";
+import missionDependableArtwork from "@/assets/about-icons-generated/mission-dependable-banking.webp";
+import paymentEngineeringArtwork from "@/assets/about-icons-generated/real-time-payment-engineering.webp";
+import scalablePlatformsArtwork from "@/assets/about-icons-generated/scalable-financial-platforms.webp";
+import securityFirstArtwork from "@/assets/about-icons-generated/security-first-infrastructure.webp";
+import visionFutureArtwork from "@/assets/about-icons-generated/vision-future-finance.webp";
 
 import { CinematicMedia } from "./CinematicMedia";
 import { GlassIcon3D, type GlassIconName } from "./GlassIcon3D";

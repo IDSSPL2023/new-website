@@ -78,7 +78,7 @@ const products = read("ProductCatalog", "products").map((product) => ({
     "benefits",
     "faqs",
   ]),
-  route: `/products#${product.id}`,
+  route: `/products/${product.id}`,
 }));
 if (
   products.length !== 6 ||

@@ -30,37 +30,37 @@ const productLinks = [
   {
     label: "Next Gen AI Core Banking Solution",
     description: "An intelligent foundation for secure, scalable, customer-centric banking.",
-    href: "/products#next-gen-ai-core-banking",
+    href: "/products/next-gen-ai-core-banking",
     icon: Landmark,
   },
   {
     label: "NPCI Products",
     description: "Integrated rails for secure, seamless, real-time digital transactions.",
-    href: "/products#npci-products",
+    href: "/products/npci-products",
     icon: ArrowLeftRight,
   },
   {
     label: "Digital Banking Products",
     description: "Connected customer journeys across web, mobile, messaging, and self-service.",
-    href: "/products#digital-banking-products",
+    href: "/products/digital-banking-products",
     icon: Smartphone,
   },
   {
     label: "Enterprise Solution",
     description: "Connected automation and control across critical banking operations.",
-    href: "/products#enterprise-solution",
+    href: "/products/enterprise-solution",
     icon: Building2,
   },
   {
     label: "Merchant Management Solution",
     description: "End-to-end onboarding, QR, transaction, and merchant intelligence control.",
-    href: "/products#merchant-management-solution",
+    href: "/products/merchant-management-solution",
     icon: Store,
   },
   {
     label: "Card Management",
     description: "Secure issuance, PIN control, monitoring, and card lifecycle management.",
-    href: "/products#card-management",
+    href: "/products/card-management",
     icon: CreditCard,
   },
 ];

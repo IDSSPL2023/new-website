@@ -17,6 +17,7 @@ import { Route as ProductsRouteImport } from './routes/products'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TermsConditionsRouteImport } from './routes/terms-conditions'
 import { Route as ApiChatRouteImport } from './routes/api.chat'
+import { Route as ProductsProductIdRouteImport } from './routes/products_.$productId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
+  id: '/products_/$productId',
+  path: '/products/$productId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/team': typeof TeamRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/api/chat': typeof ApiChatRoute
+  '/products/$productId': typeof ProductsProductIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/api/chat': typeof ApiChatRoute
+  '/products/$productId': typeof ProductsProductIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/team': typeof TeamRoute
   '/terms-conditions': typeof TermsConditionsRoute
   '/api/chat': typeof ApiChatRoute
+  '/products_/$productId': typeof ProductsProductIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/terms-conditions'
     | '/api/chat'
+    | '/products/$productId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/terms-conditions'
     | '/api/chat'
+    | '/products/$productId'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/terms-conditions'
     | '/api/chat'
+    | '/products_/$productId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRoute
   TermsConditionsRoute: typeof TermsConditionsRoute
   ApiChatRoute: typeof ApiChatRoute
+  ProductsProductIdRoute: typeof ProductsProductIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products_/$productId': {
+      id: '/products_/$productId'
+      path: '/products/$productId'
+      fullPath: '/products/$productId'
+      preLoaderRoute: typeof ProductsProductIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRoute,
   TermsConditionsRoute: TermsConditionsRoute,
   ApiChatRoute: ApiChatRoute,
+  ProductsProductIdRoute: ProductsProductIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

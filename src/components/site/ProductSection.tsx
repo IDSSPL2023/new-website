@@ -98,22 +98,38 @@ export function ProductSection({ product }: { product: Product }) {
     })),
   });
 
+  const serviceSchema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: product.label,
+    description: product.shortDescription,
+    url: `https://www.idsspl.com/products/${product.id}`,
+    provider: {
+      "@type": "Organization",
+      "@id": "https://www.idsspl.com/#organization",
+      name: "IDSSPL Technologies Private Limited",
+    },
+    areaServed: "IN",
+    serviceType: "Banking technology platform",
+  });
+
   return (
     <section id={product.id} className="product-detail-section product-single-detail">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqSchema }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serviceSchema }} />
       <div className="shell">
         <div className="product-detail-hero">
           <Reveal className="product-detail-hero-copy">
             <div className="product-detail-kicker">
               <span>{product.label}</span>
             </div>
-            <h2 className="display product-detail-title" aria-label={product.heading.join(" ")}>
+            <h1 className="display product-detail-title" aria-label={product.heading.join(" ")}>
               {product.heading.map((line) => (
                 <span key={line} aria-hidden="true">
                   {line}{" "}
                 </span>
               ))}
-            </h2>
+            </h1>
             <p className="product-detail-summary">{product.shortDescription}</p>
             <div className="product-detail-overview">
               <span>Overview</span>

@@ -54,7 +54,7 @@ export function CinematicMedia({ video, poster, alt, className, pauseWhenHidden 
       muted
       loop
       playsInline
-      preload="auto"
+      preload="metadata"
       className={cn("w-full object-cover", className)}
     />
   );

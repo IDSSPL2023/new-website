@@ -48,16 +48,16 @@ const columns = [
     links: [
       {
         label: "Next Gen AI Core Banking Solution",
-        href: "/products#next-gen-ai-core-banking",
+        href: "/products/next-gen-ai-core-banking",
       },
-      { label: "NPCI Products", href: "/products#npci-products" },
-      { label: "Digital Banking Products", href: "/products#digital-banking-products" },
-      { label: "Enterprise Solution", href: "/products#enterprise-solution" },
+      { label: "NPCI Products", href: "/products/npci-products" },
+      { label: "Digital Banking Products", href: "/products/digital-banking-products" },
+      { label: "Enterprise Solution", href: "/products/enterprise-solution" },
       {
         label: "Merchant Management Solution",
-        href: "/products#merchant-management-solution",
+        href: "/products/merchant-management-solution",
       },
-      { label: "Card Management", href: "/products#card-management" },
+      { label: "Card Management", href: "/products/card-management" },
     ],
   },
   {

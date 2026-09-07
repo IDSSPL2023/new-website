@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "lastUpdated": "2026-09-04",
+  "lastUpdated": "2026-09-07",
   "provenance": {
     "description": "Snapshot of the current IDSSPL website content, including user-approved local updates. Website claims are not independently audited facts or contractual guarantees.",
     "refreshCommand": "pnpm knowledge:sync",
     "sourceHashes": {
-      "src/components/site/ProductCatalog.tsx": "7afc53b849f39c1a598b34fca7c10499d33cbd7efcfb0ef4a437a2bd5f3bee67",
-      "src/components/site/Leadership.tsx": "ae38fdd4249133f6df9020f2e82a8501f93b45de0f4ca3424e7671bd1554fc70",
-      "src/components/site/OurTeam.tsx": "84c4052d9d704297c7a1adcc3c83d1faf0127ec65bfb4faf4e7cf513ade09ad9",
-      "src/components/site/AboutCompany.tsx": "303d9bd377fbad68f5f7f3a5b1ee1b92b6c12b9a7dd17bedbc515c7ccfb78fc6",
+      "src/components/site/ProductCatalog.tsx": "9c025013a52c8b707ac3248b1db64bd22b6c40bfc396b1dbeac9bd6afbe117ca",
+      "src/components/site/Leadership.tsx": "02fbd1ad84df241f0b434fbe8a12b3829182d35820179cf1b6742ed839f83ddb",
+      "src/components/site/OurTeam.tsx": "5ae68c4b8c494c4dc01baa8b2f9856a7de52b478abd1da46569b3864fb12f22e",
+      "src/components/site/AboutCompany.tsx": "1c11243685c5dd646204524931ae1e8ed86eaf0270c6ff10f465f13a402cd9f0",
       "src/components/site/HomeJourney.tsx": "858ba7112067f7915557942b0f470606b587b51e215dbf3d84636f97b5d7bb2b",
       "src/components/site/Faq.tsx": "63b94a8bb432355fa51d2a2adce97bab3ceb0a434bf7ec3beace55d71cebc1e2",
       "src/components/site/CertificateTrust.tsx": "b6e1079cbde79e5cb1878093c0b77dee89dddca221ed17eaf0e997b6e9486b08",
-      "src/components/site/Footer.tsx": "f5587db2a53ce012d826aa567bdbbb90db29b90eebae6e806c96d6c922f667aa"
+      "src/components/site/Footer.tsx": "cbcfcc5c8783b5acf7f8e74eb64ed3783b9b51777b60fe5dafa3808af78f2ad6"
     }
   },
   "company": {
@@ -139,7 +139,7 @@
           "description": "The platform supports role-based access, maker-checker workflows, audit trails, controlled approvals, encryption, monitoring, and configurable controls that help institutions maintain disciplined and traceable banking operations."
         }
       ],
-      "route": "/products#next-gen-ai-core-banking"
+      "route": "/products/next-gen-ai-core-banking"
     },
     {
       "id": "npci-products",
@@ -230,7 +230,7 @@
           "description": "Teams can monitor transaction status, failures, reversals, exceptions, service performance, reconciliation context, and traceable reference data from a connected operational environment."
         }
       ],
-      "route": "/products#npci-products"
+      "route": "/products/npci-products"
     },
     {
       "id": "digital-banking-products",
@@ -321,7 +321,7 @@
           "description": "The interfaces are designed to support language-ready content, responsive journeys, configurable services, and institution-specific presentation without maintaining a separate technology stack for every channel."
         }
       ],
-      "route": "/products#digital-banking-products"
+      "route": "/products/digital-banking-products"
     },
     {
       "id": "enterprise-solution",
@@ -412,7 +412,7 @@
           "description": "Yes. Routing, rules, reviews, supporting documents, approvals, responsibilities, and reporting can be configured around the institution's organisation structure and operating policies."
         }
       ],
-      "route": "/products#enterprise-solution"
+      "route": "/products/enterprise-solution"
     },
     {
       "id": "merchant-management-solution",
@@ -503,7 +503,7 @@
           "description": "Institution-specific KYC, risk, pricing, hierarchy, document, approval, and maker-checker requirements can be configured into the acquisition and ongoing servicing journey."
         }
       ],
-      "route": "/products#merchant-management-solution"
+      "route": "/products/merchant-management-solution"
     },
     {
       "id": "card-management",
@@ -594,7 +594,7 @@
           "description": "The platform is designed to connect with core banking, card production, transaction switching, fraud monitoring, digital channels, notifications, and operational systems through secure interfaces."
         }
       ],
-      "route": "/products#card-management"
+      "route": "/products/card-management"
     }
   ],
   "leadership": [
@@ -1063,27 +1063,27 @@
     },
     {
       "label": "Next Gen AI Core Banking Solution",
-      "href": "/products#next-gen-ai-core-banking"
+      "href": "/products/next-gen-ai-core-banking"
     },
     {
       "label": "NPCI Products",
-      "href": "/products#npci-products"
+      "href": "/products/npci-products"
     },
     {
       "label": "Digital Banking Products",
-      "href": "/products#digital-banking-products"
+      "href": "/products/digital-banking-products"
     },
     {
       "label": "Enterprise Solution",
-      "href": "/products#enterprise-solution"
+      "href": "/products/enterprise-solution"
     },
     {
       "label": "Merchant Management Solution",
-      "href": "/products#merchant-management-solution"
+      "href": "/products/merchant-management-solution"
     },
     {
       "label": "Card Management",
-      "href": "/products#card-management"
+      "href": "/products/card-management"
     },
     {
       "label": "Product Overview",

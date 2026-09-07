@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage, type LegalSection } from "@/components/site/LegalPage";
 import { SitePage } from "@/components/site/SitePage";
+import { createSeoHead } from "@/lib/seo";
 
 const termsSections: LegalSection[] = [
   {
@@ -109,27 +110,14 @@ const termsSections: LegalSection[] = [
 ];
 
 export const Route = createFileRoute("/terms-conditions")({
-  head: () => ({
-    meta: [
-      { title: "Terms and Conditions | IDSSPL Technologies" },
-      {
-        name: "description",
-        content:
-          "Review the terms governing use of the IDSSPL Technologies website, product information, enquiries, intellectual property, and external links.",
-      },
-      { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Terms and Conditions | IDSSPL Technologies" },
-      {
-        property: "og:description",
-        content:
-          "Terms for using the IDSSPL website and its banking technology information, enquiry forms, and public resources.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://www.idsspl.com/terms-conditions" },
-      { name: "twitter:card", content: "summary" },
-    ],
-    links: [{ rel: "canonical", href: "https://www.idsspl.com/terms-conditions" }],
-  }),
+  head: () =>
+    createSeoHead({
+      title: "Terms and Conditions | IDSSPL Technologies",
+      description:
+        "Review the terms governing the IDSSPL website, banking product information, enquiries, intellectual property and external links.",
+      path: "/terms-conditions",
+      imageAlt: "IDSSPL Technologies website terms and conditions",
+    }),
   component: TermsConditionsPage,
 });
 

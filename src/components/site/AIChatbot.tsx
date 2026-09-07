@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 
-import aiBotMascot from "@/assets/idsspl-ai-bot.png";
+import aiBotMascot from "@/assets/idsspl-ai-bot.webp";
 import { ChatAIOrb } from "@/components/site/ChatAIOrb";
 import { prepareChatHistory } from "@/lib/idsspl-chat-history";
 import {
@@ -355,7 +355,7 @@ function ChatbotRobot({ className = "" }: { className?: string }) {
         <i />
         <i />
       </span>
-      <img src={aiBotMascot} alt="" draggable={false} />
+      <img src={aiBotMascot} alt="" decoding="async" draggable={false} />
       <span className="chatbot-robot-eyes">
         <i />
         <i />

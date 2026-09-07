@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage, type LegalSection } from "@/components/site/LegalPage";
 import { SitePage } from "@/components/site/SitePage";
+import { createSeoHead } from "@/lib/seo";
 
 const privacySections: LegalSection[] = [
   {
@@ -100,27 +101,14 @@ const privacySections: LegalSection[] = [
 ];
 
 export const Route = createFileRoute("/privacy-policy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy Policy | IDSSPL Technologies" },
-      {
-        name: "description",
-        content:
-          "Read how IDSSPL Technologies collects, uses, protects, and manages information submitted through its banking technology website.",
-      },
-      { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Privacy Policy | IDSSPL Technologies" },
-      {
-        property: "og:description",
-        content:
-          "Information about website enquiries, preferences, communications, data security, retention, and privacy choices at IDSSPL.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://www.idsspl.com/privacy-policy" },
-      { name: "twitter:card", content: "summary" },
-    ],
-    links: [{ rel: "canonical", href: "https://www.idsspl.com/privacy-policy" }],
-  }),
+  head: () =>
+    createSeoHead({
+      title: "Privacy Policy | IDSSPL Technologies",
+      description:
+        "Read how IDSSPL Technologies collects, uses, protects and manages information submitted through its banking technology website.",
+      path: "/privacy-policy",
+      imageAlt: "IDSSPL Technologies privacy policy",
+    }),
   component: PrivacyPolicyPage,
 });
 
