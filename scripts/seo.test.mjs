@@ -37,7 +37,7 @@ test("every public route has complete, singular SEO metadata", () => {
     );
 
     assert.equal(count(html, /<title>/gi), 1, `${route} must have one title`);
-    assert.ok(title.length > 15 && title.length <= 65, `${route} has an unsuitable title length`);
+    assert.ok(title.length >= 30 && title.length <= 65, `${route} has an unsuitable title length`);
     assert.equal(
       count(html, /name=["']description["']/gi),
       1,
@@ -56,10 +56,20 @@ test("every public route has complete, singular SEO metadata", () => {
     );
     assert.equal(count(html, /<h1(?:\s|>)/gi), 1, `${route} must have one H1`);
     assert.ok(html.includes("application/ld+json"), `${route} must include structured data`);
+
+    const images = [...html.matchAll(/<img\b[^>]*>/gi)].map((match) => match[0]);
+    for (const image of images) {
+      assert.match(image, /\balt=["'][^"']+["']/i, `${route} has an image without useful alt text`);
+      assert.match(image, /\bwidth=["']?\d+/i, `${route} has an image without a width`);
+      assert.match(image, /\bheight=["']?\d+/i, `${route} has an image without a height`);
+    }
   }
 });
 
 test("robots and sitemap expose every canonical route", () => {
+  assert.ok(existsSync(join(outputRoot, "robots.txt")), "robots.txt is missing");
+  assert.ok(existsSync(join(outputRoot, "sitemap.xml")), "sitemap.xml is missing");
+
   const robots = readFileSync(join(outputRoot, "robots.txt"), "utf8");
   const sitemap = readFileSync(join(outputRoot, "sitemap.xml"), "utf8");
 
@@ -73,4 +83,14 @@ test("robots and sitemap expose every canonical route", () => {
     );
     assert.ok(sitemap.includes(`<loc>${canonical}</loc>`), `sitemap is missing ${canonical}`);
   }
+});
+
+test("llms.txt describes the official IDSSPL website and products", () => {
+  const llmsFile = join(outputRoot, "llms.txt");
+  assert.ok(existsSync(llmsFile), "llms.txt is missing");
+
+  const llms = readFileSync(llmsFile, "utf8");
+  assert.match(llms, /^# IDSSPL Technologies Private Limited/m);
+  assert.match(llms, /https:\/\/www\.idsspl\.com\/products\/next-gen-ai-core-banking/);
+  assert.match(llms, /https:\/\/www\.idsspl\.com\/products\/card-management/);
 });

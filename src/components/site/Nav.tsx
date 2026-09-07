@@ -91,12 +91,19 @@ export function Nav() {
         <a href="/" aria-label="IDSSPL home" className="site-logo flex items-center">
           <img
             src={logoMark}
-            alt=""
+            alt="IDSSPL banking technology logo"
             aria-hidden="true"
+            width={158}
+            height={96}
             className="site-logo-dark h-12 w-auto md:h-[3.25rem]"
           />
           <span className="site-logo-light" aria-hidden="true">
-            <img src={lightLogo} alt="" />
+            <img
+              src={lightLogo}
+              alt="IDSSPL banking technology logo for light theme"
+              width={694}
+              height={250}
+            />
           </span>
         </a>
 

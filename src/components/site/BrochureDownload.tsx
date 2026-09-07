@@ -80,6 +80,8 @@ export function BrochureDownload() {
               <img
                 src={brochureCover}
                 alt="Cover of the IDSSPL Banking Division company brochure"
+                width={2560}
+                height={1440}
                 loading="lazy"
               />
               <span className="brochure-preview-badge">

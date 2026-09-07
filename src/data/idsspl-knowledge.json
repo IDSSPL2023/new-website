@@ -6,12 +6,12 @@
     "refreshCommand": "pnpm knowledge:sync",
     "sourceHashes": {
       "src/components/site/ProductCatalog.tsx": "9c025013a52c8b707ac3248b1db64bd22b6c40bfc396b1dbeac9bd6afbe117ca",
-      "src/components/site/Leadership.tsx": "02fbd1ad84df241f0b434fbe8a12b3829182d35820179cf1b6742ed839f83ddb",
-      "src/components/site/OurTeam.tsx": "5ae68c4b8c494c4dc01baa8b2f9856a7de52b478abd1da46569b3864fb12f22e",
+      "src/components/site/Leadership.tsx": "867d05653cf09264c9b7e77b3614f069177d8f2f192ea96bc5a81e9668d9adce",
+      "src/components/site/OurTeam.tsx": "f63ad8dae824c46cd7a9dfedad4842c1f89849b1f3c156b7c8119ed7b56e737a",
       "src/components/site/AboutCompany.tsx": "1c11243685c5dd646204524931ae1e8ed86eaf0270c6ff10f465f13a402cd9f0",
       "src/components/site/HomeJourney.tsx": "858ba7112067f7915557942b0f470606b587b51e215dbf3d84636f97b5d7bb2b",
       "src/components/site/Faq.tsx": "63b94a8bb432355fa51d2a2adce97bab3ceb0a434bf7ec3beace55d71cebc1e2",
-      "src/components/site/CertificateTrust.tsx": "b6e1079cbde79e5cb1878093c0b77dee89dddca221ed17eaf0e997b6e9486b08",
+      "src/components/site/CertificateTrust.tsx": "57a340c2034c4d866962f86ff364284d81923bf6005e447fde8aba7b939e48a0",
       "src/components/site/Footer.tsx": "cbcfcc5c8783b5acf7f8e74eb64ed3783b9b51777b60fe5dafa3808af78f2ad6"
     }
   },

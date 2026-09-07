@@ -260,7 +260,9 @@ export function GlassIcon3D({
         <img
           className="glass-icon-3d-artwork-image"
           src={artwork}
-          alt=""
+          alt="Decorative IDSSPL banking technology illustration"
+          width={512}
+          height={512}
           loading={size === "hero" ? "eager" : "lazy"}
           decoding="async"
         />

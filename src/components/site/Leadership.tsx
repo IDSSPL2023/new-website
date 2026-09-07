@@ -64,6 +64,7 @@ const chiefOfficers = [
     name: "Krishna Telgave",
     photo: krishnaTelgaveImg,
     photoAlt: "Krishna Telgave, Chief Technology Officer at IDSSPL",
+    photoSize: { width: 863, height: 1261 },
     accent: { start: "#1767c8", end: "#4dc8ff", glow: "#38bdf8" },
     bio: "Guides the technology vision, architecture standards, engineering excellence, and secure platform strategy behind IDSSPL's banking solutions.",
   },
@@ -75,6 +76,7 @@ const chiefOfficers = [
     name: "Mahesh Waingankar",
     photo: maheshWaingankarImg,
     photoAlt: "Mahesh Waingankar, Chief Marketing Officer at IDSSPL",
+    photoSize: { width: 1000, height: 1500 },
     accent: { start: "#6536c9", end: "#c45cff", glow: "#c084fc" },
     bio: "Shapes the brand, market strategy, communication, and growth direction that connects IDSSPL with financial institutions and partners.",
   },
@@ -86,6 +88,7 @@ const chiefOfficers = [
     name: "Arun Gavas",
     photo: arunGawasImg,
     photoAlt: "Arun Gavas, AVP-Technology (CBS) at IDSSPL",
+    photoSize: { width: 1023, height: 1537 },
     accent: { start: "#087f72", end: "#39d5bd", glow: "#2dd4bf" },
     bio: "Leads the Core Banking Solutions portfolio, aligning banking-domain expertise, product strategy, implementation quality, and long-term customer outcomes.",
   },
@@ -97,6 +100,7 @@ const chiefOfficers = [
     name: "Prince Singh",
     photo: cgoProfileImg,
     photoAlt: "Prince Singh, Chief Growth & Technology Officer at IDSSPL",
+    photoSize: { width: 1086, height: 1160 },
     accent: { start: "#d55725", end: "#ffad4d", glow: "#fb923c" },
     bio: "Leads sustainable business growth, technology direction, strategic partnerships, market expansion, and revenue initiatives that strengthen IDSSPL's long-term impact.",
   },
@@ -108,6 +112,7 @@ const chiefOfficers = [
     name: "Devendra Sawant",
     photo: devendraSawantImg,
     photoAlt: "Devendra Sawant, VP Operation at IDSSPL",
+    photoSize: { width: 874, height: 1049 },
     accent: { start: "#6536c9", end: "#a96bff", glow: "#a78bfa" },
     bio: "Oversees operational planning, cross-functional coordination, process discipline, and dependable execution across the organization.",
   },
@@ -119,6 +124,7 @@ const chiefOfficers = [
     name: "Suja Nair",
     photo: sujaNairImg,
     photoAlt: "Suja Nair, Manager - HR & Admin at IDSSPL",
+    photoSize: { width: 958, height: 1534 },
     accent: { start: "#3157b8", end: "#68a7ff", glow: "#60a5fa" },
     bio: "Fosters a high-performing, people-centric culture through strategic talent acquisition, employee development, and effective HR operations, while ensuring a safe, comfortable, and well-managed work environment and providing seamless administrative support for business operations.",
   },
@@ -156,6 +162,8 @@ export function Leadership() {
                   <img
                     src={leader.photo}
                     alt={`${leader.name}, ${leader.role} at IDSSPL`}
+                    width={720}
+                    height={720}
                     loading={index === 0 ? "eager" : "lazy"}
                     decoding="async"
                     className="h-full w-full object-cover"
@@ -234,6 +242,8 @@ export function Leadership() {
                         <img
                           src={chief.photo}
                           alt={chief.photoAlt ?? `${chief.name}, ${chief.role} at IDSSPL`}
+                          width={chief.photoSize.width}
+                          height={chief.photoSize.height}
                           loading="lazy"
                           decoding="async"
                           className="chief-card-photo"

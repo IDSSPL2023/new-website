@@ -359,7 +359,14 @@ function ChatbotRobot({ className = "" }: { className?: string }) {
         <i />
         <i />
       </span>
-      <img src={aiBotMascot} alt="" decoding="async" draggable={false} />
+      <img
+        src={aiBotMascot}
+        alt="IDSSPL AI banking advisor"
+        width={1024}
+        height={1536}
+        decoding="async"
+        draggable={false}
+      />
       <span className="chatbot-robot-eyes">
         <i />
         <i />

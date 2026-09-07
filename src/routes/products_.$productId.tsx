@@ -4,6 +4,12 @@ import { getCatalogProduct, ProductCatalog } from "@/components/site/ProductCata
 import { SitePage } from "@/components/site/SitePage";
 import { createSeoHead, SITE_URL } from "@/lib/seo";
 
+const productSeoTitles: Record<string, string> = {
+  "npci-products": "NPCI Payment Products & Switching Solutions | IDSSPL",
+  "enterprise-solution": "Enterprise Banking Automation Solutions | IDSSPL",
+  "card-management": "Card Management System for Banks | IDSSPL",
+};
+
 export const Route = createFileRoute("/products_/$productId")({
   beforeLoad: ({ params }) => {
     if (!getCatalogProduct(params.productId)) throw notFound();
@@ -20,7 +26,7 @@ export const Route = createFileRoute("/products_/$productId")({
     }
 
     return createSeoHead({
-      title: `${product.label} | IDSSPL`,
+      title: productSeoTitles[product.id] ?? `${product.label} | IDSSPL`,
       description: `${product.shortDescription} Review its features, benefits and fit for banks and financial institutions.`,
       path: `/products/${product.id}`,
       keywords: `${product.label}, banking technology platform, financial infrastructure, IDSSPL`,

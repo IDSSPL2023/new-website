@@ -42,6 +42,7 @@ type FunctionLead = {
     glow: string;
   };
   photo?: string;
+  photoSize?: { width: number; height: number };
 };
 
 type TeamGroup = "Operations & Administration" | "Engineering & AI" | "Design";
@@ -53,6 +54,7 @@ type TeamMember = {
   group: TeamGroup;
   summary: string;
   photo?: string;
+  photoSize?: { width: number; height: number };
 };
 
 const functionLeads: FunctionLead[] = [
@@ -67,6 +69,7 @@ const functionLeads: FunctionLead[] = [
     icon: Sparkles,
     accent: { start: "#ff6531", end: "#ffb347", glow: "#fb923c" },
     photo: chetanPhoto,
+    photoSize: { width: 1000, height: 1500 },
   },
   {
     id: "react-engineering-lead",
@@ -79,6 +82,7 @@ const functionLeads: FunctionLead[] = [
     icon: Code2,
     accent: { start: "#2578ff", end: "#55d6ff", glow: "#38bdf8" },
     photo: nehaPhoto,
+    photoSize: { width: 1145, height: 1374 },
   },
   {
     id: "ui-ux-design-lead",
@@ -91,6 +95,7 @@ const functionLeads: FunctionLead[] = [
     icon: Palette,
     accent: { start: "#8338b5", end: "#d266ff", glow: "#c084fc" },
     photo: prathameshPhoto,
+    photoSize: { width: 1145, height: 1374 },
   },
   {
     id: "flutter-application-developer",
@@ -103,6 +108,7 @@ const functionLeads: FunctionLead[] = [
     icon: Smartphone,
     accent: { start: "#0f9275", end: "#54df9d", glow: "#34d399" },
     photo: sanjayPhoto,
+    photoSize: { width: 1000, height: 1500 },
   },
   {
     id: "support-head",
@@ -115,6 +121,7 @@ const functionLeads: FunctionLead[] = [
     icon: Headphones,
     accent: { start: "#075f8f", end: "#30d6f2", glow: "#22d3ee" },
     photo: ganeshPhoto,
+    photoSize: { width: 1024, height: 1536 },
   },
   {
     id: "backend-engineering-lead",
@@ -127,6 +134,7 @@ const functionLeads: FunctionLead[] = [
     icon: Boxes,
     accent: { start: "#007f89", end: "#35d7c5", glow: "#2dd4bf" },
     photo: abhishekPhoto,
+    photoSize: { width: 1000, height: 1500 },
   },
   {
     id: "database-engineering-lead",
@@ -139,6 +147,7 @@ const functionLeads: FunctionLead[] = [
     icon: Database,
     accent: { start: "#2668d8", end: "#54b8ff", glow: "#60a5fa" },
     photo: manojPhoto,
+    photoSize: { width: 1000, height: 1200 },
   },
   {
     id: "software-development-lead",
@@ -151,6 +160,7 @@ const functionLeads: FunctionLead[] = [
     icon: Code2,
     accent: { start: "#006ec7", end: "#26d2e8", glow: "#22d3ee" },
     photo: jitendraPhoto,
+    photoSize: { width: 1000, height: 1200 },
   },
 ];
 
@@ -399,7 +409,14 @@ function FunctionLeadCard({
         >
           {lead.photo ? (
             <span className="function-lead-photo" aria-hidden="true">
-              <img src={lead.photo} alt="" loading="lazy" decoding="async" />
+              <img
+                src={lead.photo}
+                alt={`${displayName}, ${lead.role} at IDSSPL`}
+                width={lead.photoSize?.width ?? 1000}
+                height={lead.photoSize?.height ?? 1500}
+                loading="lazy"
+                decoding="async"
+              />
             </span>
           ) : null}
           {!lead.photo ? (
@@ -486,7 +503,14 @@ function TeamMemberCard({
         >
           <span className={`team-card-photo${member.photo ? " has-photo" : ""}`} aria-hidden="true">
             {member.photo ? (
-              <img src={member.photo} alt="" loading="lazy" decoding="async" />
+              <img
+                src={member.photo}
+                alt={`${member.name}, ${member.role} at IDSSPL`}
+                width={member.photoSize?.width ?? 1000}
+                height={member.photoSize?.height ?? 1500}
+                loading="lazy"
+                decoding="async"
+              />
             ) : (
               <span className="team-card-monogram">{getMonogram(member.name)}</span>
             )}

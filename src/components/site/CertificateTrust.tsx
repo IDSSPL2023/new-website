@@ -90,6 +90,8 @@ export function CertificateTrust() {
                       <img
                         src={certificate.image}
                         alt={certificate.alt}
+                        width={1400}
+                        height={1978}
                         loading="lazy"
                         decoding="async"
                       />
