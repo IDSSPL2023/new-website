@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 import knowledge from "../src/data/idsspl-knowledge.json" with { type: "json" };
-import { getGeminiKnowledgeContext } from "../src/lib/idsspl-gemini.server.ts";
+import { getClaudeKnowledgeContext } from "../src/lib/idsspl-claude.server.ts";
 
 test("knowledge matches current website content and Lambda embedding", () => {
   execFileSync(process.execPath, ["scripts/sync-idsspl-knowledge.mjs", "--check"], {
@@ -35,15 +35,15 @@ test("all current company, product and people details are retained", () => {
 
 for (const product of knowledge.products) {
   for (const name of [product.label, ...product.subProducts]) {
-    test("Gemini can see published product: " + name + " / " + product.id, () => {
-      const matching = getGeminiKnowledgeContext().products.find((p) => p.id === product.id);
+    test("Claude can see published product: " + name + " / " + product.id, () => {
+      const matching = getClaudeKnowledgeContext().products.find((p) => p.id === product.id);
       assert.deepEqual(matching, product);
       assert.ok(matching.label === name || matching.subProducts.includes(name));
     });
   }
 }
 
-test("preset questions use the same Gemini conversation without canned replies", () => {
+test("preset questions use the same Claude conversation without canned replies", () => {
   const source = fs.readFileSync(
     new URL("../src/components/site/AIChatbot.tsx", import.meta.url),
     "utf8",

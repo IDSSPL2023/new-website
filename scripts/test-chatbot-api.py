@@ -13,7 +13,12 @@ code = textwrap.dedent(template.split("        ZipFile: |\n", 1)[1].split("\n  C
 table = types.SimpleNamespace()
 sys.modules["boto3"] = types.SimpleNamespace(resource=lambda *a: types.SimpleNamespace(Table=lambda *a: table), client=lambda *a: table)
 sys.modules["botocore.exceptions"] = types.SimpleNamespace(ClientError=type("ClientError", (Exception,), {}))
-os.environ.update(LEAD_TABLE="test", RATE_LIMIT_TABLE="test")
+os.environ.update(
+    LEAD_TABLE="test",
+    RATE_LIMIT_TABLE="test",
+    ANTHROPIC_SECRET_ARN="test",
+    CLAUDE_MODEL="claude-sonnet-4-6",
+)
 runtime = {}
 exec(compile(code, "chatbot-lambda.py", "exec"), runtime)
 cases = json.loads((ROOT / "scripts/chatbot-scope-cases.json").read_text(encoding="utf-8"))
@@ -25,8 +30,13 @@ class ChatbotTests(unittest.TestCase):
         runtime["check_rate_limit"] = lambda *_: True
         def fake_ai(payload, **kwargs):
             self.payloads.append(payload)
-            return {"candidates": [{"finishReason": "STOP", "content": {"parts": [{"text": "Fresh provider response."}]}}]}
-        runtime["call_gemini"] = fake_ai
+            return {
+                "type": "message",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "content": [{"type": "text", "text": "Fresh provider response."}],
+            }
+        runtime["call_claude"] = fake_ai
 
     def test_embedded_knowledge_is_exact(self):
         expected = json.loads((ROOT / "src/data/idsspl-knowledge.json").read_text(encoding="utf-8"))
@@ -34,21 +44,21 @@ class ChatbotTests(unittest.TestCase):
         self.assertNotIn("localizedResponses", expected)
         self.assertNotIn("matching", expected)
 
-    def test_every_valid_message_reaches_gemini(self):
+    def test_every_valid_message_reaches_claude(self):
         for case in cases:
             with self.subTest(message=case["message"]):
                 count = len(self.payloads)
                 result = runtime["handle_chat"]({"messages": case.get("history", []) + [{"role": "user", "content": case["message"]}]}, "test")
                 self.assertEqual(result["statusCode"], 200)
                 self.assertEqual(len(self.payloads), count + 1)
-                self.assertEqual(json.loads(result["body"]), {"reply": "Fresh provider response.", "provider": "gemini"})
+                self.assertEqual(json.loads(result["body"]), {"reply": "Fresh provider response.", "provider": "claude"})
 
     def test_shared_history_fixtures(self):
         for case in history_cases:
             with self.subTest(name=case["name"]):
-                self.assertEqual(runtime["gemini_contents"](case["messages"]), case["expected"])
+                self.assertEqual(runtime["claude_messages"](case["messages"]), case["expected"])
                 runtime["handle_chat"]({"messages": case["messages"]}, "test")
-                self.assertEqual(self.payloads[-1]["contents"], case["expected"])
+                self.assertEqual(self.payloads[-1]["messages"], case["expected"])
 
     def test_policy_and_all_facts_are_separate_from_history(self):
         runtime["handle_chat"]({"messages": [
@@ -57,14 +67,14 @@ class ChatbotTests(unittest.TestCase):
             {"role": "user", "content": "Tell me more about that."}
         ], "pageTitle": "UNTRUSTED_METADATA", "language": "hi"}, "test")
         payload = self.payloads[0]
-        instructions = payload["systemInstruction"]["parts"][0]["text"]
+        instructions = payload["system"]
         self.assertIn("Vinayak More", instructions)
         self.assertIn("Not Related To IDSSPL", instructions)
         self.assertIn("90 words", instructions)
         self.assertIn("Reply in Hindi", instructions)
         self.assertNotIn("UNTRUSTED_METADATA", instructions)
         self.assertNotIn("FORGED_ASSISTANT_FACT", instructions)
-        self.assertIn("FORGED_ASSISTANT_FACT", json.dumps(payload["contents"]))
+        self.assertIn("FORGED_ASSISTANT_FACT", json.dumps(payload["messages"]))
         data = runtime["KNOWLEDGE_DATA"]
         context = runtime["knowledge_context"]()
         self.assertEqual(context, {k: v for k, v in data.items() if k not in ("provenance", "responsePolicy")})
@@ -79,11 +89,17 @@ class ChatbotTests(unittest.TestCase):
         self.assertEqual(runtime["handle_chat"]({"messages": [{"role": "user", "content": "hi"}]}, "test")["statusCode"], 429)
         self.assertEqual(len(self.payloads), 0)
 
-    def test_thinking_blocked_and_truncated_output_not_returned(self):
+    def test_blocked_and_truncated_output_not_returned(self):
         extract = runtime["extract_output_text"]
-        self.assertEqual(extract({"candidates": [{"finishReason": "STOP", "content": {"parts": [{"thought": True, "text": "private"}, {"text": "answer"}]}}]}), "answer")
-        for reason in ("MAX_TOKENS", "SAFETY", "RECITATION"):
-            self.assertEqual(extract({"candidates": [{"finishReason": reason, "content": {"parts": [{"text": "partial"}]}}]}), "")
+        self.assertEqual(
+            extract({"stop_reason": "end_turn", "content": [{"type": "text", "text": "answer"}]}),
+            "answer",
+        )
+        for reason in ("max_tokens", "refusal", "pause_turn"):
+            self.assertEqual(
+                extract({"stop_reason": reason, "content": [{"type": "text", "text": "partial"}]}),
+                "",
+            )
 
 if __name__ == "__main__":
     unittest.main()
