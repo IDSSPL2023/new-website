@@ -17,6 +17,7 @@ import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 
 
 import aiBotMascot from "@/assets/idsspl-ai-bot.webp";
 import { ChatAIOrb } from "@/components/site/ChatAIOrb";
+import { createChatRequest } from "@/lib/chatbot-request";
 import { prepareChatHistory } from "@/lib/idsspl-chat-history";
 import {
   getSavedSiteLanguage,
@@ -542,7 +543,8 @@ export function AIChatbot() {
     const userMessage: ChatMessage = { id: createId("user"), role: "user", content: trimmed };
     const history = prepareChatHistory([...messages, userMessage]);
     const version = conversationVersionRef.current;
-    const requestController = new AbortController();
+    const request = createChatRequest();
+    const requestController = request.controller;
     chatRequestRef.current = requestController;
     setMessages((current) => [...current, userMessage]);
     setDraft("");
@@ -553,7 +555,7 @@ export function AIChatbot() {
       if (!chatMessageEndpoint) throw new Error("The Claude chat endpoint is not configured.");
       const response = await fetch(chatMessageEndpoint, {
         method: "POST",
-        signal: AbortSignal.any([requestController.signal, AbortSignal.timeout(42_000)]),
+        signal: requestController.signal,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           eventType: "chatbot_message",
@@ -580,13 +582,18 @@ export function AIChatbot() {
         { id: createId("assistant"), role: "assistant", content: reply },
       ]);
     } catch (error) {
-      if (requestController.signal.aborted || version !== conversationVersionRef.current) return;
+      if (
+        (requestController.signal.aborted && !request.timedOut) ||
+        version !== conversationVersionRef.current
+      )
+        return;
       console.error("Unable to reach IDSSPL AI", error);
       setMessages((current) => [
         ...current,
         { id: createId("assistant"), role: "assistant", content: failureReply },
       ]);
     } finally {
+      request.dispose();
       if (version === conversationVersionRef.current) {
         chatRequestRef.current = null;
         setIsTyping(false);

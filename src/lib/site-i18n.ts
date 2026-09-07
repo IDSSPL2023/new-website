@@ -60,14 +60,22 @@ export function isSiteLanguageCode(value: string | null): value is SiteLanguageC
 export function getSavedSiteLanguage(): SiteLanguageCode {
   if (typeof window === "undefined") return "en";
 
-  const saved = window.localStorage.getItem(SITE_LANGUAGE_STORAGE_KEY);
-  return isSiteLanguageCode(saved) ? saved : "en";
+  try {
+    const saved = window.localStorage.getItem(SITE_LANGUAGE_STORAGE_KEY);
+    return isSiteLanguageCode(saved) ? saved : "en";
+  } catch {
+    return "en";
+  }
 }
 
 export function setSiteLanguage(code: SiteLanguageCode) {
   if (typeof window === "undefined") return;
 
-  window.localStorage.setItem(SITE_LANGUAGE_STORAGE_KEY, code);
+  try {
+    window.localStorage.setItem(SITE_LANGUAGE_STORAGE_KEY, code);
+  } catch {
+    /* Language selection still works when browser storage is unavailable. */
+  }
   document.documentElement.lang = code;
   void siteI18n.changeLanguage(code);
 }
