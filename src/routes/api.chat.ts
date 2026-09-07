@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { handleClaudeChat } from "../lib/idsspl-claude.server";
+import { handleLocalChat } from "../lib/idsspl-local-ai.server";
 
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: ({ request }) =>
         import.meta.env.DEV
-          ? handleClaudeChat(request)
+          ? handleLocalChat(request)
           : Response.json(
               { message: "Configure the production chatbot endpoint." },
               { status: 503 },

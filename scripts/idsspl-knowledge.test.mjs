@@ -3,9 +3,9 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 import knowledge from "../src/data/idsspl-knowledge.json" with { type: "json" };
-import { getClaudeKnowledgeContext } from "../src/lib/idsspl-claude.server.ts";
+import { retrieveKnowledgeContext } from "../src/lib/idsspl-local-ai.server.ts";
 
-test("knowledge matches current website content and Lambda embedding", () => {
+test("knowledge matches current website content", () => {
   execFileSync(process.execPath, ["scripts/sync-idsspl-knowledge.mjs", "--check"], {
     cwd: new URL("..", import.meta.url),
   });
@@ -35,15 +35,17 @@ test("all current company, product and people details are retained", () => {
 
 for (const product of knowledge.products) {
   for (const name of [product.label, ...product.subProducts]) {
-    test("Claude can see published product: " + name + " / " + product.id, () => {
-      const matching = getClaudeKnowledgeContext().products.find((p) => p.id === product.id);
-      assert.deepEqual(matching, product);
-      assert.ok(matching.label === name || matching.subProducts.includes(name));
+    test("local retrieval can see published product: " + name + " / " + product.id, () => {
+      const context = retrieveKnowledgeContext([{ role: "user", content: name }]);
+      assert.equal(context.relevance, "matching approved facts found");
+      assert.ok(
+        context.snippets.some((item) => item.text.includes(name) || item.path.includes(product.id)),
+      );
     });
   }
 }
 
-test("preset questions use the same Claude conversation without canned replies", () => {
+test("preset questions use the same local conversation without canned replies", () => {
   const source = fs.readFileSync(
     new URL("../src/components/site/AIChatbot.tsx", import.meta.url),
     "utf8",

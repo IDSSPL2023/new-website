@@ -7,8 +7,14 @@
       { "role": "user", "content": "Explain the second one." }
     ],
     "expected": [
-      { "role": "user", "content": [{ "type": "text", "text": "List two digital banking channels." }] },
-      { "role": "assistant", "content": [{ "type": "text", "text": "1. Internet Banking\n2. Mobile Banking" }] },
+      {
+        "role": "user",
+        "content": [{ "type": "text", "text": "List two digital banking channels." }]
+      },
+      {
+        "role": "assistant",
+        "content": [{ "type": "text", "text": "1. Internet Banking\n2. Mobile Banking" }]
+      },
       { "role": "user", "content": [{ "type": "text", "text": "Explain the second one." }] }
     ]
   },
@@ -27,19 +33,31 @@
       { "role": "user", "content": "And CBS?" }
     ],
     "expected": [
-      { "role": "user", "content": [{ "type": "text", "text": "What is IDSSPL?" }, { "type": "text", "text": "And CBS?" }] }
+      {
+        "role": "user",
+        "content": [
+          { "type": "text", "text": "What is IDSSPL?" },
+          { "type": "text", "text": "And CBS?" }
+        ]
+      }
     ]
   },
   {
-    "name": "obvious credentials are redacted in both sides without skipping Claude",
+    "name": "obvious credentials are redacted in both sides without skipping the local model",
     "messages": [
       { "role": "user", "content": "My OTP is 123456 and password: demo-secret" },
       { "role": "assistant", "content": "OTP is 123456. Please do not share it." },
       { "role": "user", "content": "What should I do?" }
     ],
     "expected": [
-      { "role": "user", "content": [{ "type": "text", "text": "My OTP is [REDACTED] and password: [REDACTED]" }] },
-      { "role": "assistant", "content": [{ "type": "text", "text": "OTP is [REDACTED] Please do not share it." }] },
+      {
+        "role": "user",
+        "content": [{ "type": "text", "text": "My OTP is [REDACTED] and password: [REDACTED]" }]
+      },
+      {
+        "role": "assistant",
+        "content": [{ "type": "text", "text": "OTP is [REDACTED] Please do not share it." }]
+      },
       { "role": "user", "content": [{ "type": "text", "text": "What should I do?" }] }
     ]
   },
@@ -52,7 +70,10 @@
     ],
     "expected": [
       { "role": "user", "content": [{ "type": "text", "text": "मोबाइल बैंकिंग क्या है?" }] },
-      { "role": "assistant", "content": [{ "type": "text", "text": "मोबाइल ऐप के माध्यम से बैंकिंग सेवाएँ।" }] },
+      {
+        "role": "assistant",
+        "content": [{ "type": "text", "text": "मोबाइल ऐप के माध्यम से बैंकिंग सेवाएँ।" }]
+      },
       { "role": "user", "content": [{ "type": "text", "text": "इसके फायदे?" }] }
     ]
   }

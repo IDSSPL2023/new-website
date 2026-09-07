@@ -10,14 +10,14 @@ export function prepareChatHistory(messages: AdvisorMessage[]): AdvisorMessage[]
 }
 
 export function redactChatSecrets(text: string): string {
-  // Keep the conversation flowing through Claude without forwarding obvious credentials.
+  // Keep the conversation flowing without placing obvious credentials in model context.
   return text
     .replace(/\b((?:password|otp|pin|cvv|api[ -]?key)\s*(?::|=|is)\s*)\S+/gi, "$1[REDACTED]")
     .replace(/\b((?:otp|pin|cvv)\s+)\d{3,8}\b/gi, "$1[REDACTED]")
     .replace(/\b(?:\d[ -]?){13,19}\b/g, "[REDACTED NUMBER]");
 }
 
-export function toClaudeMessages(messages: AdvisorMessage[]) {
+export function toLocalModelMessages(messages: AdvisorMessage[]) {
   const contents: {
     role: "user" | "assistant";
     content: { type: "text"; text: string }[];

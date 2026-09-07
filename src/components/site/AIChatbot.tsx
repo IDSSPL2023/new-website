@@ -552,7 +552,7 @@ export function AIChatbot() {
 
     let failureReply = copy.connectionError;
     try {
-      if (!chatMessageEndpoint) throw new Error("The Claude chat endpoint is not configured.");
+      if (!chatMessageEndpoint) throw new Error("The local chat endpoint is not configured.");
       const response = await fetch(chatMessageEndpoint, {
         method: "POST",
         signal: requestController.signal,

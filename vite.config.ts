@@ -10,15 +10,12 @@ import { loadEnv } from "vite";
 export default defineConfig({
   plugins: [
     {
-      name: "idsspl-server-only-claude-env",
+      name: "idsspl-server-only-local-ai-env",
       configResolved(config) {
-        // Only the local server reads these values. Never add them to `define`
-        // or envPrefix: either would risk including credentials in browser code.
+        // Only the local development server reads these values. They describe
+        // the loopback Ollama service and are never included in browser code.
         if (config.command === "serve") {
-          Object.assign(
-            process.env,
-            loadEnv(config.mode, config.envDir, ["ANTHROPIC_", "CLAUDE_"]),
-          );
+          Object.assign(process.env, loadEnv(config.mode, config.envDir, ["OLLAMA_"]));
         }
       },
     },
