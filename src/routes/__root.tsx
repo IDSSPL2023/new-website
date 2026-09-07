@@ -13,7 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BRAND_LOGO_URL, SITE_URL, SOCIAL_PREVIEW_URL } from "../lib/seo";
 
-const themeBootstrap = `(function(){try{var saved=window.localStorage.getItem("idsspl-theme");var theme=saved==="light"||saved==="dark"?saved:window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";var root=document.documentElement;root.dataset.theme=theme;root.classList.toggle("light",theme==="light");root.classList.toggle("dark",theme==="dark");root.style.colorScheme=theme;}catch(error){document.documentElement.dataset.theme="dark";document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark";}})();`;
+const themeBootstrap = `(function(){try{var saved=window.localStorage.getItem("idsspl-theme");var theme=saved==="light"||saved==="dark"?saved:"dark";var root=document.documentElement;root.dataset.theme=theme;root.classList.toggle("light",theme==="light");root.classList.toggle("dark",theme==="dark");root.style.colorScheme=theme;}catch(error){document.documentElement.dataset.theme="dark";document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark";}})();`;
 
 const siteSchema = JSON.stringify({
   "@context": "https://schema.org",

@@ -24,36 +24,21 @@ export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-
     const syncFromDocument = () => setTheme(readTheme());
-    const syncFromSystem = () => {
-      if (window.localStorage.getItem(THEME_STORAGE_KEY)) return;
-
-      const systemTheme: Theme = media.matches ? "dark" : "light";
-      applyTheme(systemTheme);
-      setTheme(systemTheme);
-    };
     const syncAcrossTabs = (event: StorageEvent) => {
       if (event.key !== THEME_STORAGE_KEY) return;
 
       const nextTheme: Theme =
-        event.newValue === "light" || event.newValue === "dark"
-          ? event.newValue
-          : media.matches
-            ? "dark"
-            : "light";
+        event.newValue === "light" || event.newValue === "dark" ? event.newValue : "dark";
 
       applyTheme(nextTheme);
       setTheme(nextTheme);
     };
 
     syncFromDocument();
-    media.addEventListener("change", syncFromSystem);
     window.addEventListener("storage", syncAcrossTabs);
 
     return () => {
-      media.removeEventListener("change", syncFromSystem);
       window.removeEventListener("storage", syncAcrossTabs);
     };
   }, []);

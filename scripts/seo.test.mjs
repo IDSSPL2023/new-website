@@ -94,3 +94,17 @@ test("llms.txt describes the official IDSSPL website and products", () => {
   assert.match(llms, /https:\/\/www\.idsspl\.com\/products\/next-gen-ai-core-banking/);
   assert.match(llms, /https:\/\/www\.idsspl\.com\/products\/card-management/);
 });
+
+test("dark mode is the default regardless of device theme", () => {
+  const html = readFileSync(join(outputRoot, "index.html"), "utf8");
+
+  assert.match(html, /<html[^>]+class=["']dark["'][^>]+data-theme=["']dark["']/i);
+  assert.ok(
+    html.includes('var theme=saved==="light"||saved==="dark"?saved:"dark"'),
+    "theme bootstrap must default to dark when no preference is saved",
+  );
+  assert.ok(
+    !html.includes('matchMedia("(prefers-color-scheme: dark)")'),
+    "theme bootstrap must not follow the device color scheme",
+  );
+});
