@@ -6,6 +6,7 @@
   "scripts": {
     "test:ai-layer": "node --test scripts/ai-layer-particles.test.mjs",
     "test:mobile-ui": "node --test scripts/mobile-ui.test.mjs",
+    "test:i18n": "node --test --test-isolation=none scripts/site-i18n.test.mjs",
     "test:seo": "node --test scripts/seo.test.mjs",
     "knowledge:sync": "node scripts/sync-idsspl-knowledge.mjs",
     "knowledge:check": "node scripts/sync-idsspl-knowledge.mjs --check",
