@@ -46,6 +46,16 @@ export const taTranslations: Record<string, string> = {
   "Talk To An IDSSPL Expert.": "IDSSPL நிபுணருடன் பேசுங்கள்.",
   "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist.":
     "உங்கள் நிறுவனம் மற்றும் நீங்கள் தீர்க்க விரும்பும் வங்கிச் சவாலைப் பற்றி கூறுங்கள். எங்கள் குழு உங்களைச் சரியான நிபுணருடன் இணைக்கும்.",
+  "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist. Your email app will open with the enquiry already filled in.":
+    "உங்கள் நிறுவனம் மற்றும் நீங்கள் தீர்க்க விரும்பும் வங்கிச் சவாலைப் பற்றி கூறுங்கள். எங்கள் குழு உங்களைச் சரியான நிபுணருடன் இணைக்கும். ஏற்கனவே நிரப்பப்பட்ட விசாரணையுடன் உங்கள் மின்னஞ்சல் செயலி திறக்கும்.",
+  "Email IDSSPL": "IDSSPL-க்கு மின்னஞ்சல் செய்யுங்கள்",
+  "Call +91 231 253 0950": "+91 231 253 0950-க்கு அழையுங்கள்",
+  "Open Email To IDSSPL": "IDSSPL-க்கான மின்னஞ்சலைத் திறக்கவும்",
+  "Email Ready": "மின்னஞ்சல் தயார்",
+  "Your email app is opening. Send the prepared message to reach the IDSSPL team.":
+    "உங்கள் மின்னஞ்சல் செயலி திறக்கிறது. IDSSPL குழுவைத் தொடர்புகொள்ளத் தயாரிக்கப்பட்ட செய்தியை அனுப்புங்கள்.",
+  "We could not open your email app. Please email info@idsspl.com.":
+    "உங்கள் மின்னஞ்சல் செயலியைத் திறக்க முடியவில்லை. info@idsspl.com-க்கு மின்னஞ்சல் செய்யவும்.",
   "Your Enquiry Stays Private": "உங்கள் விசாரணை தனிப்பட்டதாக இருக்கும்",
   "Your details are used only to understand and respond to this request.":
     "இந்தக் கோரிக்கையைப் புரிந்து பதிலளிக்க மட்டுமே உங்கள் விவரங்கள் பயன்படுத்தப்படும்.",

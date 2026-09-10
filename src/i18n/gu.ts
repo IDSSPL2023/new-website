@@ -45,6 +45,16 @@ export const guTranslations: Record<string, string> = {
   "Talk To An IDSSPL Expert.": "IDSSPL નિષ્ણાત સાથે વાત કરો.",
   "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist.":
     "તમારી સંસ્થા અને તમે ઉકેલવા માંગતા બેન્કિંગ પડકાર વિશે જણાવો. અમારી ટીમ તમને યોગ્ય નિષ્ણાત સાથે જોડશે.",
+  "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist. Your email app will open with the enquiry already filled in.":
+    "તમારી સંસ્થા અને તમે ઉકેલવા માંગતા બેન્કિંગ પડકાર વિશે જણાવો. અમારી ટીમ તમને યોગ્ય નિષ્ણાત સાથે જોડશે. પહેલેથી ભરેલી પૂછપરછ સાથે તમારું ઇમેઇલ ઍપ ખુલશે.",
+  "Email IDSSPL": "IDSSPL ને ઇમેઇલ કરો",
+  "Call +91 231 253 0950": "+91 231 253 0950 પર કૉલ કરો",
+  "Open Email To IDSSPL": "IDSSPL માટે ઇમેઇલ ખોલો",
+  "Email Ready": "ઇમેઇલ તૈયાર છે",
+  "Your email app is opening. Send the prepared message to reach the IDSSPL team.":
+    "તમારું ઇમેઇલ ઍપ ખુલી રહ્યું છે. IDSSPL ટીમ સુધી પહોંચવા માટે તૈયાર સંદેશ મોકલો.",
+  "We could not open your email app. Please email info@idsspl.com.":
+    "તમારું ઇમેઇલ ઍપ ખોલી શકાયું નથી. કૃપા કરીને info@idsspl.com પર ઇમેઇલ કરો.",
   "Your Enquiry Stays Private": "તમારી પૂછપરછ ખાનગી રહે છે",
   "Your details are used only to understand and respond to this request.":
     "તમારી વિગતોનો ઉપયોગ માત્ર આ વિનંતીને સમજવા અને જવાબ આપવા માટે થાય છે.",

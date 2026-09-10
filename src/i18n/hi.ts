@@ -45,6 +45,16 @@ export const hiTranslations: Record<string, string> = {
   "Talk To An IDSSPL Expert.": "IDSSPL विशेषज्ञ से बात करें।",
   "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist.":
     "हमें अपनी संस्था और उस बैंकिंग चुनौती के बारे में बताएं जिसे आप हल करना चाहते हैं। हमारी टीम आपको सही विशेषज्ञ से जोड़ेगी।",
+  "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist. Your email app will open with the enquiry already filled in.":
+    "हमें अपनी संस्था और उस बैंकिंग चुनौती के बारे में बताएं जिसे आप हल करना चाहते हैं। हमारी टीम आपको सही विशेषज्ञ से जोड़ेगी। आपकी पूछताछ पहले से भरी हुई आपके ईमेल ऐप में खुलेगी।",
+  "Email IDSSPL": "IDSSPL को ईमेल करें",
+  "Call +91 231 253 0950": "+91 231 253 0950 पर कॉल करें",
+  "Open Email To IDSSPL": "IDSSPL के लिए ईमेल खोलें",
+  "Email Ready": "ईमेल तैयार है",
+  "Your email app is opening. Send the prepared message to reach the IDSSPL team.":
+    "आपका ईमेल ऐप खुल रहा है। IDSSPL टीम तक पहुँचने के लिए तैयार संदेश भेजें।",
+  "We could not open your email app. Please email info@idsspl.com.":
+    "आपका ईमेल ऐप नहीं खुल सका। कृपया info@idsspl.com पर ईमेल करें।",
   "Your Enquiry Stays Private": "आपकी पूछताछ निजी रहती है",
   "Your details are used only to understand and respond to this request.":
     "आपकी जानकारी का उपयोग केवल इस अनुरोध को समझने और उत्तर देने के लिए किया जाता है।",
