@@ -1,31 +1,12 @@
-# IDSSPL website lead email setup
+# IDSSPL brochure and expert contact actions
 
-Both website forms use FormSubmit's free AJAX email delivery service:
+- **Download Brochure** starts the PDF download directly from the website. It has no form or email-service dependency.
+- **Talk To An Expert** opens the visitor's email application with a complete, prefilled message addressed to `info@idsspl.com`.
+- The visitor controls the final send action. No third-party form service, account activation, server, or paid email backend is used.
 
-- **Talk To An Expert** emails the full enquiry to `info@idsspl.com`.
-- **Download Brochure** emails the lead before starting the PDF download.
-- The website keeps its existing branded form UI and does not redirect visitors away from IDSSPL.
-- No AWS Lambda, DynamoDB, SES identity, email password, or paid form backend is required.
+## Test after a deployment
 
-## One-time activation
-
-After the replacement is deployed, submit one test form. FormSubmit will send an activation message to `info@idsspl.com`. Open that message and activate the form endpoint.
-
-Until this one-time activation is completed, live enquiries cannot be forwarded.
-
-## Test both forms
-
-After activation, submit one test through each form and confirm:
-
-1. the visitor receives the correct success state;
-2. the brochure downloads after the lead is accepted;
-3. `info@idsspl.com` receives the enquiry in the table email layout;
-4. replying to the notification addresses the visitor;
-5. the subject clearly identifies the lead type, organisation, and person.
-
-## Notification subjects
-
-- `[IDSSPL] New Expert Enquiry — Organization — Lead Name`
-- `[IDSSPL] New Brochure Lead — Organization — Lead Name`
-
-The notification includes contact details, requirement, source page, language, consent context, and submission time.
+1. Choose **Get brochure** in the website advisor and confirm that the PDF begins downloading.
+2. Open the **Talk To An Expert** section, complete the required details, and choose **Open Email To IDSSPL**.
+3. Confirm the visitor's email app opens with `info@idsspl.com`, a clear subject, and the enquiry details populated.
+4. Confirm the direct **Email IDSSPL** and **Call** links work on desktop and mobile.

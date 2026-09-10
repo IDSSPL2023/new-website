@@ -14,7 +14,9 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
-import { sendLeadEmail } from "@/lib/form-submit";
+
+const expertEmail = "info@idsspl.com";
+const expertPhone = "+91 231 253 0950";
 
 type EnquiryForm = {
   contactPreference: "email" | "sms";
@@ -72,26 +74,29 @@ export function ExpertEnquirySection() {
       const organization = form.organization.trim();
       const email = form.email.trim().toLowerCase();
 
-      await sendLeadEmail({
-        _subject: `[IDSSPL] New Expert Enquiry — ${organization} — ${name}`,
-        _replyto: email,
-        _honey: form.website,
-        "Lead Type": "Talk To An Expert",
-        "Full Name": name,
-        Organization: organization,
-        "Work Email": email,
-        "Mobile Number": form.mobile.trim(),
-        "Preferred Contact": form.contactPreference === "sms" ? "Phone / SMS" : "Email",
-        "Banking Technology Requirement": form.message.trim(),
-        "Source Page": window.location.pathname,
-        Language: (document.documentElement.lang || "en").toUpperCase(),
-        Consent: consent ? "Yes — visitor agreed to enquiry follow-up" : "No",
-        "Submitted At": new Date().toISOString(),
-      });
+      const subject = `[IDSSPL] Expert enquiry — ${organization} — ${name}`;
+      const message = [
+        "Hello IDSSPL team,",
+        "",
+        "I would like to talk to an IDSSPL expert.",
+        "",
+        `Name: ${name}`,
+        `Organisation: ${organization}`,
+        `Work email: ${email}`,
+        `Mobile number: ${form.mobile.trim()}`,
+        `Preferred contact: ${form.contactPreference === "sms" ? "Phone / SMS" : "Email"}`,
+        "",
+        "Banking technology requirement:",
+        form.message.trim(),
+      ].join("\n");
+
+      window.location.assign(
+        `mailto:${expertEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`,
+      );
       showSuccess();
     } catch (error) {
-      console.error("Unable to submit expert enquiry", error);
-      setErrorMessage("We could not send your enquiry. Please try again.");
+      console.error("Unable to open the expert email", error);
+      setErrorMessage(`We could not open your email app. Please email ${expertEmail}.`);
       setStatus("error");
     }
   };
@@ -112,7 +117,8 @@ export function ExpertEnquirySection() {
               </h2>
               <p className="expert-dialog-description">
                 Tell us about your institution and the banking challenge you want to solve. Our team
-                will connect you with the right specialist.
+                will connect you with the right specialist. Your email app will open with the enquiry
+                already filled in.
               </p>
 
               <div className="expert-dialog-trust">
@@ -125,6 +131,17 @@ export function ExpertEnquirySection() {
                     Your details are used only to understand and respond to this request.
                   </small>
                 </span>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-3 text-sm font-medium">
+                <a
+                  className="text-cyan underline underline-offset-4"
+                  href={`mailto:${expertEmail}`}
+                >
+                  Email IDSSPL
+                </a>
+                <a className="text-cyan underline underline-offset-4" href="tel:+912312530950">
+                  Call {expertPhone}
+                </a>
               </div>
             </div>
 
@@ -275,11 +292,11 @@ export function ExpertEnquirySection() {
                 ) : status === "success" ? (
                   <>
                     <CheckCircle2 size={18} aria-hidden="true" />
-                    Enquiry Sent
+                    Email Ready
                   </>
                 ) : (
                   <>
-                    Talk To An Expert
+                    Open Email To IDSSPL
                     <ArrowRight size={18} aria-hidden="true" />
                   </>
                 )}
@@ -289,7 +306,7 @@ export function ExpertEnquirySection() {
                 {status === "error" ? (
                   <p className="text-red-400">{errorMessage}</p>
                 ) : status === "success" ? (
-                  <p>Thank you. An IDSSPL expert will contact you shortly.</p>
+                  <p>Your email app is opening. Send the prepared message to reach the IDSSPL team.</p>
                 ) : null}
               </div>
             </form>
