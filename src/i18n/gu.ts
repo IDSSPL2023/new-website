@@ -48,7 +48,7 @@ export const guTranslations: Record<string, string> = {
   "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist. Your email app will open with the enquiry already filled in.":
     "તમારી સંસ્થા અને તમે ઉકેલવા માંગતા બેન્કિંગ પડકાર વિશે જણાવો. અમારી ટીમ તમને યોગ્ય નિષ્ણાત સાથે જોડશે. પહેલેથી ભરેલી પૂછપરછ સાથે તમારું ઇમેઇલ ઍપ ખુલશે.",
   "Email IDSSPL": "IDSSPL ને ઇમેઇલ કરો",
-  "Call +91 231 253 0950": "+91 231 253 0950 પર કૉલ કરો",
+  Call: "કૉલ કરો",
   "Open Email To IDSSPL": "IDSSPL માટે ઇમેઇલ ખોલો",
   "Email Ready": "ઇમેઇલ તૈયાર છે",
   "Your email app is opening. Send the prepared message to reach the IDSSPL team.":

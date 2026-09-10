@@ -48,7 +48,7 @@ export const mrTranslations: Record<string, string> = {
   "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist. Your email app will open with the enquiry already filled in.":
     "तुमच्या संस्थेबद्दल आणि सोडवायच्या बँकिंग आव्हानाबद्दल सांगा. आमची टीम तुम्हाला योग्य तज्ज्ञाशी जोडेल. तुमच्या ईमेल अॅपमध्ये चौकशी आधीच भरलेली उघडेल.",
   "Email IDSSPL": "IDSSPL ला ईमेल करा",
-  "Call +91 231 253 0950": "+91 231 253 0950 वर कॉल करा",
+  Call: "कॉल करा",
   "Open Email To IDSSPL": "IDSSPL साठी ईमेल उघडा",
   "Email Ready": "ईमेल तयार आहे",
   "Your email app is opening. Send the prepared message to reach the IDSSPL team.":

@@ -48,7 +48,7 @@ export const hiTranslations: Record<string, string> = {
   "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist. Your email app will open with the enquiry already filled in.":
     "हमें अपनी संस्था और उस बैंकिंग चुनौती के बारे में बताएं जिसे आप हल करना चाहते हैं। हमारी टीम आपको सही विशेषज्ञ से जोड़ेगी। आपकी पूछताछ पहले से भरी हुई आपके ईमेल ऐप में खुलेगी।",
   "Email IDSSPL": "IDSSPL को ईमेल करें",
-  "Call +91 231 253 0950": "+91 231 253 0950 पर कॉल करें",
+  Call: "कॉल करें",
   "Open Email To IDSSPL": "IDSSPL के लिए ईमेल खोलें",
   "Email Ready": "ईमेल तैयार है",
   "Your email app is opening. Send the prepared message to reach the IDSSPL team.":

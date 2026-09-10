@@ -49,7 +49,7 @@ export const taTranslations: Record<string, string> = {
   "Tell us about your institution and the banking challenge you want to solve. Our team will connect you with the right specialist. Your email app will open with the enquiry already filled in.":
     "உங்கள் நிறுவனம் மற்றும் நீங்கள் தீர்க்க விரும்பும் வங்கிச் சவாலைப் பற்றி கூறுங்கள். எங்கள் குழு உங்களைச் சரியான நிபுணருடன் இணைக்கும். ஏற்கனவே நிரப்பப்பட்ட விசாரணையுடன் உங்கள் மின்னஞ்சல் செயலி திறக்கும்.",
   "Email IDSSPL": "IDSSPL-க்கு மின்னஞ்சல் செய்யுங்கள்",
-  "Call +91 231 253 0950": "+91 231 253 0950-க்கு அழையுங்கள்",
+  Call: "அழையுங்கள்",
   "Open Email To IDSSPL": "IDSSPL-க்கான மின்னஞ்சலைத் திறக்கவும்",
   "Email Ready": "மின்னஞ்சல் தயார்",
   "Your email app is opening. Send the prepared message to reach the IDSSPL team.":
